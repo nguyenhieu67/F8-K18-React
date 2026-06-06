@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+body {
+  user-select: none;
+}
+
+@theme {
+  --color-trello-bg: #f1f2f4;
+  --color-trello-heading-text: #172b4d;
+  --color-trello-label-text: #44546f;
+}
