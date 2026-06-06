@@ -1,0 +1,132 @@
+{
+    "$schema": "./node_modules/json-server/schema.json",
+    "users": [
+        {
+            "id": "user_1",
+            "name": "user 1",
+            "email": "user1@gmail.com",
+            "password": "12345678"
+        },
+        {
+            "id": "user_2",
+            "name": "user 2",
+            "email": "user2@gmail.com",
+            "password": "12345678"
+        },
+        {
+            "id": "user_3",
+            "name": "user 3",
+            "email": "user3@gmail.com",
+            "password": "12345678"
+        },
+        {
+            "id": "user_4",
+            "name": "user 4",
+            "email": "user4@gmail.com",
+            "password": "12345678"
+        },
+        {
+            "id": "user_5",
+            "name": "user 5",
+            "email": "user5@gmail.com",
+            "password": "12345678"
+        }
+    ],
+    "boards": [
+        {
+            "id": "boards_1",
+            "userId": "user_1",
+            "boardTitle": "board title 1",
+            "lists": [
+                {
+                    "id": "list_1",
+                    "title": "Title 1",
+                    "cards": [
+                        {
+                            "id": "card_1",
+                            "content": "content 1"
+                        },
+                        {
+                            "id": "card_2",
+                            "content": "content 2"
+                        },
+                        {
+                            "id": "card_3",
+                            "content": "content 3"
+                        },
+                        {
+                            "id": "card_4",
+                            "content": "content 4"
+                        },
+                        {
+                            "id": "card_5",
+                            "content": "content 5"
+                        },
+                        {
+                            "id": "card_6",
+                            "content": "content 6"
+                        }
+                    ]
+                },
+                {
+                    "id": "list_2",
+                    "title": "Title 2",
+                    "cards": [
+                        {
+                            "id": "card_1",
+                            "content": "content 1"
+                        },
+                        {
+                            "id": "card_2",
+                            "content": "content 2"
+                        },
+                        {
+                            "id": "card_3",
+                            "content": "content 3"
+                        },
+                        {
+                            "id": "card_4",
+                            "content": "content 4"
+                        },
+                        {
+                            "id": "card_5",
+                            "content": "content 5"
+                        }
+                    ]
+                },
+                {
+                    "id": "list_3",
+                    "title": "Title 3",
+                    "cards": [
+                        {
+                            "id": "card_1",
+                            "content": "content 1"
+                        },
+                        {
+                            "id": "card_2",
+                            "content": "content 2"
+                        },
+                        {
+                            "id": "card_3",
+                            "content": "content 3"
+                        },
+                        {
+                            "id": "card_4",
+                            "content": "content 4"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "userId": "user_2",
+            "boardTitle": "Board title 2",
+            "id": "PtfhsdSwGIA"
+        },
+        {
+            "userId": "user_2",
+            "boardTitle": "Board title 1",
+            "id": "ANSrnLv6Ri0"
+        }
+    ]
+}

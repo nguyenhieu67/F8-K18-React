@@ -1,0 +1,20 @@
+services:
+    web:
+        container_name: f8-k18-react-web
+        image: node:25
+        working_dir: /app/web
+        ports:
+            - 5001:5173
+        volumes:
+            - ./web:/app/web
+        command: ["npm", "run", "dev", "--", "--host"]
+
+    api:
+        container_name: f8-k18-react-api
+        image: node:25
+        working_dir: /app/api
+        ports:
+            - 3001:3000
+        volumes:
+            - ./api:/app/api
+        command: ["npx", "json-server", "db.json"]
