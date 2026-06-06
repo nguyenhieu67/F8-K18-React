@@ -1,5 +1,4 @@
 {
-    "$schema": "./node_modules/json-server/schema.json",
     "users": [
         {
             "id": "user_1",
@@ -8,28 +7,10 @@
             "password": "12345678"
         },
         {
-            "id": "user_2",
-            "name": "user 2",
-            "email": "user2@gmail.com",
-            "password": "12345678"
-        },
-        {
-            "id": "user_3",
-            "name": "user 3",
-            "email": "user3@gmail.com",
-            "password": "12345678"
-        },
-        {
-            "id": "user_4",
-            "name": "user 4",
-            "email": "user4@gmail.com",
-            "password": "12345678"
-        },
-        {
-            "id": "user_5",
-            "name": "user 5",
-            "email": "user5@gmail.com",
-            "password": "12345678"
+            "name": "hieudev@test.com",
+            "email": "duchieu@test.com",
+            "password": "Thebest5678",
+            "id": "0lSZFy_0f8Q"
         }
     ],
     "boards": [
@@ -127,6 +108,12 @@
             "userId": "user_2",
             "boardTitle": "Board title 1",
             "id": "ANSrnLv6Ri0"
+        },
+        {
+            "userId": "0lSZFy_0f8Q",
+            "boardTitle": "Board 1",
+            "id": "CoBoi-o1Xwg"
         }
-    ]
+    ],
+    "$schema": "./node_modules/json-server/schema.json"
 }
