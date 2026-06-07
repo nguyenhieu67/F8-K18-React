@@ -19,7 +19,7 @@ interface UserI {
 interface BoardI {
   id: string;
   userId: string;
-  boardTitle: string;
+  title: string;
 }
 
 export type { LoginResponseI, AuthI, UserI, BoardI };
