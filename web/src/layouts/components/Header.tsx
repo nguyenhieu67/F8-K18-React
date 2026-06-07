@@ -1,25 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import type { UserI } from "../../utils/type";
+import { useTrello } from "../../context/TrelloContext";
+import { SearchIcon } from "../../components/Icons";
 
-interface HeaderProps {
-  user: UserI | null;
-  onSearch: (keyword: string) => void;
-}
-
-export default function Header({ user, onSearch }: HeaderProps) {
+export default function Header() {
   const navigate = useNavigate();
-
-  const token = localStorage.getItem("access_token");
-  if (!token) {
-    localStorage.clear();
-    // eslint-disable-next-line react-hooks/immutability
-    window.location.href = "/login";
-  }
-
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
+  const { currentUser, searchKeyword, setSearchKeyword, logout } = useTrello();
 
   return (
     <header className="flex h-14 items-center justify-between border-b border-[#473699] bg-[#473699] px-6 text-white shadow-md">
@@ -30,23 +15,30 @@ export default function Header({ user, onSearch }: HeaderProps) {
         CLONE TRELLO
       </div>
 
-      <div className="w-1/2">
+      <div className="flex w-1/2 items-center rounded-md border border-[#dfe1e6] bg-white/20 px-2 py-1.5 text-sm text-white placeholder-white/60 transition focus:bg-white focus:text-black focus:placeholder-gray-400">
+        <label htmlFor="search">
+          <SearchIcon iconColor="#fff" />
+        </label>
         <input
+          id="search"
           placeholder="Tìm kiếm Trello"
-          className="w-full rounded-md border border-[#dfe1e6] bg-white/20 px-3 py-1.5 text-sm text-white placeholder-white/60 transition outline-none focus:bg-white focus:text-black focus:placeholder-gray-400"
-          onChange={(e) => onSearch(e.target.value)}
+          value={searchKeyword}
+          className="w-full px-2 outline-none"
+          onChange={(e) => setSearchKeyword(e.target.value)}
         />
       </div>
 
       <div className="flex items-center gap-4">
-        {user ? (
+        {currentUser ? (
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">Chào, {user.name}</span>
+            <span className="text-sm font-medium">
+              Chào, {currentUser.name}
+            </span>
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1e52cc] text-sm font-bold uppercase">
-              {user.name.charAt(0)}
+              {currentUser.name.charAt(0)}
             </div>
             <button
-              onClick={handleLogout}
+              onClick={logout}
               className="ml-2 cursor-pointer rounded bg-[#1e52cc] px-2 py-1 text-xs font-semibold transition hover:bg-[#567acc]"
             >
               Thoát
