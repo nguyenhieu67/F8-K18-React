@@ -30,6 +30,7 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
     const token = localStorage.getItem("access_token");
     const savedUser = localStorage.getItem("current_user");
 
+    if (window.location.pathname === "/register") return;
     if (!token || !savedUser) {
       localStorage.clear();
       navigate("/login");

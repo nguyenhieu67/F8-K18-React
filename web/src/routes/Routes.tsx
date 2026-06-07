@@ -1,6 +1,7 @@
 // Auth
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
+import AuthLayout from "../layouts/AuthLayout";
 
 // User
 // import Home from "../pages/Home";
@@ -9,8 +10,8 @@ import Board from "../pages/Board";
 
 const publicRoutes = [
   // { path: "/", component: Home },
-  { path: "/login", component: Login },
-  { path: "/register", component: Register },
+  { path: "/login", component: Login, layout: AuthLayout },
+  { path: "/register", component: Register, layout: AuthLayout },
   { path: "/dashboard", component: Dashboard },
   { path: "/board", component: Board },
 ];
