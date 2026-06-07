@@ -12,9 +12,10 @@ export default function Register() {
     confirmPassword: "",
   };
   const [form, setForm] = useState(formData);
-  const [errors, setErrors] = useState<Record<string, string>>({});
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,20 +25,28 @@ export default function Register() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validationForm(registerSchema, form, setErrors)) return;
 
-    if (validationForm(registerSchema, form, setErrors)) {
+    setLoading(true);
+
+    try {
       const payload = {
         name: form.userName,
         email: form.email,
         password: form.password,
+        avatar: "",
+        theme: "light",
+        createdAt: new Date().toISOString(),
       };
 
       await fetchApi.post("/users", payload);
 
       setForm(formData);
       navigate("/login");
-    } else {
-      console.log("Form không hợp lệ, vui lòng kiểm tra lại lỗi.");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -182,8 +191,9 @@ export default function Register() {
           <button
             type="submit"
             className="min-w-30 cursor-pointer rounded-md bg-blue-500 p-2 text-white hover:bg-blue-400"
+            disabled={loading}
           >
-            Đăng kí
+            {loading ? "Đang đăng kí..." : "Đăng kí"}
           </button>
         </div>
       </form>
