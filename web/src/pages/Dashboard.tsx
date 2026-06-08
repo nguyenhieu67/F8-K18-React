@@ -1,6 +1,7 @@
 import { useTrello } from "@/context/TrelloContext";
 import { fetchApi } from "@/utils/api";
 import type { BoardI } from "@/utils/type";
+import BoardList from "./BoardList";
 
 export default function Dashboard() {
   const {
@@ -73,15 +74,8 @@ export default function Dashboard() {
                 Không tìm thấy bảng nào khớp với từ khóa "{searchKeyword}".
               </p>
             ) : (
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
-                {filteredBoards.map((board) => (
-                  <div
-                    key={board.id}
-                    className="flex h-24 cursor-pointer items-end rounded-lg bg-linear-to-br from-blue-300 to-indigo-500 p-4 font-semibold text-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-                  >
-                    <h3 className="w-full truncate">{board.title}</h3>
-                  </div>
-                ))}
+              <div className="grid grid-cols-4 gap-5">
+                <BoardList />
               </div>
             )}
           </div>

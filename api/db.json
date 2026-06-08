@@ -9,12 +9,13 @@
       "theme": "light",
       "createdAt": "2026-06-07T10:33:16.000Z"
     },
-    {
-      "id": "0lSZFy_0f8Q",
-      "name": "hieudev",
+       "name": "hieudev@test.com",
       "email": "duchieu@test.com",
-      "password": ""
-    },
+      "password": "Thebest5678",
+      "id": "0lSZFy_0f8Q",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-07T10:33:16.000Z"
     {
       "name": "Nguyen Duc Hieu",
       "email": "hieudev67@imail.edu.vn",

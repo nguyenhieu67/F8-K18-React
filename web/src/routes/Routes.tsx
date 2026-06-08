@@ -6,14 +6,14 @@ import AuthLayout from "@/layouts/AuthLayout";
 // User
 // import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard";
-import Board from "@/pages/Board";
+import TrelloBoard from "@/pages/TrelloBoard";
 
 const publicRoutes = [
   // { path: "/", component: Home },
   { path: "/login", component: Login, layout: AuthLayout },
   { path: "/register", component: Register, layout: AuthLayout },
   { path: "/dashboard", component: Dashboard },
-  { path: "/board", component: Board },
+  { path: "/:boardDetail", component: TrelloBoard },
 ];
 
 const privateRoutes = [];

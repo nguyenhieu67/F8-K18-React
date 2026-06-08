@@ -25,12 +25,18 @@ interface BoardI {
 
 interface ListI {
   id: string;
+  boardId: string;
   title: string;
+  isSaved: boolean;
+  isShrink: boolean;
 }
 
 interface CardI {
   id: string;
+  listId: string;
+  boardId: string;
   content: string;
+  isSaved: boolean;
 }
 
 export type { LoginResponseI, AuthI, UserI, BoardI, ListI, CardI };
