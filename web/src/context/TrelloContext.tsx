@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchApi } from "../utils/api";
-import type { BoardI, CardI, ListI, UserI } from "../utils/type";
+import { fetchApi } from "@/utils/api";
+import type { BoardI, CardI, ListI, UserI } from "@/utils/type";
 
 interface TrelloContextType {
   currentUser: UserI | null;

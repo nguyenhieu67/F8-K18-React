@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useTrello } from "../../context/TrelloContext";
-import { SearchIcon } from "../../components/Icons";
+import { useTrello } from "@/context/TrelloContext";
+import { SearchIcon } from "@/components/Icons";
 
 export default function Header() {
   const navigate = useNavigate();

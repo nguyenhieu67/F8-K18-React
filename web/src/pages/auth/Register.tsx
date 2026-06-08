@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchApi } from "../../utils/api";
-import { registerSchema, validationForm } from "../../utils/validate";
-import { EyeCloseIcon, EyeIcon } from "../../components/Icons";
+import { fetchApi } from "@/utils/api";
+import { registerSchema, validationForm } from "@/utils/validate";
+import { EyeCloseIcon, EyeIcon } from "@/components/Icons";
 
 export default function Register() {
   const formData = {
