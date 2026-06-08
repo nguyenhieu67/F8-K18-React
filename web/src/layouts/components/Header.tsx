@@ -49,7 +49,7 @@ export default function Header() {
               className="h-9 w-14 rounded-md bg-white/20 text-center text-sm font-semibold text-white transition hover:bg-white/30"
             >
               {theme === "light" ? "Light" : "Dark"}
-            </button>{" "}
+            </button>
             <NotificationsNoneIcon sx={{ color: "#fff" }} />
             <ContextUser currentUser={currentUser} logout={logout} />
           </div>
