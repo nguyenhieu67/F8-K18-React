@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { AuthI } from "../../utils/type";
-import { fetchApi } from "../../utils/api";
-import { loginSchema, validationForm } from "../../utils/validate";
-import { EyeCloseIcon, EyeIcon } from "../../components/Icons";
+import type { AuthI } from "@/utils/type";
+import { fetchApi } from "@/utils/api";
+import { loginSchema, validationForm } from "@/utils/validate";
+import { EyeCloseIcon, EyeIcon } from "@/components/Icons";
 
 export default function Login() {
   const formData = {

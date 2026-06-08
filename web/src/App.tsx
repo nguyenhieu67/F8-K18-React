@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { publicRoutes } from "./routes/Routes";
-import DefaultLayout from "./layouts/DefaultLayout";
-import { TrelloProvider } from "./context/TrelloContext";
+import { publicRoutes } from "@/routes/Routes";
+import DefaultLayout from "@/layouts/DefaultLayout";
+import { TrelloProvider } from "@/context/TrelloContext";
 
 function App() {
   return (

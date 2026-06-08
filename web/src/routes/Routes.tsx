@@ -1,12 +1,12 @@
 // Auth
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
-import AuthLayout from "../layouts/AuthLayout";
+import Login from "@/pages/auth/Login";
+import Register from "@/pages/auth/Register";
+import AuthLayout from "@/layouts/AuthLayout";
 
 // User
-// import Home from "../pages/Home";
-import Dashboard from "../pages/Dashboard";
-import Board from "../pages/Board";
+// import Home from "@/pages/Home";
+import Dashboard from "@/pages/Dashboard";
+import Board from "@/pages/Board";
 
 const publicRoutes = [
   // { path: "/", component: Home },
