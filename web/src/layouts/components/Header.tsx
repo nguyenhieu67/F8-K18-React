@@ -44,15 +44,14 @@ export default function Header() {
             <span className="text-sm font-medium">
               Chào, {currentUser.name}
             </span>
-
-            <ContextUser currentUser={currentUser} logout={logout} />
-            <NotificationsNoneIcon sx={{ color: "#fff" }} />
             <button
               onClick={toggleTheme}
               className="h-9 w-14 rounded-md bg-white/20 text-center text-sm font-semibold text-white transition hover:bg-white/30"
             >
               {theme === "light" ? "Light" : "Dark"}
-            </button>
+            </button>{" "}
+            <NotificationsNoneIcon sx={{ color: "#fff" }} />
+            <ContextUser currentUser={currentUser} logout={logout} />
           </div>
         ) : (
           <div className="h-8 w-24 animate-pulse rounded bg-white/20"></div>
