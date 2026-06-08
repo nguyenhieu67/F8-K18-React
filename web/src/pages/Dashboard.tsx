@@ -40,10 +40,10 @@ export default function Dashboard() {
     );
 
   return (
-    <div className="min-h-screen bg-[#a869c1]">
+    <div className="min-h-screen bg-trello-board-bg">
       <main className="mx-auto max-w-6xl p-8">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-white">
+          <h2 className="text-xl font-bold text-trello-board-text">
             Bảng công việc của bạn
           </h2>
           <button
@@ -55,8 +55,8 @@ export default function Dashboard() {
         </div>
 
         {boards.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-xl border border-solid border-[#ffffff8d] bg-[#ffffff6d] p-16 shadow-sm">
-            <p className="mb-4 text-lg text-white">
+          <div className="flex flex-col items-center justify-center rounded-xl border border-solid border-trello-border bg-trello-surface-soft p-16 shadow-sm">
+            <p className="mb-4 text-lg text-trello-board-text">
               Chào mừng bạn! Hiện tại bạn chưa có bảng công việc nào.
             </p>
             <button
