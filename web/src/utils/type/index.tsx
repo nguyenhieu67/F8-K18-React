@@ -23,4 +23,14 @@ interface BoardI {
   title: string;
 }
 
-export type { LoginResponseI, AuthI, UserI, BoardI };
+interface ListI {
+  id: string;
+  title: string;
+}
+
+interface CardI {
+  id: string;
+  content: string;
+}
+
+export type { LoginResponseI, AuthI, UserI, BoardI, ListI, CardI };

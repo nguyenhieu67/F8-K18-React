@@ -1,14 +1,18 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchApi } from "../utils/api";
-import type { BoardI, UserI } from "../utils/type";
+import { fetchApi } from "@/utils/api";
+import type { BoardI, CardI, ListI, UserI } from "@/utils/type";
 
 interface TrelloContextType {
   currentUser: UserI | null;
   setCurrentUser: (user: UserI | null) => void;
   boards: BoardI[];
   setBoards: React.Dispatch<React.SetStateAction<BoardI[]>>;
+  lists: ListI[];
+  setLists: React.Dispatch<React.SetStateAction<ListI[]>>;
+  cards: CardI[];
+  setCards: React.Dispatch<React.SetStateAction<CardI[]>>;
   filteredBoards: BoardI[];
   searchKeyword: string;
   setSearchKeyword: (keyword: string) => void;
@@ -21,6 +25,8 @@ const TrelloContext = createContext<TrelloContextType | undefined>(undefined);
 export function TrelloProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<UserI | null>(null);
   const [boards, setBoards] = useState<BoardI[]>([]);
+  const [lists, setLists] = useState<ListI[]>([]);
+  const [cards, setCards] = useState<CardI[]>([]);
   const [filteredBoards, setFilteredBoards] = useState<BoardI[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,11 +48,17 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
 
     const getBoards = async () => {
       try {
-        const res = (await fetchApi.get(
-          `/boards?userId=${user.id}`,
-        )) as BoardI[];
-        setBoards(res || []);
-        setFilteredBoards(res || []);
+        const [boardData, listData, cardData] = (await Promise.all([
+          fetchApi.get(`/boards?userId=${user.id}`),
+          fetchApi.get("/lists"),
+          fetchApi.get("/cards"),
+        ])) as [BoardI[], ListI[], CardI[]];
+
+        setBoards(boardData || []);
+        setLists(listData || []);
+        setCards(cardData || []);
+
+        setFilteredBoards(boardData || []);
       } catch (error) {
         console.error("Lỗi lấy danh sách board:", error);
       } finally {
@@ -72,6 +84,8 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
     localStorage.clear();
     setCurrentUser(null);
     setBoards([]);
+    setLists([]);
+    setCards([]);
     navigate("/login");
   };
 
@@ -82,6 +96,10 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
         setCurrentUser,
         boards,
         setBoards,
+        lists,
+        setLists,
+        cards,
+        setCards,
         filteredBoards,
         searchKeyword,
         setSearchKeyword,

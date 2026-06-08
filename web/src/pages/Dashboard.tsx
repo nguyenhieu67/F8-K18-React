@@ -1,6 +1,6 @@
-import { useTrello } from "../context/TrelloContext";
-import { fetchApi } from "../utils/api";
-import type { BoardI } from "../utils/type";
+import { useTrello } from "@/context/TrelloContext";
+import { fetchApi } from "@/utils/api";
+import type { BoardI } from "@/utils/type";
 
 export default function Dashboard() {
   const {
