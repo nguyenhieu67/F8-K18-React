@@ -242,6 +242,91 @@ export const PlusIcon = ({
   </svg>
 );
 
+export const SavedIcon = ({
+  width = "20",
+  height = "20",
+  iconColor = "#000",
+  iconClass,
+}: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={`cursor-pointer ${iconClass}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={iconColor}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="20" height="5" x="2" y="3" rx="1"></rect>
+    <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"></path>
+    <path d="M10 12h4"></path>
+  </svg>
+);
+
+export const CircleIcon = ({
+  width = "20",
+  height = "20",
+  iconColor = "#000",
+  iconClass,
+}: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={`cursor-pointer ${iconClass}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={iconColor}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+  </svg>
+);
+
+export const CircleCheckIcon = ({
+  width = "20",
+  height = "20",
+  fillColor = "none",
+  iconClass,
+}: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={`cursor-pointer ${iconClass}`}
+    viewBox="0 0 24 24"
+    fill={fillColor}
+  >
+    <path d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" />
+  </svg>
+);
+
+export const EditIcon = ({
+  width = "20",
+  height = "20",
+  fillColor = "#000",
+  iconClass,
+}: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    className={`cursor-pointer ${iconClass}`}
+    viewBox="0 0 16 16"
+    fill="none"
+  >
+    <path
+      fill={fillColor}
+      d="M11.586.854a2 2 0 0 1 2.828 0l.732.732a2 2 0 0 1 0 2.828L10.01 9.551a2 2 0 0 1-.864.51l-3.189.91a.75.75 0 0 1-.927-.927l.91-3.189a2 2 0 0 1 .51-.864zm1.768 1.06a.5.5 0 0 0-.708 0l-.585.586L13.5 3.94l.586-.586a.5.5 0 0 0 0-.708zM12.439 5 11 3.56 7.51 7.052a.5.5 0 0 0-.128.216l-.54 1.891 1.89-.54a.5.5 0 0 0 .217-.127zM3 2.501a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V10H15v3.001a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-10a2 2 0 0 1 2-2h3v1.5z"
+    ></path>
+  </svg>
+);
+
 export const ChevronRightLeftIcon = ({
   width = "20",
   height = "20",

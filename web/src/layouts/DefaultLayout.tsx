@@ -7,7 +7,7 @@ interface Props {
 
 export default function DefaultLayout({ children }: Props) {
   return (
-    <div>
+    <div className="bg-fuchsia-400">
       <Header />
       <main>{children}</main>
     </div>

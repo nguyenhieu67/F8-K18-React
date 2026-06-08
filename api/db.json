@@ -1,61 +1,106 @@
 {
-    "users": [
-        {
-            "id": "user_1",
-            "name": "user 1",
-            "email": "user1@gmail.com",
-            "password": "12345678",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-07T10:33:16.000Z"
-        },
-        {
-            "name": "hieudev@test.com",
-            "email": "duchieu@test.com",
-            "password": "Thebest5678",
-            "id": "0lSZFy_0f8Q",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-07T10:33:16.000Z"
-        },
-        {
-            "name": "Nguyen Duc Hieu",
-            "email": "hieudev67@imail.edu.vn",
-            "password": "Thebad5678",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-07T05:29:53.695Z",
-            "id": "SQtQKwawDyE"
-        }
-    ],
-    "boards": [
-        {
-            "id": "CoBoi-o1Xwg",
-            "userId": "0lSZFy_0f8Q",
-            "title": "board",
-            "background": {
-                "type": "image || color",
-                "value": "..."
-            },
-            "createdAt": "2026-06-07T10:33:16.000Z"
-        }
-    ],
-    "lists": [
-        {
-            "id": "list_1",
-            "boardId": "board",
-            "title": "Title 1",
-            "position": 1
-        }
-    ],
-    "cards": [
-        {
-            "id": "card_1",
-            "boardId": "board_1",
-            "listId": "list_1",
-            "content": "content 1",
-            "position": 1
-        }
-    ],
-    "$schema": "./node_modules/json-server/schema.json"
+  "users": [
+    {
+      "id": "user_1",
+      "name": "user 1",
+      "email": "user1@gmail.com",
+      "password": "12345678",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-07T10:33:16.000Z"
+    },
+    {
+      "name": "hieudev@test.com",
+      "email": "duchieu@test.com",
+      "password": "Thebest5678",
+      "id": "0lSZFy_0f8Q",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-07T10:33:16.000Z"
+    }
+  ],
+  "boards": [
+    {
+      "id": "CoBoi-o1Xwg",
+      "userId": "0lSZFy_0f8Q",
+      "title": "board",
+      "background": {
+        "type": "image || color",
+        "value": "..."
+      },
+      "createdAt": "2026-06-07T10:33:16.000Z"
+    },
+    {
+      "userId": "0lSZFy_0f8Q",
+      "title": "board 2",
+      "id": "qaEqEV0p9mY"
+    },
+    {
+      "userId": "0lSZFy_0f8Q",
+      "title": "Dự án trello clone",
+      "id": "wU7iNM01a4s"
+    }
+  ],
+  "lists": [
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "List 1",
+      "position": 1,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "_YMIKTNHYj0"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "Titile 3",
+      "position": 2,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "EjB1F8_30CA"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "Title 3",
+      "position": 3,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "tkjluMYRy7M"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "Title 4",
+      "position": 4,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "T1hdjnkTfX0"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "Title 5",
+      "position": 5,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "peBWrkfEZJ4"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "Title 6",
+      "position": 6,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "LvBETw7AsmI"
+    }
+  ],
+  "cards": [
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "_YMIKTNHYj0",
+      "content": "Card 1",
+      "position": 1,
+      "isSaved": false,
+      "id": "I2lwiCD93aw"
+    }
+  ],
+  "savedData": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }

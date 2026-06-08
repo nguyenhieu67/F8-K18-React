@@ -4,8 +4,12 @@ body {
   user-select: none;
 }
 
+:root {
+  --list-box-width: 272px;
+}
+
 @theme {
-  --color-trello-bg: #f1f2f4;
+  --color-trello-bg: #f1f2f8;
   --color-trello-heading-text: #172b4d;
   --color-trello-label-text: #44546f;
 }

@@ -5,12 +5,13 @@ interface ApiI {
   get: <T>(endpoint: string) => Promise<T | null>;
   post: <T>(endpoint: string, body: any) => Promise<T | null>;
   put: <T>(endpoint: string, body: any) => Promise<T | null>;
+  patch: <T>(endpoint: string, body: any) => Promise<T | null>;
   delete: <T>(endpoint: string) => Promise<T | null>;
 }
 
 class Api implements ApiI {
   private async request<T>(
-    method: "get" | "post" | "put" | "delete",
+    method: "get" | "post" | "put" | "patch" | "delete",
     endpoint: string,
     body?: any,
   ): Promise<T | null> {
@@ -45,6 +46,10 @@ class Api implements ApiI {
 
   async put<T>(endpoint: string, body: any): Promise<T | null> {
     return await this.request<T>("put", endpoint, body);
+  }
+
+  async patch<T>(endpoint: string, body: any): Promise<T | null> {
+    return await this.request<T>("patch", endpoint, body);
   }
 
   async delete<T>(endpoint: string): Promise<T | null> {
