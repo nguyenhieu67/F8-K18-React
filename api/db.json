@@ -32,7 +32,7 @@
         {
             "id": "CoBoi-o1Xwg",
             "userId": "0lSZFy_0f8Q",
-            "title": "Board 1",
+            "title": "board",
             "background": {
                 "type": "image || color",
                 "value": "..."
@@ -43,7 +43,7 @@
     "lists": [
         {
             "id": "list_1",
-            "boardId": "board_1",
+            "boardId": "board",
             "title": "Title 1",
             "position": 1
         }

@@ -3,17 +3,20 @@ interface IconI {
   height?: string;
   iconColor?: string;
   fillColor?: string;
+  iconClass?: string;
 }
 
 export const LogoIcon = ({
   width = "20",
   height = "20",
   iconColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -31,11 +34,13 @@ export const EyeIcon = ({
   width = "20",
   height = "20",
   iconColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -52,11 +57,13 @@ export const EyeCloseIcon = ({
   width = "20",
   height = "20",
   iconColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -76,12 +83,14 @@ export const StarIcon = ({
   width = "20",
   height = "20",
   iconColor = "#ff0",
+  iconClass,
   fillColor = "none",
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill={fillColor}
     stroke={iconColor}
@@ -97,11 +106,13 @@ export const BellIcon = ({
   width = "20",
   height = "20",
   iconColor = "#fff",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -118,11 +129,13 @@ export const EllipsisIcon = ({
   width = "20",
   height = "20",
   iconColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -140,11 +153,13 @@ export const CloseIcon = ({
   width = "20",
   height = "20",
   iconColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -161,11 +176,13 @@ export const SearchIcon = ({
   width = "20",
   height = "20",
   iconColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -182,11 +199,13 @@ export const ShareIcon = ({
   width = "20",
   height = "20",
   iconColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -204,11 +223,13 @@ export const PlusIcon = ({
   width = "20",
   height = "20",
   iconColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -225,11 +246,13 @@ export const ChevronRightLeftIcon = ({
   width = "20",
   height = "20",
   fillColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 16 16"
     fill="none"
   >
@@ -248,11 +271,13 @@ export const ChevronLeftRightIcon = ({
   width = "20",
   height = "20",
   fillColor = "#000",
+  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
+    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 16 16"
     fill="none"
   >
