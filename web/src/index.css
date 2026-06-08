@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 body {
   user-select: none;
 }
@@ -8,4 +10,36 @@ body {
   --color-trello-bg: #f1f2f4;
   --color-trello-heading-text: #172b4d;
   --color-trello-label-text: #44546f;
+
+  --color-trello-board-bg: var(--trello-board-bg);
+  --color-trello-board-text: var(--trello-board-text);
+  --color-trello-header: var(--trello-header);
+  --color-trello-surface: var(--trello-surface);
+  --color-trello-surface-soft: var(--trello-surface-soft);
+  --color-trello-border: var(--trello-border);
+  --color-trello-add: var(--trello-add);
+}
+/*Light mode*/
+:root {
+  --trello-board-bg: #a869c1;
+  --trello-board-text: #ffffff;
+  --trello-header: #7c3aed;
+  --trello-surface: #ffffff;
+  --trello-surface-soft: #ffffff6d;
+  --trello-theme-text: #111827;
+  --trello-theme-muted: #44546f;
+  --trello-border: #ffffff8d;
+  --trello-add: #ffffff8d;
+}
+/*Dark mode*/
+.dark {
+  --trello-board-bg: #050505;
+  --trello-board-text: #f8fafc;
+  --trello-header: #000000;
+  --trello-surface: #121212;
+  --trello-surface-soft: #1a1a1a;
+  --trello-theme-text: #f8fafc;
+  --trello-theme-muted: #d4d4d8;
+  --trello-border: #2a2a2a;
+  --trello-add: red;
 }
