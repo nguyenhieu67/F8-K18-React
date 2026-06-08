@@ -1,93 +1,95 @@
 {
-  "users": [
-    {
-      "id": "user_1",
-      "name": "user 1",
-      "email": "user1@gmail.com",
-      "password": "12345678",
-      "avatar": "",
-      "theme": "light",
-      "createdAt": "2026-06-07T10:33:16.000Z"
-    },
-       "name": "hieudev@test.com",
-      "email": "duchieu@test.com",
-      "password": "Thebest5678",
-      "id": "0lSZFy_0f8Q",
-      "avatar": "",
-      "theme": "light",
-      "createdAt": "2026-06-07T10:33:16.000Z"
-    {
-      "name": "Nguyen Duc Hieu",
-      "email": "hieudev67@imail.edu.vn",
-      "password": "Thebad5678",
-      "avatar": "",
-      "theme": "light",
-      "createdAt": "2026-06-07T05:29:53.695Z",
-      "id": "SQtQKwawDyE"
-    },
-    {
-      "name": "khoi99",
-      "email": "khoitran@gmail.com",
-      "password": "Khoi@112233",
-      "avatar": "",
-      "theme": "light",
-      "createdAt": "2026-06-08T09:06:57.461Z",
-      "id": "Sac3MHNsqDk"
-    }
-  ],
-  "boards": [
-    {
-      "id": "CoBoi-o1Xwg",
-      "userId": "0lSZFy_0f8Q",
-      "title": "Board 1",
-      "background": {
-        "type": "image || color",
-        "value": "..."
-      },
-      "createdAt": "2026-06-07T10:33:16.000Z"
-    },
-    {
-      "userId": "SQtQKwawDyE",
-      "title": "board 23",
-      "id": "giPG7hAxp8c"
-    },
-    {
-      "userId": "SQtQKwawDyE",
-      "title": "công việc 1",
-      "id": "Tu80HKWMf-A"
-    },
-    {
-      "userId": "0lSZFy_0f8Q",
-      "title": "boardf 111",
-      "id": "ecct4JkR1VQ"
-    },
-    {
-      "userId": "Sac3MHNsqDk",
-      "title": "code giao diện",
-      "id": "rawa7fogGgo"
-    },
-    {
-      "userId": "Sac3MHNsqDk",
-      "title": "làm dark mode",
-      "id": "SEhcVegc5hI"
-    }
-  ],
-  "lists": [
-    {
-      "id": "list_1",
-      "boardId": "board_1",
-      "title": "Title 1",
-      "position": 1
-    }
-  ],
-  "cards": [
-    {
-      "id": "card_1",
-      "boardId": "board_1",
-      "listId": "list_1",
-      "content": "content 1",
-      "position": 1
-    }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+    "users": [
+        {
+            "id": "user_1",
+            "name": "user 1",
+            "email": "user1@gmail.com",
+            "password": "12345678",
+            "avatar": "",
+            "theme": "light",
+            "createdAt": "2026-06-07T10:33:16.000Z"
+        },
+        {
+            "name": "hieudev@test.com",
+            "email": "duchieu@test.com",
+            "password": "Thebest5678",
+            "id": "0lSZFy_0f8Q",
+            "avatar": "",
+            "theme": "light",
+            "createdAt": "2026-06-07T10:33:16.000Z"
+        },
+        {
+            "name": "Nguyen Duc Hieu",
+            "email": "hieudev67@imail.edu.vn",
+            "password": "Thebad5678",
+            "avatar": "",
+            "theme": "light",
+            "createdAt": "2026-06-07T05:29:53.695Z",
+            "id": "SQtQKwawDyE"
+        },
+        {
+            "name": "khoi99",
+            "email": "khoitran@gmail.com",
+            "password": "Khoi@112233",
+            "avatar": "",
+            "theme": "light",
+            "createdAt": "2026-06-08T09:06:57.461Z",
+            "id": "Sac3MHNsqDk"
+        }
+    ],
+    "boards": [
+        {
+            "id": "CoBoi-o1Xwg",
+            "userId": "0lSZFy_0f8Q",
+            "title": "Board 1",
+            "background": {
+                "type": "image || color",
+                "value": "..."
+            },
+            "createdAt": "2026-06-07T10:33:16.000Z"
+        },
+        {
+            "userId": "SQtQKwawDyE",
+            "title": "board 23",
+            "id": "giPG7hAxp8c"
+        },
+        {
+            "userId": "SQtQKwawDyE",
+            "title": "công việc 1",
+            "id": "Tu80HKWMf-A"
+        },
+        {
+            "userId": "0lSZFy_0f8Q",
+            "title": "boardf 111",
+            "id": "ecct4JkR1VQ"
+        },
+        {
+            "userId": "Sac3MHNsqDk",
+            "title": "code giao diện",
+            "id": "rawa7fogGgo"
+        },
+        {
+            "userId": "Sac3MHNsqDk",
+            "title": "làm dark mode",
+            "id": "SEhcVegc5hI"
+        }
+    ],
+    "lists": [
+        {
+            "id": "list_1",
+            "boardId": "board_1",
+            "title": "Title 1",
+            "position": 1
+        }
+    ],
+    "cards": [
+        {
+            "id": "card_1",
+            "boardId": "board_1",
+            "listId": "list_1",
+            "content": "content 1",
+            "position": 1
+        }
+    ],
+    "$schema": "./node_modules/json-server/schema.json"
 }

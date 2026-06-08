@@ -15,10 +15,12 @@ export default function List({ boardId }: ListProps) {
   const { lists, setLists } = useTrello();
 
   const handleCreateList = async (title: string) => {
+    const listCount = lists.filter((l) => l.boardId === boardId);
+
     const payload = {
       boardId: boardId,
       title: title,
-      position: lists.length + 1,
+      position: listCount.length + 1,
       isSaved: false,
       isShrink: false,
     };
