@@ -11,6 +11,7 @@ import {
 } from "../Icons";
 import AddCardForm from "../Card/AddCardForm";
 import Tooltip from "../Tooltip";
+import toSlug from "@/utils/slug";
 
 interface TrelloListProps {
   list: ListI;
@@ -76,22 +77,27 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
   ).length;
 
   const handleCreateCard = async (content: string) => {
-    const boardTitle = decodeURIComponent(
-      window.location.pathname.substring(1),
-    );
-    const currentBoard = boards.find((b) => b.title === boardTitle);
-    if (!currentBoard) return;
+    try {
+      const boardTitle = decodeURIComponent(
+        window.location.pathname.substring(1),
+      );
 
-    const payload = {
-      boardId: currentBoard.id,
-      listId: list.id,
-      content: content,
-      position: listCardsCount + 1,
-      isSaved: false,
-    };
+      const currentBoard = boards.find((b) => toSlug(b.title) === boardTitle);
+      if (!currentBoard) return;
 
-    const newCard = (await fetchApi.post("/cards", payload)) as CardI;
-    setCards((prev) => [...prev, newCard]);
+      const payload = {
+        boardId: currentBoard.id,
+        listId: list.id,
+        content: content,
+        position: listCardsCount + 1,
+        isSaved: false,
+      };
+
+      const newCard = (await fetchApi.post("/cards", payload)) as CardI;
+      setCards((prev) => [...prev, newCard]);
+    } catch (e) {
+      console.log("Không thể thêm thẻ: ", e);
+    }
   };
 
   const handleSaved = async () => {

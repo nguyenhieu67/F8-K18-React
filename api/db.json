@@ -1,95 +1,224 @@
 {
-    "users": [
-        {
-            "id": "user_1",
-            "name": "user 1",
-            "email": "user1@gmail.com",
-            "password": "12345678",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-07T10:33:16.000Z"
-        },
-        {
-            "name": "hieudev@test.com",
-            "email": "duchieu@test.com",
-            "password": "Thebest5678",
-            "id": "0lSZFy_0f8Q",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-07T10:33:16.000Z"
-        },
-        {
-            "name": "Nguyen Duc Hieu",
-            "email": "hieudev67@imail.edu.vn",
-            "password": "Thebad5678",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-07T05:29:53.695Z",
-            "id": "SQtQKwawDyE"
-        },
-        {
-            "name": "khoi99",
-            "email": "khoitran@gmail.com",
-            "password": "Khoi@112233",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-08T09:06:57.461Z",
-            "id": "Sac3MHNsqDk"
-        }
-    ],
-    "boards": [
-        {
-            "id": "CoBoi-o1Xwg",
-            "userId": "0lSZFy_0f8Q",
-            "title": "Board 1",
-            "background": {
-                "type": "image || color",
-                "value": "..."
-            },
-            "createdAt": "2026-06-07T10:33:16.000Z"
-        },
-        {
-            "userId": "SQtQKwawDyE",
-            "title": "board 23",
-            "id": "giPG7hAxp8c"
-        },
-        {
-            "userId": "SQtQKwawDyE",
-            "title": "công việc 1",
-            "id": "Tu80HKWMf-A"
-        },
-        {
-            "userId": "0lSZFy_0f8Q",
-            "title": "boardf 111",
-            "id": "ecct4JkR1VQ"
-        },
-        {
-            "userId": "Sac3MHNsqDk",
-            "title": "code giao diện",
-            "id": "rawa7fogGgo"
-        },
-        {
-            "userId": "Sac3MHNsqDk",
-            "title": "làm dark mode",
-            "id": "SEhcVegc5hI"
-        }
-    ],
-    "lists": [
-        {
-            "id": "list_1",
-            "boardId": "board_1",
-            "title": "Title 1",
-            "position": 1
-        }
-    ],
-    "cards": [
-        {
-            "id": "card_1",
-            "boardId": "board_1",
-            "listId": "list_1",
-            "content": "content 1",
-            "position": 1
-        }
-    ],
-    "$schema": "./node_modules/json-server/schema.json"
+  "users": [
+    {
+      "id": "user_1",
+      "name": "user 1",
+      "email": "user1@gmail.com",
+      "password": "12345678",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-07T10:33:16.000Z"
+    },
+    {
+      "name": "hieudev@test.com",
+      "email": "duchieu@test.com",
+      "password": "Thebest5678",
+      "id": "0lSZFy_0f8Q",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-07T10:33:16.000Z"
+    },
+    {
+      "name": "Nguyen Duc Hieu",
+      "email": "hieudev67@imail.edu.vn",
+      "password": "Thebad5678",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-07T05:29:53.695Z",
+      "id": "SQtQKwawDyE"
+    },
+    {
+      "name": "khoi99",
+      "email": "khoitran@gmail.com",
+      "password": "Khoi@112233",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-08T09:06:57.461Z",
+      "id": "Sac3MHNsqDk"
+    }
+  ],
+  "boards": [
+    {
+      "id": "CoBoi-o1Xwg",
+      "userId": "0lSZFy_0f8Q",
+      "title": "Board 1",
+      "background": {
+        "type": "image || color",
+        "value": "..."
+      },
+      "createdAt": "2026-06-07T10:33:16.000Z"
+    },
+    {
+      "userId": "SQtQKwawDyE",
+      "title": "board 23",
+      "id": "giPG7hAxp8c"
+    },
+    {
+      "userId": "SQtQKwawDyE",
+      "title": "công việc 1",
+      "id": "Tu80HKWMf-A"
+    },
+    {
+      "userId": "0lSZFy_0f8Q",
+      "title": "boardf 111",
+      "id": "ecct4JkR1VQ"
+    },
+    {
+      "userId": "Sac3MHNsqDk",
+      "title": "code giao diện",
+      "id": "rawa7fogGgo"
+    },
+    {
+      "userId": "Sac3MHNsqDk",
+      "title": "làm dark mode",
+      "id": "SEhcVegc5hI"
+    }
+  ],
+  "lists": [
+    {
+      "id": "list_1",
+      "boardId": "board_1",
+      "title": "Title 1",
+      "position": 1
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "List 1",
+      "position": 1,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "vOfDq9Gp0C8"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "List 2",
+      "position": 2,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "5b6m7m0_b_0"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "List 3",
+      "position": 3,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "GHj-46RXmAE"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "List 4",
+      "position": 4,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "74iLxlGSjD4"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "title": "List 5",
+      "position": 5,
+      "isSaved": false,
+      "isShrink": true,
+      "id": "fuKde7eGoOg"
+    }
+  ],
+  "cards": [
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "vOfDq9Gp0C8",
+      "content": "Card 1.1",
+      "position": 1,
+      "isSaved": false,
+      "id": "ebcjNoVrA-Y"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "vOfDq9Gp0C8",
+      "content": "Card 1.2",
+      "position": 2,
+      "isSaved": false,
+      "id": "TMmLfoGNdoA"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "vOfDq9Gp0C8",
+      "content": "Card 1.3",
+      "position": 3,
+      "isSaved": false,
+      "id": "DpXTeCY71qU"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "vOfDq9Gp0C8",
+      "content": "Card 1.4",
+      "position": 4,
+      "isSaved": false,
+      "id": "AdXYMWTkvvo"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "vOfDq9Gp0C8",
+      "content": "Card 1.5",
+      "position": 5,
+      "isSaved": false,
+      "id": "cBrbMtRYkx4"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "5b6m7m0_b_0",
+      "content": "Card 2.1",
+      "position": 1,
+      "isSaved": false,
+      "id": "81Gfl33sePw"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "5b6m7m0_b_0",
+      "content": "Card 2.2",
+      "position": 2,
+      "isSaved": false,
+      "id": "f3achNtt37w"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "5b6m7m0_b_0",
+      "content": "Card 2.3",
+      "position": 3,
+      "isSaved": false,
+      "id": "zVqBsSDvDQY"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "5b6m7m0_b_0",
+      "content": "Card 2.4",
+      "position": 4,
+      "isSaved": false,
+      "id": "mwC6y4DdoKU"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "5b6m7m0_b_0",
+      "content": "Card 2.5",
+      "position": 5,
+      "isSaved": false,
+      "id": "oHczRo5F3BQ"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "fuKde7eGoOg",
+      "content": "Card 5.1",
+      "position": 1,
+      "isSaved": false,
+      "id": "OSlJhJ_7mMo"
+    },
+    {
+      "boardId": "CoBoi-o1Xwg",
+      "listId": "fuKde7eGoOg",
+      "content": "Card 5.2",
+      "position": 2,
+      "isSaved": false,
+      "id": "oYrPStMCegg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

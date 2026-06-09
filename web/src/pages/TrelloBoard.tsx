@@ -30,7 +30,11 @@ export default function TrelloBoard() {
       {currentBoard ? (
         <List boardId={currentBoard.id} />
       ) : (
-        <div className="text-white">Vui lòng đợi...</div>
+        <div className="h-screen text-white">
+          <h2 className="mt-10 text-center text-4xl font-bold">
+            Vui lòng đợi...
+          </h2>
+        </div>
       )}
     </div>
   );
