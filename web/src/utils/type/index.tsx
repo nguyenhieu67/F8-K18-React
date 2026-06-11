@@ -17,11 +17,17 @@ interface UserI {
   password?: string;
 }
 
+interface BackgroundI {
+  type: string;
+  value: string;
+}
+
 interface BoardI {
   id: string;
   userId: string;
   title: string;
   listOrderIds: string[];
+  background: BackgroundI;
 }
 
 interface ListI {

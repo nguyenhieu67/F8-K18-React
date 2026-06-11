@@ -1,7 +1,8 @@
 import { useTrello } from "@/context/TrelloContext";
 import { fetchApi } from "@/utils/api";
 import type { BoardI } from "@/utils/type";
-import BoardList from "./Boards/BoardList";
+import BoardList from "./Boards/BoardContent/BoardList";
+import AddBoardForm from "./Boards/BoardContent/AddBoardForm";
 
 export default function Dashboard() {
   const {
@@ -41,18 +42,14 @@ export default function Dashboard() {
     );
 
   return (
-    <div className="bg-trello-board-bg min-h-screen">
+    <div className="bg-trello-board-bg h-screen">
       <main className="mx-auto max-w-6xl p-8">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-trello-board-text text-xl font-bold">
             Bảng công việc của bạn
           </h2>
-          <button
-            onClick={handleCreateBoard}
-            className="cursor-pointer rounded-lg bg-[#ffffff3d] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#ffffff33]"
-          >
-            + Tạo bảng mới
-          </button>
+
+          <AddBoardForm title="Tạo bảng mới" />
         </div>
 
         {boards.length === 0 ? (

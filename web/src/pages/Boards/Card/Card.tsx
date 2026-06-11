@@ -11,6 +11,7 @@ import { useTrello } from "@/context/TrelloContext";
 import { fetchApi } from "@/utils/api";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useTheme } from "@/context/ThemeContext";
 
 interface CardProps {
   card: CardI;
@@ -25,6 +26,7 @@ export default function Card({ card, isFirstList }: CardProps) {
   const [editContent, setEditContent] = useState("");
 
   const { setCards } = useTrello();
+  const { theme } = useTheme();
 
   const editRef = useRef<HTMLDivElement | null>(null);
 
@@ -177,7 +179,7 @@ export default function Card({ card, isFirstList }: CardProps) {
       style={style}
       {...attributes}
       {...listeners}
-      className={`group relative flex cursor-pointer items-center justify-between rounded-xl border border-transparent bg-white p-2.5 shadow-sm transition-all duration-150 hover:border-blue-500 ${isDragging ? "w-full rounded-xl border border-gray-400 bg-gray-300 opacity-50" : ""}`}
+      className={`group bg-trello-card-bg relative flex cursor-pointer items-center justify-between rounded-xl border border-transparent p-2.5 shadow-sm transition-all duration-150 hover:border-blue-500 ${isDragging ? "w-full rounded-xl border border-gray-400 bg-gray-300 opacity-50" : ""}`}
       onMouseEnter={() => !isDragging && setMouseIsOver(true)}
       onMouseLeave={() => setMouseIsOver(false)}
     >
@@ -200,12 +202,15 @@ export default function Card({ card, isFirstList }: CardProps) {
             }}
           >
             {isCompleted ? (
-              <CircleCheckIcon width="16" height="16" fillColor="#6A9A23" />
+              <CircleCheckIcon
+                size="16"
+                fillColor={`${theme === "dark" ? "#aee65c" : "#6A9A23"}`}
+              />
             ) : (
               <CircleIcon
-                width="16"
-                height="16"
-                iconClass="opacity-60 hover:opacity-100"
+                size="16"
+                iconColor={`${theme === "dark" ? "#fff" : "#000"}`}
+                iconClass="opacity-70 hover:opacity-100"
               />
             )}
             <Tooltip
@@ -218,7 +223,7 @@ export default function Card({ card, isFirstList }: CardProps) {
           </button>
         </div>
 
-        <span className="text-sm wrap-break-word [word-break:break-word] text-gray-700 transition-all duration-200 select-none">
+        <span className="text-trello-listCard-text text-sm wrap-break-word [word-break:break-word] transition-all duration-200 select-none">
           {card.content}
         </span>
       </div>
@@ -227,22 +232,27 @@ export default function Card({ card, isFirstList }: CardProps) {
         <div className="absolute top-5 right-2 z-10 flex -translate-y-1/2 items-center bg-transparent pl-1 transition-opacity duration-150">
           {isCompleted && (
             <button
-              className="group/card relative mr-1 cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100"
+              className="group/card relative mr-1 cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
               onClick={handleSavedCard}
             >
-              <SavedIcon width="16" height="16" />
+              <SavedIcon
+                size="16"
+                iconColor={`${theme === "dark" ? "#fff" : "#000"}`}
+              />
               <Tooltip title="Lưu thẻ này" name="card" />
             </button>
           )}
-
           <button
-            className="group/card relative cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100"
+            className="group/card relative cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
             onClick={(e) => {
               e.stopPropagation();
               handleEditCard();
             }}
           >
-            <EditIcon width="16" height="16" />
+            <EditIcon
+              size="16"
+              fillColor={`${theme === "dark" ? "#fff" : "#000"}`}
+            />
             <Tooltip title="Sửa thẻ này" name="card" />
           </button>
         </div>
