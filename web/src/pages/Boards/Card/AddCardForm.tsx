@@ -8,7 +8,7 @@ interface AddCardFormProps {
 
 export default function AddCardForm({ onAdd, onClose }: AddCardFormProps) {
   const [cardInput, setCardInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formRef = useRef<HTMLDivElement | null>(null);
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -50,7 +50,7 @@ export default function AddCardForm({ onAdd, onClose }: AddCardFormProps) {
   };
 
   return (
-    <div ref={formRef} className="mt-1.5">
+    <div ref={formRef}>
       <div className="relative min-h-16 w-full rounded-xl bg-white px-3 py-2 shadow">
         {!cardInput && (
           <span className="pointer-events-none absolute top-2 left-3 text-sm text-gray-400 select-none">
@@ -65,7 +65,7 @@ export default function AddCardForm({ onAdd, onClose }: AddCardFormProps) {
           className="block w-full text-sm wrap-break-word [word-break:break-word] whitespace-pre-wrap text-gray-700 outline-none"
           onInput={(e) => setCardInput(e.currentTarget.innerText || "")}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
               handleSubmit();
             }
@@ -73,7 +73,7 @@ export default function AddCardForm({ onAdd, onClose }: AddCardFormProps) {
               onClose();
             }
           }}
-        ></div>
+        />
       </div>
 
       <div className="mt-1.5 flex items-center gap-3">

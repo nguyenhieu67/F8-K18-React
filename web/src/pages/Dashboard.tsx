@@ -1,7 +1,7 @@
 import { useTrello } from "@/context/TrelloContext";
 import { fetchApi } from "@/utils/api";
 import type { BoardI } from "@/utils/type";
-import BoardList from "./BoardList";
+import BoardList from "./Boards/BoardList";
 
 export default function Dashboard() {
   const {
@@ -41,10 +41,10 @@ export default function Dashboard() {
     );
 
   return (
-    <div className="min-h-screen bg-trello-board-bg">
+    <div className="bg-trello-board-bg min-h-screen">
       <main className="mx-auto max-w-6xl p-8">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-trello-board-text">
+          <h2 className="text-trello-board-text text-xl font-bold">
             Bảng công việc của bạn
           </h2>
           <button
@@ -56,8 +56,8 @@ export default function Dashboard() {
         </div>
 
         {boards.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-xl border border-solid border-trello-border bg-trello-surface-soft p-16 shadow-sm">
-            <p className="mb-4 text-lg text-trello-board-text">
+          <div className="border-trello-border bg-trello-surface-soft flex flex-col items-center justify-center rounded-xl border border-solid p-16 shadow-sm">
+            <p className="text-trello-board-text mb-4 text-lg">
               Chào mừng bạn! Hiện tại bạn chưa có bảng công việc nào.
             </p>
             <button

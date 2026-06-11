@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { CloseIcon } from "../Icons";
+import { CloseIcon } from "@/components/Icons";
 
 interface AddListFormProps {
   onAdd: (title: string) => Promise<void>;

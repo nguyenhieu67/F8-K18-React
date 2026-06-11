@@ -1,11 +1,20 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function Home() {
-  const token = localStorage.getItem("access_token");
+  const navigate = useNavigate();
 
-  if (!token) {
-    localStorage.clear();
-    // eslint-disable-next-line react-hooks/immutability
-    window.location.href = "/login";
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
 
-  return <div>Home page</div>;
+    if (!token) {
+      localStorage.clear();
+      window.location.href = "/login";
+      return;
+    }
+
+    navigate("/dashboard");
+  }, [navigate]);
+
+  return <div>Home Page</div>;
 }

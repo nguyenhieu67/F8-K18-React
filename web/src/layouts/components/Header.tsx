@@ -20,7 +20,7 @@ export default function Header() {
         <span className="font-bold">Trello</span>
       </div>
 
-      <div className="mx-6 flex w-full max-w-[620px] items-center gap-2">
+      <div className="mx-6 flex w-full max-w-155 items-center gap-2">
         <div className="flex h-10 flex-1 items-center rounded-md border border-white/35 bg-white/20 px-3 text-sm text-white transition focus-within:border-white/60 focus-within:bg-white/25">
           <label htmlFor="search">
             <SearchIcon iconColor="#fff" />
