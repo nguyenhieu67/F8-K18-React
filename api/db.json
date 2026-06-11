@@ -10,13 +10,13 @@
       "createdAt": "2026-06-07T10:33:16.000Z"
     },
     {
-      "name": "hieudev@test.com",
+      "id": "0lSZFy_0f8Q",
+      "name": "Nguyen Duc Hieu",
       "email": "duchieu@test.com",
       "password": "Thebest5678",
-      "id": "0lSZFy_0f8Q",
       "avatar": "",
       "theme": "light",
-      "createdAt": "2026-06-07T10:33:16.000Z"
+      "createdAt": "2026-06-07T05:29:53.695Z"
     },
     {
       "name": "Nguyen Duc Hieu",
@@ -41,6 +41,10 @@
     {
       "id": "CoBoi-o1Xwg",
       "userId": "0lSZFy_0f8Q",
+      "listOrderIds": [
+        "qcAg21WdAw0",
+        "ZLERYBN4-5A"
+      ],
       "title": "Board 1",
       "background": {
         "type": "image || color",
@@ -76,148 +80,88 @@
   ],
   "lists": [
     {
-      "id": "list_1",
-      "boardId": "board_1",
+      "boardId": "CoBoi-o1Xwg",
       "title": "Title 1",
-      "position": 1
+      "cardOrderIds": [
+        "lr58IGEiUJY",
+        "CYeOjImT6QM",
+        "-Y7ROE3KLR4",
+        "p_34dKSd_og",
+        "VHpEKF6I0O4",
+        "T-e-JzDCTE0",
+        "eZHvpXhOxcA"
+      ],
+      "isSaved": false,
+      "isShrink": true,
+      "id": "qcAg21WdAw0"
     },
     {
       "boardId": "CoBoi-o1Xwg",
-      "title": "List 1",
-      "position": 1,
+      "title": "Title 2",
+      "cardOrderIds": [
+        "X2EwvTIh6M4"
+      ],
       "isSaved": false,
-      "isShrink": true,
-      "id": "vOfDq9Gp0C8"
-    },
-    {
-      "boardId": "CoBoi-o1Xwg",
-      "title": "List 2",
-      "position": 2,
-      "isSaved": false,
-      "isShrink": true,
-      "id": "5b6m7m0_b_0"
-    },
-    {
-      "boardId": "CoBoi-o1Xwg",
-      "title": "List 3",
-      "position": 3,
-      "isSaved": false,
-      "isShrink": true,
-      "id": "GHj-46RXmAE"
-    },
-    {
-      "boardId": "CoBoi-o1Xwg",
-      "title": "List 4",
-      "position": 4,
-      "isSaved": false,
-      "isShrink": true,
-      "id": "74iLxlGSjD4"
-    },
-    {
-      "boardId": "CoBoi-o1Xwg",
-      "title": "List 5",
-      "position": 5,
-      "isSaved": false,
-      "isShrink": true,
-      "id": "fuKde7eGoOg"
+      "isShrink": false,
+      "id": "ZLERYBN4-5A"
     }
   ],
   "cards": [
     {
       "boardId": "CoBoi-o1Xwg",
-      "listId": "vOfDq9Gp0C8",
+      "listId": "qcAg21WdAw0",
       "content": "Card 1.1",
-      "position": 1,
       "isSaved": false,
-      "id": "ebcjNoVrA-Y"
+      "id": "p_34dKSd_og"
     },
     {
       "boardId": "CoBoi-o1Xwg",
-      "listId": "vOfDq9Gp0C8",
+      "listId": "qcAg21WdAw0",
       "content": "Card 1.2",
-      "position": 2,
       "isSaved": false,
-      "id": "TMmLfoGNdoA"
+      "id": "lr58IGEiUJY"
     },
     {
       "boardId": "CoBoi-o1Xwg",
-      "listId": "vOfDq9Gp0C8",
+      "listId": "qcAg21WdAw0",
       "content": "Card 1.3",
-      "position": 3,
       "isSaved": false,
-      "id": "DpXTeCY71qU"
+      "id": "VHpEKF6I0O4"
     },
     {
       "boardId": "CoBoi-o1Xwg",
-      "listId": "vOfDq9Gp0C8",
+      "listId": "qcAg21WdAw0",
       "content": "Card 1.4",
-      "position": 4,
       "isSaved": false,
-      "id": "AdXYMWTkvvo"
+      "id": "T-e-JzDCTE0"
     },
     {
       "boardId": "CoBoi-o1Xwg",
-      "listId": "vOfDq9Gp0C8",
-      "content": "Card 1.5",
-      "position": 5,
-      "isSaved": false,
-      "id": "cBrbMtRYkx4"
-    },
-    {
-      "boardId": "CoBoi-o1Xwg",
-      "listId": "5b6m7m0_b_0",
+      "listId": "qcAg21WdAw0",
       "content": "Card 2.1",
-      "position": 1,
       "isSaved": false,
-      "id": "81Gfl33sePw"
+      "id": "eZHvpXhOxcA"
     },
     {
       "boardId": "CoBoi-o1Xwg",
-      "listId": "5b6m7m0_b_0",
+      "listId": "qcAg21WdAw0",
       "content": "Card 2.2",
-      "position": 2,
       "isSaved": false,
-      "id": "f3achNtt37w"
+      "id": "-Y7ROE3KLR4"
     },
     {
       "boardId": "CoBoi-o1Xwg",
-      "listId": "5b6m7m0_b_0",
+      "listId": "qcAg21WdAw0",
       "content": "Card 2.3",
-      "position": 3,
       "isSaved": false,
-      "id": "zVqBsSDvDQY"
+      "id": "CYeOjImT6QM"
     },
     {
       "boardId": "CoBoi-o1Xwg",
-      "listId": "5b6m7m0_b_0",
-      "content": "Card 2.4",
-      "position": 4,
+      "listId": "ZLERYBN4-5A",
+      "content": "Card 2.1",
       "isSaved": false,
-      "id": "mwC6y4DdoKU"
-    },
-    {
-      "boardId": "CoBoi-o1Xwg",
-      "listId": "5b6m7m0_b_0",
-      "content": "Card 2.5",
-      "position": 5,
-      "isSaved": false,
-      "id": "oHczRo5F3BQ"
-    },
-    {
-      "boardId": "CoBoi-o1Xwg",
-      "listId": "fuKde7eGoOg",
-      "content": "Card 5.1",
-      "position": 1,
-      "isSaved": false,
-      "id": "OSlJhJ_7mMo"
-    },
-    {
-      "boardId": "CoBoi-o1Xwg",
-      "listId": "fuKde7eGoOg",
-      "content": "Card 5.2",
-      "position": 2,
-      "isSaved": false,
-      "id": "oYrPStMCegg"
+      "id": "X2EwvTIh6M4"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

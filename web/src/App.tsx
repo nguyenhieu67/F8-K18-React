@@ -6,8 +6,8 @@ import { ThemeProvider } from "./context/ThemeContext";
 function App() {
   return (
     <Router>
-      <ThemeProvider>
-        <TrelloProvider>
+      <TrelloProvider>
+        <ThemeProvider>
           <Routes>
             {publicRoutes.map((route, index) => {
               const Page = route.component;
@@ -26,8 +26,8 @@ function App() {
               );
             })}
           </Routes>
-        </TrelloProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </TrelloProvider>
     </Router>
   );
 }

@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTrello } from "@/context/TrelloContext";
-import List from "@/components/List/List";
 import toSlug from "@/utils/slug";
 import type { BoardI } from "@/utils/type";
+import List from "./List/List";
 
 export default function TrelloBoard() {
   const { boardDetail } = useParams<{ boardDetail: string }>();
@@ -23,8 +23,8 @@ export default function TrelloBoard() {
   }, [boardDetail, boards]);
 
   return (
-    <div className="p-4">
-      <h1 className="mb-4 text-xl font-bold text-white">
+    <div>
+      <h1 className="h-14 p-3 text-xl font-bold text-white">
         {currentBoard ? currentBoard.title : "Đang tải dữ liệu Board..."}
       </h1>
       {currentBoard ? (

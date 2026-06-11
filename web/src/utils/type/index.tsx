@@ -21,12 +21,14 @@ interface BoardI {
   id: string;
   userId: string;
   title: string;
+  listOrderIds: string[];
 }
 
 interface ListI {
   id: string;
   boardId: string;
   title: string;
+  cardOrderIds: string[];
   isSaved: boolean;
   isShrink: boolean;
 }
