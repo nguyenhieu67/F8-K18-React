@@ -407,7 +407,7 @@ export default function List({ boardId }: ListProps) {
                 className="flex min-w-(--list-box-width) cursor-pointer items-center gap-1 rounded-lg bg-[#ffffff3d] p-3 text-sm font-medium text-white hover:bg-[#ffffff33]"
                 onClick={() => setShowAddList(true)}
               >
-                <PlusIcon width="16" height="16" iconColor="#fff" />
+                <PlusIcon size="16" iconColor="#fff" />
                 Thêm danh sách khác
               </button>
             </div>

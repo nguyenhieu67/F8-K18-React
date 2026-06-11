@@ -6,7 +6,7 @@ import AuthLayout from "@/layouts/AuthLayout";
 // User
 import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard";
-import TrelloBoard from "@/pages/Boards/TrelloBoard";
+import TrelloBoard from "@/pages/Boards/BoardContent/TrelloBoard";
 
 const publicRoutes = [
   { path: "/", component: Home },
