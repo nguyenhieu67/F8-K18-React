@@ -47,7 +47,7 @@ export default function Header() {
               onClick={toggleTheme}
               className="bg-trello-button-bg hover:bg-trello-button-bg-hover text-trello-button-text h-9 w-14 rounded-md text-center text-sm font-semibold transition"
             >
-              {theme === "light" ? "Light" : "Dark"}
+              {theme === "dark" ? "Light" : "Dark"}
             </button>
             <NotificationsNoneIcon sx={{ color: "#fff" }} />
             <ContextUser currentUser={currentUser} logout={logout} />

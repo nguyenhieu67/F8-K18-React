@@ -25,7 +25,7 @@ export default function Background({
   return (
     <>
       {items.map((item) => (
-        <li key={item.id} className={`h-${imgHeight} w-${imgWidth}`}>
+        <li key={item.id} className={`w-${imgWidth} h-${imgHeight}`}>
           <button
             onClick={() => onSelect(item.id)}
             style={{
@@ -38,7 +38,7 @@ export default function Background({
           >
             {selectedId === item.id && (
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
-                <CheckIcon width="12" height="12" />
+                <CheckIcon size="12" />
               </span>
             )}
           </button>
