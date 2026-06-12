@@ -4,7 +4,7 @@ import type { AuthI } from "@/utils/type";
 import { fetchApi } from "@/utils/api";
 import { loginSchema, validationForm } from "@/utils/validate";
 import { EyeCloseIcon, EyeIcon } from "@/components/Icons";
-
+import { useTrello } from "@/context/TrelloContext";
 export default function Login() {
   const formData = {
     email: "",
@@ -15,7 +15,7 @@ export default function Login() {
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
-
+  const { setCurrentUser } = useTrello();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -44,6 +44,7 @@ export default function Login() {
             id: matchedUser.id,
             name: matchedUser.name,
             email: matchedUser.email,
+            theme: matchedUser.theme || "light",
           },
         };
 
@@ -51,6 +52,7 @@ export default function Login() {
         localStorage.setItem("refresh_token", responseMock.refreshToken);
         localStorage.setItem("current_user", JSON.stringify(responseMock.user));
 
+        setCurrentUser(responseMock.user);
         navigate("/dashboard");
       } else {
         alert("Email hoặc mật khẩu không chính xác!");

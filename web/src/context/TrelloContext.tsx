@@ -48,6 +48,13 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
 
     const getBoards = async () => {
       try {
+        const serverUser = await fetchApi.get<UserI>(`/users/${user.id}`);
+
+        if (serverUser) {
+          setCurrentUser(serverUser);
+          localStorage.setItem("current_user", JSON.stringify(serverUser));
+        }
+
         const [boardData, listData, cardData] = (await Promise.all([
           fetchApi.get(`/boards?userId=${user.id}`),
           fetchApi.get("/lists"),

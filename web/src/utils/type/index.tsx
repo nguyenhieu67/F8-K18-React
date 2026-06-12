@@ -15,6 +15,7 @@ interface UserI {
   name: string;
   email: string;
   password?: string;
+  theme: "light" | "dark";
 }
 
 interface BackgroundI {
