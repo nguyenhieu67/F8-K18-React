@@ -3,7 +3,7 @@ import toSlug from "@/utils/slug";
 import { useTrello } from "@/context/TrelloContext";
 
 export default function BoardList() {
-  const { boards } = useTrello();
+  const { filteredBoards } = useTrello();
   const navigate = useNavigate();
 
   const handleBoardClick = (title: string) => {
@@ -14,7 +14,7 @@ export default function BoardList() {
 
   return (
     <>
-      {boards.map((board) => (
+      {filteredBoards.map((board) => (
         <button
           key={board.id}
           onClick={() => handleBoardClick(board.title)}
