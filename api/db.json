@@ -76,6 +76,26 @@
       "userId": "Sac3MHNsqDk",
       "title": "làm dark mode",
       "id": "SEhcVegc5hI"
+    },
+    {
+      "userId": "0lSZFy_0f8Q",
+      "title": "Board 2",
+      "id": "RDYJAtgyCnA"
+    },
+    {
+      "userId": "0lSZFy_0f8Q",
+      "title": "Board 3",
+      "id": "5mYPS2ywlMw"
+    },
+    {
+      "userId": "0lSZFy_0f8Q",
+      "title": "board 4",
+      "id": "Y_AMiICZN8o"
+    },
+    {
+      "userId": "0lSZFy_0f8Q",
+      "title": "board 1",
+      "id": "qTdwgIOdL6Q"
     }
   ],
   "lists": [
@@ -104,6 +124,26 @@
       "isSaved": false,
       "isShrink": false,
       "id": "ZLERYBN4-5A"
+    },
+    {
+      "boardId": "rawa7fogGgo",
+      "title": "cong việc 1",
+      "cardOrderIds": [
+        "69IX9pWgMQw"
+      ],
+      "isSaved": false,
+      "isShrink": false,
+      "id": "Rt8Ox1kNaxo"
+    },
+    {
+      "boardId": "rawa7fogGgo",
+      "title": "cv2",
+      "cardOrderIds": [
+        "_aAOdVEFDqk"
+      ],
+      "isSaved": false,
+      "isShrink": false,
+      "id": "8bOQ3P3fumc"
     }
   ],
   "cards": [
@@ -162,6 +202,20 @@
       "content": "Card 2.1",
       "isSaved": false,
       "id": "X2EwvTIh6M4"
+    },
+    {
+      "boardId": "rawa7fogGgo",
+      "listId": "8bOQ3P3fumc",
+      "content": "vvvv",
+      "isSaved": false,
+      "id": "_aAOdVEFDqk"
+    },
+    {
+      "boardId": "rawa7fogGgo",
+      "listId": "Rt8Ox1kNaxo",
+      "content": "cccc",
+      "isSaved": false,
+      "id": "69IX9pWgMQw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
