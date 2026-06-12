@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-import { useTrello } from "@/context/TrelloContext";
 import toSlug from "@/utils/slug";
+import type { BoardI } from "@/utils/type";
 
-export default function BoardList() {
-  const { filteredBoards } = useTrello();
+interface BoardListProps {
+  boards: BoardI[];
+}
+
+export default function BoardList({ boards }: BoardListProps) {
   const navigate = useNavigate();
 
   const handleBoardClick = (title: string) => {
@@ -15,7 +18,7 @@ export default function BoardList() {
 
   return (
     <>
-      {filteredBoards.map((board) => {
+      {boards.map((board) => {
         const bg = board.background;
         const isImage = bg?.type === "image";
 
