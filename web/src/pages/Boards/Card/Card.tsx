@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -16,7 +17,6 @@ import type { CardI } from "@/utils/type";
 
 interface CardProps {
   card: CardI;
-  isFirstList?: boolean;
 }
 
 export default function Card({ card }: CardProps) {
@@ -110,7 +110,20 @@ export default function Card({ card }: CardProps) {
     }
   };
 
-  const handleSavedCard = async (e: React.MouseEvent) => {
+  const handleUnSaveCard = async () => {
+    toast.info("Chưa lưu trữ thẻ", {
+      position: "bottom-left",
+      autoClose: 3000,
+    });
+
+    await fetchApi.patch(`/cards/${card.id}`, {
+      isSaved: false,
+    });
+
+    setCards((prevCards) => [...prevCards, { ...card, isSaved: false }]);
+  };
+
+  const handleSaveCard = async (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (isSaving) return;
@@ -119,8 +132,24 @@ export default function Card({ card }: CardProps) {
       setIsSaving(true);
 
       await fetchApi.patch(`/cards/${card.id}`, { isSaved: true });
-
       setCards((prevCards) => prevCards.filter((c) => c.id !== card.id));
+
+      toast.success(
+        <div>
+          <p>Đã lưu thẻ</p>
+          <button
+            className="mt-3 ml-5 cursor-pointer rounded-md border border-gray-300 px-3 py-1 hover:bg-gray-100"
+            onClick={handleUnSaveCard}
+          >
+            Hoãn
+          </button>
+        </div>,
+        {
+          position: "bottom-left",
+          autoClose: 3000,
+          closeOnClick: true,
+        },
+      );
     } catch (e) {
       console.error("Lỗi khi lưu danh sách:", e);
     } finally {
@@ -195,6 +224,7 @@ export default function Card({ card }: CardProps) {
           }`}
         >
           <Tooltip
+            offset={[0, -1]}
             title={
               isCompleted ? "Đánh dấu chưa hoàn thành" : "Đánh dấu hoàn thành"
             }
@@ -231,10 +261,10 @@ export default function Card({ card }: CardProps) {
       {mouseIsOver && (
         <div className="absolute top-5 right-2 z-10 flex -translate-y-1/2 items-center bg-transparent pl-1 transition-opacity duration-150">
           {isCompleted && (
-            <Tooltip title="Lưu thẻ này">
+            <Tooltip offset={[0, -8]} title="Lưu thẻ này">
               <button
                 className="group/card relative mr-1 cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
-                onClick={handleSavedCard}
+                onClick={handleSaveCard}
               >
                 <SavedIcon
                   size="16"
@@ -243,7 +273,7 @@ export default function Card({ card }: CardProps) {
               </button>
             </Tooltip>
           )}
-          <Tooltip title="Sửa thẻ này">
+          <Tooltip offset={[0, -8]} title="Sửa thẻ này">
             <button
               className="group/card relative cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
               onClick={(e) => {

@@ -1,6 +1,7 @@
 import { Fade, Popper, ClickAwayListener } from "@mui/material";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { CloseIcon, EllipsisIcon } from "@/components/Icons";
 import { useTrello } from "@/context/TrelloContext";
@@ -80,9 +81,8 @@ export default function AddBoardForm({ title }: Props) {
       };
 
       const newBoard = (await fetchApi.post("/boards", payload)) as BoardI;
-
       navigate(`/${toSlug(newBoard.title)}`);
-
+      toast.success("Đã tạo thành công bảng");
       setBoards((prev) => [...prev, newBoard]);
       setTitleInput("");
       setOpen(false);
@@ -212,11 +212,19 @@ export default function AddBoardForm({ title }: Props) {
                   </form>
                   <div className="text-trello-label-text mt-3 text-left text-xs">
                     Bằng cách sử dụng hình ảnh từ Unsplash, bạn đồng ý với{" "}
-                    <a href="#!" className="underline">
+                    <a
+                      href="https://unsplash.com/fr/licence"
+                      target="_blank"
+                      className="underline"
+                    >
                       giấy phép
                     </a>{" "}
                     và{" "}
-                    <a href="#!" className="underline">
+                    <a
+                      href="https://unsplash.com/fr/conditions"
+                      target="_blank"
+                      className="underline"
+                    >
                       Điều khoản dịch vụ
                     </a>
                   </div>

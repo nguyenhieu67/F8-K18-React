@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import {
+  ExclamationTriangleIcon,
+  EyeCloseIcon,
+  EyeIcon,
+} from "@/components/Icons";
 import { fetchApi } from "@/utils/api";
 import { registerSchema, validationForm } from "@/utils/validate";
-import { EyeCloseIcon, EyeIcon } from "@/components/Icons";
+import type { UserI } from "@/utils/type";
 
 export default function Register() {
   const formData = {
@@ -14,39 +21,63 @@ export default function Register() {
   const [form, setForm] = useState(formData);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isExists, setIsExists] = useState<boolean>(false);
+  const [hasEdited, setHasEdited] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
+  const isSubmitting = useRef(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+
+    if (isExists) {
+      setHasEdited(true);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validationForm(registerSchema, form, setErrors)) return;
+    if (isSubmitting.current) return;
 
-    setLoading(true);
-
+    isSubmitting.current = true;
+    setHasEdited(false);
     try {
-      const payload = {
-        name: form.userName,
-        email: form.email,
-        password: form.password,
-        avatar: "",
-        theme: "light",
-        createdAt: new Date().toISOString(),
-      };
+      const allUsers = (await fetchApi.get("/users")) as UserI[];
 
-      await fetchApi.post("/users", payload);
+      const emailExists = allUsers.some((u) => u.email === form.email);
 
-      setForm(formData);
-      navigate("/login");
+      if (emailExists) {
+        setIsExists(true);
+        isSubmitting.current = false;
+      } else {
+        const payload = {
+          name: form.userName,
+          email: form.email,
+          password: form.password,
+          avatar: "",
+          theme: "light",
+          createdAt: new Date().toISOString(),
+        };
+
+        await fetchApi.post("/users", payload);
+
+        setForm(formData);
+        toast.success("Chúc mừng bạn tạo tài khoản thành công.");
+        isSubmitting.current = false;
+        navigate("/login");
+      }
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
+      isSubmitting.current = false;
     }
   };
 
@@ -58,6 +89,18 @@ export default function Register() {
         onSubmit={handleSubmit}
         noValidate
       >
+        {/* Thông báo trùng emaik */}
+        {isExists && (
+          <div
+            className={`mb-4 flex items-center rounded-md px-3 py-1 text-[#e96354] transition-opacity duration-200 ${hasEdited ? "bg-red-100 opacity-60" : "bg-red-200"}`}
+          >
+            <ExclamationTriangleIcon fillColor="#e74d3c" />
+            <p className="ml-2 text-sm">
+              Email đã tồn tại. Vui lòng sử dụng email khác.
+            </p>
+          </div>
+        )}
+
         {/* Tên tài khoản */}
         <div className="flex flex-col gap-1">
           <label
@@ -90,7 +133,7 @@ export default function Register() {
             Email:
           </label>
           <input
-            className={`rounded-md border px-2 py-1 outline-none ${errors.email ? "border-red-500" : ""}`}
+            className={`rounded-md border px-2 py-1 outline-none ${errors.email || isExists ? "border-red-500" : ""}`}
             type="email"
             autoComplete="email"
             placeholder="Nhập email..."
@@ -189,11 +232,11 @@ export default function Register() {
             Quay lại
           </button>
           <button
+            className={`min-w-30 rounded-lg p-2 text-white ${isExists && !hasEdited ? "cursor-not-allowed bg-gray-400" : "cursor-pointer bg-blue-500 hover:bg-blue-400"}`}
             type="submit"
-            className="min-w-30 cursor-pointer rounded-md bg-blue-500 p-2 text-white hover:bg-blue-400"
-            disabled={loading}
+            disabled={isExists && !hasEdited}
           >
-            {loading ? "Đang đăng kí..." : "Đăng kí"}
+            Đăng kí
           </button>
         </div>
       </form>

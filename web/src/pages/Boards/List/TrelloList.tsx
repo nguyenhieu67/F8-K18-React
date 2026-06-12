@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   SortableContext,
   useSortable,
@@ -27,10 +28,9 @@ import { useTheme } from "@/context/ThemeContext";
 
 interface TrelloListProps {
   list: ListI;
-  isFirstList?: boolean;
 }
 
-export default function TrelloList({ list, isFirstList }: TrelloListProps) {
+export default function TrelloList({ list }: TrelloListProps) {
   const { boards, setLists, cards, setCards } = useTrello();
   const { theme } = useTheme();
   const { boardDetail } = useParams();
@@ -166,15 +166,44 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
     }
   };
 
-  const handleSaved = async () => {
+  const handleUnSaveCard = async () => {
+    toast.info("Chưa lưu trữ danh sách", {
+      position: "bottom-left",
+      autoClose: 3000,
+    });
+
+    await fetchApi.patch(`/lists/${list.id}`, {
+      isSaved: false,
+    });
+
+    setLists((prevLists) => [...prevLists, { ...list, isSaved: false }]);
+  };
+
+  const handleSaveList = async () => {
     if (isSaving) return;
 
     try {
       setIsSaving(true);
 
       await fetchApi.patch(`/lists/${list.id}`, { isSaved: true });
-
       setLists((prevLists) => prevLists.filter((l) => l.id !== list.id));
+
+      toast.success(
+        <div>
+          <p>Đã lưu danh sách</p>
+          <button
+            className="mt-3 ml-5 cursor-pointer rounded-md border border-gray-300 px-3 py-1 hover:bg-gray-100"
+            onClick={handleUnSaveCard}
+          >
+            Hoãn
+          </button>
+        </div>,
+        {
+          position: "bottom-left",
+          autoClose: 3000,
+          closeOnClick: true,
+        },
+      );
     } catch (e) {
       console.error("Lỗi khi lưu danh sách:", e);
     } finally {
@@ -335,7 +364,7 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
                   <button
                     className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
                     disabled={isSaving}
-                    onClick={handleSaved}
+                    onClick={handleSaveList}
                   >
                     <SavedIcon
                       size="16"
@@ -353,7 +382,7 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
               >
                 {orderedCards.map((card) => (
                   <li key={card.id} className="mr-0.5">
-                    <Card card={card as CardI} isFirstList={isFirstList} />
+                    <Card card={card as CardI} />
                   </li>
                 ))}
               </SortableContext>
