@@ -1,40 +1,9 @@
 import { useTrello } from "@/context/TrelloContext";
-import { fetchApi } from "@/utils/api";
-import type { BoardI } from "@/utils/type";
 import BoardList from "./Boards/BoardContent/BoardList";
 import AddBoardForm from "./Boards/BoardContent/AddBoardForm";
 
 export default function Dashboard() {
-  const {
-    currentUser,
-    boards,
-    filteredBoards,
-    searchKeyword,
-    setBoards,
-    loading,
-  } = useTrello();
-
-  const handleCreateBoard = async () => {
-    const title = prompt("Nhập tên bảng Trello mới:");
-    if (!title || !currentUser) return;
-
-    const newBoardData = {
-      userId: currentUser.id,
-      title: title,
-    };
-
-    try {
-      const savedBoard = (await fetchApi.post(
-        "/boards",
-        newBoardData,
-      )) as BoardI;
-
-      setBoards((prev) => [...prev, savedBoard]);
-    } catch (error) {
-      console.error(error);
-      alert("Không thể tạo bảng mới!");
-    }
-  };
+  const { boards, filteredBoards, searchKeyword, loading } = useTrello();
 
   if (loading)
     return (
@@ -48,21 +17,15 @@ export default function Dashboard() {
           <h2 className="text-trello-board-text text-xl font-bold">
             Bảng công việc của bạn
           </h2>
-
           <AddBoardForm title="Tạo bảng mới" />
         </div>
 
         {boards.length === 0 ? (
           <div className="border-trello-border bg-trello-surface-soft flex flex-col items-center justify-center rounded-xl border border-solid p-16 shadow-sm">
-            <p className="text-trello-board-text mb-4 text-lg">
-              Chào mừng bạn! Hiện tại bạn chưa có bảng công việc nào.
-            </p>
-            <button
-              onClick={handleCreateBoard}
-              className="cursor-pointer rounded-lg bg-neutral-500 px-6 py-2.5 font-semibold text-white shadow transition hover:bg-neutral-400"
-            >
-              Tạo bảng đầu tiên của bạn
-            </button>
+            <h2 className="text-trello-board-text mb-4 text-center text-3xl font-black">
+              Chào mừng bạn! Hiện tại bạn chưa có bảng công việc nào. Tạo bảng
+              mới và bắt đầu công việc thôi nào!!!
+            </h2>
           </div>
         ) : (
           <div>

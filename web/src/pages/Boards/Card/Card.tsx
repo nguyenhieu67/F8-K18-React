@@ -1,24 +1,25 @@
 import { useEffect, useRef, useState } from "react";
-import type { CardI } from "@/utils/type";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 import {
   EditIcon,
   CircleIcon,
   CircleCheckIcon,
   SavedIcon,
 } from "@/components/Icons";
-import Tooltip from "@/components/Tooltip";
+import { Tooltip } from "@/components/Tooltip";
 import { useTrello } from "@/context/TrelloContext";
-import { fetchApi } from "@/utils/api";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import { useTheme } from "@/context/ThemeContext";
+import { fetchApi } from "@/utils/api";
+import type { CardI } from "@/utils/type";
 
 interface CardProps {
   card: CardI;
   isFirstList?: boolean;
 }
 
-export default function Card({ card, isFirstList }: CardProps) {
+export default function Card({ card }: CardProps) {
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [mouseIsOver, setMouseIsOver] = useState<boolean>(false);
@@ -193,34 +194,33 @@ export default function Card({ card, isFirstList }: CardProps) {
               : "w-0 opacity-0 group-hover:w-6 group-hover:opacity-100"
           }`}
         >
-          <button
-            type="button"
-            className="group/card relative cursor-pointer rounded-full"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsCompleted(!isCompleted);
-            }}
+          <Tooltip
+            title={
+              isCompleted ? "Đánh dấu chưa hoàn thành" : "Đánh dấu hoàn thành"
+            }
           >
-            {isCompleted ? (
-              <CircleCheckIcon
-                size="16"
-                fillColor={`${theme === "dark" ? "#aee65c" : "#6A9A23"}`}
-              />
-            ) : (
-              <CircleIcon
-                size="16"
-                iconColor={`${theme === "dark" ? "#fff" : "#000"}`}
-                iconClass="opacity-70 hover:opacity-100"
-              />
-            )}
-            <Tooltip
-              title={
-                isCompleted ? "Đánh dấu chưa hoàn thành" : "Đánh dấu hoàn thành"
-              }
-              name="card"
-              isFirstList={isFirstList}
-            />
-          </button>
+            <button
+              type="button"
+              className="group/card relative cursor-pointer rounded-full"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsCompleted(!isCompleted);
+              }}
+            >
+              {isCompleted ? (
+                <CircleCheckIcon
+                  size="16"
+                  fillColor={`${theme === "dark" ? "#aee65c" : "#6A9A23"}`}
+                />
+              ) : (
+                <CircleIcon
+                  size="16"
+                  iconColor={`${theme === "dark" ? "#fff" : "#000"}`}
+                  iconClass="opacity-70 hover:opacity-100"
+                />
+              )}
+            </button>
+          </Tooltip>
         </div>
 
         <span className="text-trello-listCard-text text-sm wrap-break-word [word-break:break-word] transition-all duration-200 select-none">
@@ -231,30 +231,32 @@ export default function Card({ card, isFirstList }: CardProps) {
       {mouseIsOver && (
         <div className="absolute top-5 right-2 z-10 flex -translate-y-1/2 items-center bg-transparent pl-1 transition-opacity duration-150">
           {isCompleted && (
-            <button
-              className="group/card relative mr-1 cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
-              onClick={handleSavedCard}
-            >
-              <SavedIcon
-                size="16"
-                iconColor={`${theme === "dark" ? "#fff" : "#000"}`}
-              />
-              <Tooltip title="Lưu thẻ này" name="card" />
-            </button>
+            <Tooltip title="Lưu thẻ này">
+              <button
+                className="group/card relative mr-1 cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
+                onClick={handleSavedCard}
+              >
+                <SavedIcon
+                  size="16"
+                  iconColor={`${theme === "dark" ? "#fff" : "#000"}`}
+                />
+              </button>
+            </Tooltip>
           )}
-          <button
-            className="group/card relative cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleEditCard();
-            }}
-          >
-            <EditIcon
-              size="16"
-              fillColor={`${theme === "dark" ? "#fff" : "#000"}`}
-            />
-            <Tooltip title="Sửa thẻ này" name="card" />
-          </button>
+          <Tooltip title="Sửa thẻ này">
+            <button
+              className="group/card relative cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEditCard();
+              }}
+            >
+              <EditIcon
+                size="16"
+                fillColor={`${theme === "dark" ? "#fff" : "#000"}`}
+              />
+            </button>
+          </Tooltip>
         </div>
       )}
     </div>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import toSlug from "@/utils/slug";
+
 import { useTrello } from "@/context/TrelloContext";
+import toSlug from "@/utils/slug";
 
 export default function BoardList() {
   const { boards } = useTrello();

@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import { useTrello } from "@/context/TrelloContext";
-import toSlug from "@/utils/slug";
 import type { BoardI } from "@/utils/type";
+import toSlug from "@/utils/slug";
 import List from "../List/List";
 import BoardHeader from "../BoardHeader/BoardHeader";
 

@@ -21,20 +21,20 @@ import {
   SortableContext,
 } from "@dnd-kit/sortable";
 
+import { PlusIcon } from "@/components/Icons";
 import { useTrello } from "@/context/TrelloContext";
 import { fetchApi } from "@/utils/api";
 import type { CardI, ListI } from "@/utils/type";
-import { PlusIcon } from "@/components/Icons";
-import TrelloList from "./TrelloList";
-import AddListForm from "./AddListForm";
+import mapOrder from "@/utils/sort/sorts";
+import { useLatest } from "@/hooks";
 import Card from "../Card/Card";
 import {
   addListOrderApi,
   updateCardOrderIdsApi,
   updateListOrderIdsApi,
 } from "../_id";
-import mapOrder from "@/utils/sort/sorts";
-import { useLatest } from "@/hooks";
+import TrelloList from "./TrelloList";
+import AddListForm from "./AddListForm";
 
 interface ListProps {
   boardId: string;
@@ -97,6 +97,7 @@ export default function List({ boardId }: ListProps) {
       cardOrderIds: [],
       isSaved: false,
       isShrink: false,
+      createdAt: new Date().toISOString(),
     };
 
     const newList = (await fetchApi.post("/lists", payload)) as ListI;

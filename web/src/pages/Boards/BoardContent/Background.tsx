@@ -1,4 +1,4 @@
-import { CheckIcon } from "./Icons";
+import { CheckIcon } from "@/components/Icons";
 
 interface Item {
   id: number | string;
@@ -8,8 +8,7 @@ interface Item {
 interface Props {
   items: Item[];
   type: "image" | "color";
-  imgWidth?: string;
-  imgHeight?: string;
+  imgClass: string;
   selectedId: string | number | null;
   onSelect: (id: string | number) => void;
 }
@@ -17,15 +16,14 @@ interface Props {
 export default function Background({
   items,
   type,
-  imgWidth = "16",
-  imgHeight = "10",
+  imgClass,
   selectedId,
   onSelect,
 }: Props) {
   return (
     <>
       {items.map((item) => (
-        <li key={item.id} className={`w-${imgWidth} h-${imgHeight}`}>
+        <li key={item.id} className={`${imgClass}`}>
           <button
             onClick={() => onSelect(item.id)}
             style={{

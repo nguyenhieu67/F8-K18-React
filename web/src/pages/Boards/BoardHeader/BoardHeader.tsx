@@ -1,5 +1,4 @@
-import { Tooltip } from "@mui/material";
-
+import { Tooltip } from "@/components/Tooltip";
 import { EllipsisIcon, ShareIcon, StarIcon } from "@/components/Icons";
 import type { BoardI } from "@/utils/type";
 

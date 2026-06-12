@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ClickAwayListener } from "@mui/material";
 
-import { CloseIcon } from "@/components/Icons";
 import { useTheme } from "@/context/ThemeContext";
+import { CloseIcon } from "@/components/Icons";
 
 interface AddCardFormProps {
   onAdd: (content: string) => Promise<void>;

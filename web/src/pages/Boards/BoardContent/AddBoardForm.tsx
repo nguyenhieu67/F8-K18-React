@@ -2,12 +2,12 @@ import { Fade, Popper, ClickAwayListener } from "@mui/material";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Background from "@/components/Background";
 import { CloseIcon, EllipsisIcon } from "@/components/Icons";
 import { useTrello } from "@/context/TrelloContext";
 import type { BoardI } from "@/utils/type";
 import { fetchApi } from "@/utils/api";
 import toSlug from "@/utils/slug";
+import Background from "./Background";
 
 const images = [
   {
@@ -108,7 +108,7 @@ export default function AddBoardForm({ title }: Props) {
                 <header className="flex h-12 items-center justify-between p-1">
                   <button className="h-9 w-9 bg-white"></button>
                   <span>Tạo bảng</span>
-                  <button className="p-2">
+                  <button className="p-2" onClick={() => setOpen(false)}>
                     <CloseIcon />
                   </button>
                 </header>
@@ -143,8 +143,7 @@ export default function AddBoardForm({ title }: Props) {
                         <Background
                           items={images}
                           type="image"
-                          imgWidth="16"
-                          imgHeight="10"
+                          imgClass="w-16 h-10"
                           selectedId={selectedId}
                           onSelect={setSelectedId}
                         />
@@ -153,8 +152,7 @@ export default function AddBoardForm({ title }: Props) {
                         <Background
                           items={gradientColors}
                           type="color"
-                          imgWidth="10"
-                          imgHeight="8"
+                          imgClass="w-10 h-8"
                           selectedId={selectedId}
                           onSelect={setSelectedId}
                         />

@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { ClickAwayListener } from "@mui/material";
 
 import { useTrello } from "@/context/TrelloContext";
 import { fetchApi } from "@/utils/api";
@@ -16,13 +18,11 @@ import {
   PlusIcon,
   SavedIcon,
 } from "@/components/Icons";
+import { Tooltip } from "@/components/Tooltip";
 import AddCardForm from "../Card/AddCardForm";
-import Tooltip from "@/components/Tooltip";
 import toSlug from "@/utils/slug";
 import { addCardOrderApi } from "../_id";
 import mapOrder from "@/utils/sort/sorts";
-import { useParams } from "react-router-dom";
-import { ClickAwayListener } from "@mui/material";
 import { useTheme } from "@/context/ThemeContext";
 
 interface TrelloListProps {
@@ -154,6 +154,7 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
         listId: list.id,
         content: content,
         isSaved: false,
+        createdAt: new Date().toISOString(),
       };
 
       const newCard = (await fetchApi.post("/cards", payload)) as CardI;
@@ -261,20 +262,17 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
             className="text-trello-listCard-text flex cursor-pointer flex-col items-center gap-1 rounded-xl px-3 py-2 hover:bg-[#0B120E24]"
             onClick={handleToggleShrink}
           >
-            <button
-              className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2"
-              disabled={isSaving}
-            >
-              <ChevronLeftRightIcon
-                size="16"
-                fillColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
-              />
-              <Tooltip
-                title="Mở rộng danh sách"
-                name="list"
-                isFirstList={isFirstList}
-              />
-            </button>
+            <Tooltip title="Mở rộng danh sách" offset={[0, -15]}>
+              <button
+                className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2"
+                disabled={isSaving}
+              >
+                <ChevronLeftRightIcon
+                  size="16"
+                  fillColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
+                />
+              </button>
+            </Tooltip>
             <h3 className="whitespace-nowrap [writing-mode:vertical-lr]">
               {list.title}
             </h3>
@@ -305,7 +303,7 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
                     />
                   ) : (
                     <button
-                      className="text-trello-listCard-text w-full cursor-pointer px-3 text-left font-semibold"
+                      className="text-trello-listCard-text ml-3 w-full cursor-pointer text-left font-semibold"
                       onClick={(e) => {
                         e.stopPropagation();
                         setEditMode(!editMode);
@@ -317,31 +315,34 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
                 </h3>
               </ClickAwayListener>
               <div className="text-trello-listCard-text flex items-center text-sm">
-                <span className="group/list relative mx-2">
-                  {listCardsCount}
-                  <Tooltip title="Tổng số thẻ" name="list" />
-                </span>
-                <button
-                  className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
-                  onClick={handleToggleShrink}
-                >
-                  <ChevronRightLeftIcon
-                    size="16"
-                    fillColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
-                  />
-                  <Tooltip title="Thu gọn danh sách" name="list" />
-                </button>
-                <button
-                  className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
-                  disabled={isSaving}
-                  onClick={handleSaved}
-                >
-                  <SavedIcon
-                    size="16"
-                    iconColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
-                  />
-                  <Tooltip title="Lưu danh sách này" name="list" />
-                </button>
+                <Tooltip title="Tổng số thẻ">
+                  <span className="group/list relative mx-2">
+                    {listCardsCount}
+                  </span>
+                </Tooltip>
+                <Tooltip title="Thu gọn danh sách">
+                  <button
+                    className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
+                    onClick={handleToggleShrink}
+                  >
+                    <ChevronRightLeftIcon
+                      size="16"
+                      fillColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
+                    />
+                  </button>
+                </Tooltip>
+                <Tooltip title="Lưu danh sách này">
+                  <button
+                    className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
+                    disabled={isSaving}
+                    onClick={handleSaved}
+                  >
+                    <SavedIcon
+                      size="16"
+                      iconColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
+                    />
+                  </button>
+                </Tooltip>
               </div>
             </div>
 
