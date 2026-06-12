@@ -1,6 +1,6 @@
 // Auth
-import Login from "@/pages/Auth/Login";
-import Register from "@/pages/Auth/Register";
+import Login from "@/pages/auth/Login";
+import Register from "@/pages/auth/Register";
 import AuthLayout from "@/layouts/AuthLayout";
 
 // User
