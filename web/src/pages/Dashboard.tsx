@@ -1,9 +1,14 @@
 import { useTrello } from "@/context/TrelloContext";
 import BoardList from "./Boards/BoardContent/BoardList";
 import AddBoardForm from "./Boards/BoardContent/AddBoardForm";
+import { useEffect } from "react";
 
 export default function Dashboard() {
   const { boards, filteredBoards, searchKeyword, loading } = useTrello();
+
+  useEffect(() => {
+    document.title = "Clone Trello";
+  }, []);
 
   if (loading)
     return (

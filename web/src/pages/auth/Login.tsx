@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { AuthI } from "@/utils/type";
+import { toast } from "react-toastify";
+
+import type { AuthI, UserI } from "@/utils/type";
 import { fetchApi } from "@/utils/api";
 import { loginSchema, validationForm } from "@/utils/validate";
-import { EyeCloseIcon, EyeIcon } from "@/components/Icons";
+import {
+  ExclamationTriangleIcon,
+  EyeCloseIcon,
+  EyeIcon,
+} from "@/components/Icons";
 
 export default function Login() {
   const formData = {
@@ -12,23 +18,37 @@ export default function Login() {
   };
   const [form, setForm] = useState<AuthI>(formData);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [hasEdited, setHasEdited] = useState<boolean>(false);
   const navigate = useNavigate();
+  const isSubmitting = useRef(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+
+    if (isCorrect) {
+      setHasEdited(true);
+    }
   };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validationForm(loginSchema, form, setErrors)) return;
+    if (isSubmitting.current) return;
 
-    setLoading(true);
+    isSubmitting.current = true;
+    setHasEdited(false);
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const allUsers = (await fetchApi.get("/users")) as any[];
+      const allUsers = (await fetchApi.get("/users")) as UserI[];
 
       const matchedUser = allUsers.find(
         (u) => u.email === form.email && u.password === form.password,
@@ -51,26 +71,44 @@ export default function Login() {
         localStorage.setItem("refresh_token", responseMock.refreshToken);
         localStorage.setItem("current_user", JSON.stringify(responseMock.user));
 
+        toast.success("Chúc mừng bạn đăng nhập thành công");
+        isSubmitting.current = false;
         navigate("/dashboard");
       } else {
-        alert("Email hoặc mật khẩu không chính xác!");
+        setIsCorrect(true);
+        isSubmitting.current = false;
       }
     } catch (error) {
+      isSubmitting.current = false;
       console.error("Lỗi:", error);
-      alert("Không thể kết nối đến json-server!");
-    } finally {
-      setLoading(false);
+      toast.error("Không thể kết nối đến json-server!");
     }
   };
 
   return (
     <div className="bg-trello-bg flex h-screen flex-col items-center justify-center">
       <h1 className="text-trello-heading-text mb-10 text-3xl">Login Trello</h1>
+
+      <div
+        className={`opacity-0 transition-opacity duration-200 ${isCorrect ? "opacity-100" : ""}`}
+      ></div>
+
       <form
-        className="rounded-xl bg-white p-7.5 shadow-md"
+        className="w-md rounded-xl bg-white p-8 shadow-md"
         onSubmit={handleLogin}
         noValidate
       >
+        {isCorrect && (
+          <div
+            className={`mb-4 flex items-center rounded-md px-3 py-1 text-[#e96354] transition-opacity duration-200 ${hasEdited ? "bg-red-100 opacity-60" : "bg-red-200"}`}
+          >
+            <ExclamationTriangleIcon fillColor="#e74d3c" />
+            <p className="ml-2 text-sm">
+              Nhập sai email hoặc mật khẩu. Xin vui lòng thử lại.
+            </p>
+          </div>
+        )}
+
         <div className="flex flex-col gap-1">
           <label
             className="text-trello-label-text text-sm font-bold"
@@ -79,7 +117,7 @@ export default function Login() {
             Email:
           </label>
           <input
-            className={`rounded-md border px-2 py-1 outline-none ${errors.email ? "border-red-500" : ""}`}
+            className={`rounded-md border px-2 py-1 outline-none ${errors.email || isCorrect ? "border-red-500" : ""}`}
             type="email"
             autoComplete="email"
             placeholder="Nhập email bất kỳ..."
@@ -103,7 +141,7 @@ export default function Login() {
             Password:
           </label>
           <div
-            className={`flex items-center justify-between rounded-md border px-2 py-1 ${errors.password ? "border-red-500" : ""}`}
+            className={`flex items-center justify-between rounded-md border px-2 py-1 ${errors.password || isCorrect ? "border-red-500" : ""}`}
           >
             <input
               className="mr-2 w-full outline-none"
@@ -139,11 +177,11 @@ export default function Login() {
             Đăng kí
           </button>
           <button
-            className="min-w-30 cursor-pointer rounded-lg bg-blue-500 p-2 text-white hover:bg-blue-400"
+            className={`min-w-30 rounded-lg p-2 text-white ${isCorrect && !hasEdited ? "cursor-not-allowed bg-gray-400" : "cursor-pointer bg-blue-500 hover:bg-blue-400"}`}
             type="submit"
-            disabled={loading}
+            disabled={isCorrect && !hasEdited}
           >
-            {loading ? "Đang kết nối..." : "Đăng nhập"}
+            Đăng nhập
           </button>
         </div>
       </form>

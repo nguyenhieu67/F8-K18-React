@@ -393,9 +393,9 @@ export default function List({ boardId }: ListProps) {
             items={orderedLists.map((b) => b.id)}
             strategy={horizontalListSortingStrategy}
           >
-            {orderedLists.map((list, index) => (
+            {orderedLists.map((list) => (
               <li key={list.id} className="block h-full list-none">
-                <TrelloList list={list as ListI} isFirstList={index === 0} />
+                <TrelloList list={list as ListI} />
               </li>
             ))}
           </SortableContext>

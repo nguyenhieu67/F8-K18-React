@@ -30,7 +30,7 @@ export default function CustomTooltip({
   children,
   title,
   enterDelay = 100,
-  leaveDelay = 30,
+  leaveDelay = 0,
   arrow = false,
   placement = "bottom",
   offset = [0, -5],
@@ -56,7 +56,7 @@ export default function CustomTooltip({
         },
       }}
     >
-      {children}
+      <span> {children}</span>
     </Tooltip>
   );
 }

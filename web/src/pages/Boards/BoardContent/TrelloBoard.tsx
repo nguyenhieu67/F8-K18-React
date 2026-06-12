@@ -16,7 +16,9 @@ export default function TrelloBoard() {
   useEffect(() => {
     if (!boards || boards.length === 0 || !boardDetail) return;
     const foundBoard = boards.find((b) => toSlug(b.title) === boardDetail);
+
     if (foundBoard) {
+      document.title = `${foundBoard.title} | Clone Trello`;
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrentBoard(foundBoard);
     }
