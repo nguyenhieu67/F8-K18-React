@@ -357,9 +357,10 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
                 ))}
               </SortableContext>
               {showAddCard && (
-                <li>
+                <li onMouseDown={(e) => e.stopPropagation()}>
                   <AddCardForm
                     onAdd={handleAddCard}
+                    onClickOutSize={handleAddCard}
                     onClose={() => setShowAddCard(false)}
                   />
                 </li>

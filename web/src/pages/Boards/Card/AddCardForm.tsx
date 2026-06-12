@@ -6,10 +6,15 @@ import { useTheme } from "@/context/ThemeContext";
 
 interface AddCardFormProps {
   onAdd: (content: string) => Promise<void>;
+  onClickOutSize: (content: string) => Promise<void>;
   onClose: () => void;
 }
 
-export default function AddCardForm({ onAdd, onClose }: AddCardFormProps) {
+export default function AddCardForm({
+  onAdd,
+  onClickOutSize,
+  onClose,
+}: AddCardFormProps) {
   const [cardInput, setCardInput] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -30,6 +35,7 @@ export default function AddCardForm({ onAdd, onClose }: AddCardFormProps) {
       // Xoá đi div trong DOM vì sử dụng thuộc tính contentEditable
       if (divRef.current) {
         divRef.current.innerText = "";
+        divRef.current.focus();
       }
 
       setCardInput("");
@@ -41,7 +47,15 @@ export default function AddCardForm({ onAdd, onClose }: AddCardFormProps) {
   };
 
   return (
-    <ClickAwayListener onClickAway={() => onClose()}>
+    <ClickAwayListener
+      onClickAway={() => {
+        if (cardInput.length > 0) {
+          if (!cardInput.trim()) return;
+          onClickOutSize(cardInput.trim());
+        }
+        onClose();
+      }}
+    >
       <div>
         <div className="bg-trello-card-bg relative min-h-16 w-full rounded-xl px-3 py-2 shadow">
           {!cardInput && (
