@@ -44,6 +44,8 @@ export default function List({ boardId }: ListProps) {
   const [showAddList, setShowAddList] = useState<boolean>(false);
   const [activeList, setActiveList] = useState<ListI | null>(null);
   const [activeCard, setActiveCard] = useState<CardI | null>(null);
+  const [listInput, setListInput] = useState("");
+
   const { boards, setBoards, lists, setLists, cards, setCards } = useTrello();
 
   // Lưu lại list trước đó tránh bị re-render cập nhật thành cái mới
@@ -68,6 +70,7 @@ export default function List({ boardId }: ListProps) {
       distance: 5,
       predicate: (event: PointerEvent) => {
         const target = event.target as HTMLElement;
+
         if (!target) return true;
         const shouldBlock =
           target.closest('[data-no-dnd="true"]') ||
@@ -398,6 +401,8 @@ export default function List({ boardId }: ListProps) {
 
           {showAddList ? (
             <AddListForm
+              value={listInput}
+              onChange={setListInput}
               onAdd={handleAddList}
               onClose={() => setShowAddList(false)}
             />
@@ -407,7 +412,7 @@ export default function List({ boardId }: ListProps) {
                 className="flex min-w-(--list-box-width) cursor-pointer items-center gap-1 rounded-lg bg-[#ffffff3d] p-3 text-sm font-medium text-white hover:bg-[#ffffff33]"
                 onClick={() => setShowAddList(true)}
               >
-                <PlusIcon width="16" height="16" iconColor="#fff" />
+                <PlusIcon size="16" iconColor="#fff" />
                 Thêm danh sách khác
               </button>
             </div>

@@ -4,6 +4,7 @@ import { useTrello } from "@/context/TrelloContext";
 import ContextUser from "@/layouts/components/ContextUser";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useTheme } from "@/context/ThemeContext";
+import AddBoardForm from "@/pages/Boards/BoardContent/AddBoardForm";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function Header() {
         className="flex cursor-pointer items-center gap-2"
         onClick={() => navigate("/dashboard")}
       >
-        <TrelloIcon width="24" height="24" iconColor="#fff" />
+        <TrelloIcon size="24" iconColor="#fff" />
         <span className="font-bold">Trello</span>
       </div>
 
@@ -33,9 +34,7 @@ export default function Header() {
             onChange={(e) => setSearchKeyword(e.target.value)}
           />
         </div>
-        <button className="h-10 shrink-0 cursor-pointer rounded-md bg-white/20 px-4 font-semibold text-white transition hover:bg-white/30">
-          Tạo mới
-        </button>
+        <AddBoardForm title="Tạo mới" />
       </div>
 
       <div className="flex items-center gap-4">
@@ -46,15 +45,15 @@ export default function Header() {
             </span>
             <button
               onClick={toggleTheme}
-              className="h-9 w-14 rounded-md bg-white/20 text-center text-sm font-semibold text-white transition hover:bg-white/30"
+              className="bg-trello-button-bg hover:bg-trello-button-bg-hover text-trello-button-text h-9 w-14 rounded-md text-center text-sm font-semibold transition"
             >
-              {theme === "light" ? "Light" : "Dark"}
+              {theme === "dark" ? "Light" : "Dark"}
             </button>
             <NotificationsNoneIcon sx={{ color: "#fff" }} />
             <ContextUser currentUser={currentUser} logout={logout} />
           </div>
         ) : (
-          <div className="h-8 w-24 animate-pulse rounded bg-white/20"></div>
+          <div className="bg-trello-button-bg hover:bg-trello-button-bg-hover text-trello-button-text h-8 w-24 animate-pulse rounded"></div>
         )}
       </div>
     </header>

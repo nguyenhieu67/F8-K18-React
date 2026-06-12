@@ -1,35 +1,35 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { ClickAwayListener } from "@mui/material";
+
 import { CloseIcon } from "@/components/Icons";
+import { useTheme } from "@/context/ThemeContext";
 
 interface AddListFormProps {
+  value: string;
+  onChange: (value: string) => void;
   onAdd: (title: string) => Promise<void>;
   onClose: () => void;
 }
 
-export default function AddListForm({ onAdd, onClose }: AddListFormProps) {
-  const [listInput, setListInput] = useState("");
+export default function AddListForm({
+  value,
+  onChange,
+  onAdd,
+  onClose,
+}: AddListFormProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const boxRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (boxRef.current && !boxRef.current.contains(e.target as Node)) {
-        onClose();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const { theme } = useTheme();
 
   const handleSubmit = async () => {
-    if (!listInput.trim() || loading) return;
+    if (!value.trim() || loading) return;
     try {
       setLoading(true);
-      await onAdd(listInput.trim());
-      setListInput("");
+      await onAdd(value.trim());
+      onChange("");
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -38,38 +38,44 @@ export default function AddListForm({ onAdd, onClose }: AddListFormProps) {
   };
 
   return (
-    <div
-      ref={boxRef}
-      className="min-w-(--list-box-width) rounded-xl bg-white p-2 shadow"
+    <ClickAwayListener
+      onClickAway={() => {
+        onClose();
+      }}
     >
-      <input
-        className="w-full rounded-sm border border-gray-400 px-2 py-1 text-sm text-gray-600 outline-none"
-        placeholder="Nhập tên danh sách..."
-        value={listInput}
-        autoFocus
-        onChange={(e) => setListInput(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            handleSubmit();
-          }
-          if (e.key === "Escape") {
-            onClose();
-          }
-        }}
-      />
-      <div className="mt-1.5 flex items-center gap-3">
-        <button
-          className="cursor-pointer rounded-md bg-blue-500 px-2 py-1 text-sm font-medium text-white hover:bg-blue-400"
-          onClick={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? "Đang thêm..." : "Thêm danh sách"}
-        </button>
-        <button onClick={onClose} className="cursor-pointer text-gray-500">
-          <CloseIcon />
-        </button>
+      <div className="bg-trello-list-bg min-w-(--list-box-width) rounded-xl p-2 shadow">
+        <input
+          ref={inputRef}
+          className="text-trello-listCard-text w-full rounded-sm px-2 py-1 text-sm shadow-[inset_0_0_0_1px_rgb(140,141,151)] outline-none focus:shadow-[0_0_0_2px_rgb(0,121,191)]"
+          placeholder="Nhập tên danh sách..."
+          value={value}
+          autoFocus
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSubmit();
+            }
+            if (e.key === "Escape") {
+              onClose();
+            }
+          }}
+        />
+        <div className="mt-1.5 flex items-center gap-3">
+          <button
+            className={`text-trello-button-text cursor-pointer rounded-md bg-[#1868db] px-2 py-1 text-sm font-medium hover:bg-blue-400 dark:bg-[#669df1]`}
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Đang thêm..." : "Thêm danh sách"}
+          </button>
+          <button onClick={onClose} className="cursor-pointer">
+            <CloseIcon
+              iconColor={`${theme === "dark" ? "#a9abaf" : "#505258"}`}
+            />
+          </button>
+        </div>
       </div>
-    </div>
+    </ClickAwayListener>
   );
 }

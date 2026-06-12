@@ -2,7 +2,6 @@ import { fetchApi } from "@/utils/api";
 import type { BoardI, ListI } from "@/utils/type";
 
 // List API
-
 export async function addListOrderApi(boardId: string, newListId: string) {
   const response = (await fetchApi.get(`/boards/${boardId}`)) as BoardI;
   const currentBoard = response;
@@ -23,7 +22,6 @@ export async function updateListOrderIdsApi(
 }
 
 // Card API
-
 export async function addCardOrderApi(listId: string, newCardId: string) {
   const response = (await fetchApi.get(`/lists/${listId}`)) as ListI;
   const currentList = response;

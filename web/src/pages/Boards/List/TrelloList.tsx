@@ -22,6 +22,8 @@ import toSlug from "@/utils/slug";
 import { addCardOrderApi } from "../_id";
 import mapOrder from "@/utils/sort/sorts";
 import { useParams } from "react-router-dom";
+import { ClickAwayListener } from "@mui/material";
+import { useTheme } from "@/context/ThemeContext";
 
 interface TrelloListProps {
   list: ListI;
@@ -30,6 +32,7 @@ interface TrelloListProps {
 
 export default function TrelloList({ list, isFirstList }: TrelloListProps) {
   const { boards, setLists, cards, setCards } = useTrello();
+  const { theme } = useTheme();
   const { boardDetail } = useParams();
 
   const [showAddCard, setShowAddCard] = useState<boolean>(false);
@@ -117,23 +120,6 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
       }
     }
   }, [showAddCard, editMode, list.title]);
-
-  // Click out size
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        listTitleRef.current &&
-        !listTitleRef.current.contains(e.target as Node)
-      ) {
-        setEditMode(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [setEditMode]);
 
   // Lấy width & height của list isDragging đó
   useEffect(() => {
@@ -267,12 +253,12 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
         ref={listRef}
         {...listeners}
         {...attributes}
-        className={`${shrink ? "w-10" : "w-(--list-box-width)"} block min-w-0 shrink-0 self-start rounded-xl bg-[#f1f2f4]`}
+        className={`${shrink ? "w-10" : "w-(--list-box-width)"} bg-trello-list-bg block min-w-0 shrink-0 self-start rounded-xl`}
       >
         {shrink ? (
           <div
             ref={shrinkRef}
-            className="flex cursor-pointer flex-col items-center gap-1 rounded-xl px-3 py-2 hover:bg-[#0B120E24]"
+            className="text-trello-listCard-text flex cursor-pointer flex-col items-center gap-1 rounded-xl px-3 py-2 hover:bg-[#0B120E24]"
             onClick={handleToggleShrink}
           >
             <button
@@ -280,9 +266,8 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
               disabled={isSaving}
             >
               <ChevronLeftRightIcon
-                width="16"
-                height="16"
-                fillColor="#292a2e"
+                size="16"
+                fillColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
               />
               <Tooltip
                 title="Mở rộng danh sách"
@@ -299,37 +284,39 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
           <div className="flex max-h-[calc(100vh-200px)] flex-col px-3 py-2">
             {/* Header List */}
             <div className="flex items-center justify-between py-1">
-              <h3 className="w-full wrap-break-word [word-break:break-word] whitespace-pre-wrap">
-                {editMode ? (
-                  <div
-                    ref={listTitleRef}
-                    role="textbox"
-                    contentEditable="true"
-                    suppressContentEditableWarning
-                    className="block w-full px-3 py-1 font-semibold wrap-break-word [word-break:break-word] whitespace-pre-wrap text-gray-700"
-                    onInput={(e) =>
-                      setEditTitle(e.currentTarget.textContent || "")
-                    }
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSubmit();
+              <ClickAwayListener onClickAway={() => setEditMode(false)}>
+                <h3 className="w-full wrap-break-word [word-break:break-word] whitespace-pre-wrap">
+                  {editMode ? (
+                    <div
+                      ref={listTitleRef}
+                      role="textbox"
+                      contentEditable="true"
+                      suppressContentEditableWarning
+                      className="text-trello-listCard-text block w-full px-3 py-1 font-semibold wrap-break-word [word-break:break-word] whitespace-pre-wrap"
+                      onInput={(e) =>
+                        setEditTitle(e.currentTarget.textContent || "")
                       }
-                    }}
-                  />
-                ) : (
-                  <button
-                    className="w-full cursor-pointer px-3 text-left font-semibold text-gray-700"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEditMode(!editMode);
-                    }}
-                  >
-                    {list.title}
-                  </button>
-                )}
-              </h3>
-              <div className="flex items-center text-sm">
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          handleSubmit();
+                        }
+                      }}
+                    />
+                  ) : (
+                    <button
+                      className="text-trello-listCard-text w-full cursor-pointer px-3 text-left font-semibold"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditMode(!editMode);
+                      }}
+                    >
+                      {list.title}
+                    </button>
+                  )}
+                </h3>
+              </ClickAwayListener>
+              <div className="text-trello-listCard-text flex items-center text-sm">
                 <span className="group/list relative mx-2">
                   {listCardsCount}
                   <Tooltip title="Tổng số thẻ" name="list" />
@@ -339,9 +326,8 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
                   onClick={handleToggleShrink}
                 >
                   <ChevronRightLeftIcon
-                    width="16"
-                    height="16"
-                    fillColor="#292a2e"
+                    size="16"
+                    fillColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
                   />
                   <Tooltip title="Thu gọn danh sách" name="list" />
                 </button>
@@ -350,7 +336,10 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
                   disabled={isSaving}
                   onClick={handleSaved}
                 >
-                  <SavedIcon width="16" height="16" iconClass="#292a2e" />
+                  <SavedIcon
+                    size="16"
+                    iconColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
+                  />
                   <Tooltip title="Lưu danh sách này" name="list" />
                 </button>
               </div>
@@ -368,9 +357,10 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
                 ))}
               </SortableContext>
               {showAddCard && (
-                <li>
+                <li onMouseDown={(e) => e.stopPropagation()}>
                   <AddCardForm
                     onAdd={handleAddCard}
+                    onClickOutSize={handleAddCard}
                     onClose={() => setShowAddCard(false)}
                   />
                 </li>
@@ -381,10 +371,13 @@ export default function TrelloList({ list, isFirstList }: TrelloListProps) {
             {!showAddCard && (
               <div className="mt-auto shrink-0 pt-1">
                 <button
-                  className="mt-1 flex w-full cursor-pointer items-center gap-1 rounded-lg p-2 text-sm font-medium text-[#505258] hover:bg-[#0B120E24]"
+                  className="mt-1 flex w-full cursor-pointer items-center gap-1 rounded-lg p-2 text-sm font-medium text-[#505258] hover:bg-[#0B120E24] dark:text-[#a9abaf] dark:hover:bg-[#e3e4f21f]"
                   onClick={() => setShowAddCard(true)}
                 >
-                  <PlusIcon width="16" height="16" iconColor="#505258" />
+                  <PlusIcon
+                    size="16"
+                    iconColor={`${theme === "dark" ? "#a9abaf" : "#505258"}`}
+                  />
                   Thêm thẻ
                 </button>
               </div>
