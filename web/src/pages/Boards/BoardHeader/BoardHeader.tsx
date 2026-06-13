@@ -2,11 +2,33 @@ import { Tooltip } from "@/components/Tooltip";
 import { EllipsisIcon, ShareIcon, StarIcon } from "@/components/Icons";
 import type { BoardI } from "@/utils/type";
 
+import { useTrello } from "@/context/TrelloContext";
+import { fetchApi } from "@/utils/api";
+
 interface Props {
   board: BoardI | null;
 }
 
 export default function BoardHeader({ board }: Props) {
+  const { setBoards } = useTrello();
+  const handleToggleStar = async () => {
+    if (!board) return;
+
+    try {
+      const updatedBoard = {
+        ...board,
+        isStarred: !board.isStarred,
+      };
+
+      await fetchApi.put(`/boards/${board.id}`, updatedBoard);
+
+      setBoards((prev) =>
+        prev.map((item) => (item.id === board.id ? updatedBoard : item)),
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="flex h-14 items-center justify-between bg-[#00000053] p-3 text-xl text-white">
       <div className="flex-1">
@@ -25,8 +47,14 @@ export default function BoardHeader({ board }: Props) {
           describeChild
           title="Đánh hoặc bỏ đánh dấu sao bảng này. Bảng được đánh dấu sao sẽ hiện ở đầu danh sách Bảng."
         >
-          <div className="rounded-md p-2 hover:bg-[#ffffff33]">
-            <StarIcon size="16" iconColor="#fff" />
+          <div
+            onClick={handleToggleStar}
+            className="cursor-pointer rounded-md p-2 hover:bg-[#ffffff33]"
+          >
+            <StarIcon
+              size="16"
+              iconColor={board?.isStarred ? "#FFD700" : "#fff"}
+            />
           </div>
         </Tooltip>
 

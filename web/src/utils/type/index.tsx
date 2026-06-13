@@ -28,6 +28,7 @@ interface BoardI {
   title: string;
   listOrderIds: string[];
   background: BackgroundI;
+  isStarred?: boolean;
 }
 
 interface ListI {
