@@ -410,7 +410,7 @@ export default function List({ boardId }: ListProps) {
           ) : (
             <div className="shrink-0">
               <button
-                className="flex min-w-(--list-box-width) cursor-pointer items-center gap-1 rounded-lg bg-[#ffffff3d] p-3 text-sm font-medium text-white hover:bg-[#ffffff33]"
+                className="flex min-w-(--list-box-width) cursor-pointer items-center gap-1 rounded-lg bg-[#0000002b] p-3 text-sm font-medium text-white hover:bg-[#00000033]"
                 onClick={() => setShowAddList(true)}
               >
                 <PlusIcon size="16" iconColor="#fff" />

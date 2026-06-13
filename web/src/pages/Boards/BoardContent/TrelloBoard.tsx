@@ -28,24 +28,22 @@ export default function TrelloBoard() {
   const isImage = bg?.type === "image";
 
   return (
-    <div className="relative w-full">
-      <div
-        className={`fixed inset-0 -z-10 transition-all duration-500 ease-linear ${!isImage ? bg?.value : "bg-cover bg-center"}`}
-        style={{
-          backgroundImage: isImage ? `url(${bg?.value})` : undefined,
-        }}
-      >
-        <BoardHeader board={currentBoard} />
-        {currentBoard ? (
-          <List boardId={currentBoard.id} />
-        ) : (
-          <div className="h-screen text-white">
-            <h2 className="mt-10 text-center text-4xl font-bold">
-              Vui lòng đợi...
-            </h2>
-          </div>
-        )}
-      </div>
+    <div
+      className={`-z-10 transition-all duration-500 ease-linear ${!isImage ? bg?.value : "bg-cover bg-center"}`}
+      style={{
+        backgroundImage: isImage ? `url(${bg?.value})` : undefined,
+      }}
+    >
+      <BoardHeader board={currentBoard} />
+      {currentBoard ? (
+        <List boardId={currentBoard.id} />
+      ) : (
+        <div className="h-screen text-white">
+          <h2 className="mt-10 text-center text-4xl font-bold">
+            Vui lòng đợi...
+          </h2>
+        </div>
+      )}
     </div>
   );
 }
