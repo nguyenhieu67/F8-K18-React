@@ -2,6 +2,7 @@ import { useTrello } from "@/context/TrelloContext";
 import BoardList from "./Boards/BoardContent/BoardList";
 import AddBoardForm from "./Boards/BoardContent/AddBoardForm";
 import { useEffect } from "react";
+import { BackgroundPickerProvider } from "@/context/BackgroundPickerContext";
 
 export default function Dashboard() {
   const { boards, filteredBoards, searchKeyword, loading } = useTrello();
@@ -18,8 +19,17 @@ export default function Dashboard() {
     );
 
   return (
-    <div className="bg-trello-board-bg min-h-screen">
+    <div className="bg-trello-board-bg h-[calc(100vh-56px)]">
       <main className="mx-auto max-w-6xl p-8">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-trello-board-text text-xl font-bold">
+            Bảng công việc của bạn
+          </h2>
+          <BackgroundPickerProvider>
+            <AddBoardForm title="Tạo bảng mới" />
+          </BackgroundPickerProvider>
+        </div>
+
         {boards.length === 0 ? (
           <>
             <div className="mb-6 flex items-center justify-between">

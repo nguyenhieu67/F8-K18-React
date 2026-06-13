@@ -30,7 +30,7 @@ export default function BoardHeader({ board }: Props) {
     }
   };
   return (
-    <div className="mt-14 flex h-14 items-center justify-between bg-[#00000053] p-3 text-xl text-white">
+    <div className="flex h-14 items-center justify-between bg-[#00000053] p-3 text-xl text-white">
       <div className="flex-1">
         <h2 className="font-bold">{board?.title}</h2>
       </div>

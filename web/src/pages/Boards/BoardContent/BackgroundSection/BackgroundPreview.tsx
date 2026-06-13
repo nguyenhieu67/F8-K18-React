@@ -7,31 +7,41 @@ interface Item {
 
 interface Props {
   items: Item[];
-  type: "image" | "color";
   imgClass: string;
+  limit?: number | null;
+  type?: "image" | "color";
   selectedId: string | number | null;
   onSelect: (id: string | number) => void;
 }
 
-export default function Background({
+export default function BackgroundPreview({
   items,
-  type,
   imgClass,
+  limit = null,
+  type = "color",
   selectedId,
   onSelect,
 }: Props) {
+  const displayItems = limit ? items.slice(0, limit) : items;
+
   return (
     <>
-      {items.map((item) => (
-        <li key={item.id} className={`${imgClass}`}>
+      {displayItems.map((item) => (
+        <li key={item.id} className={`${imgClass} list-none`}>
           <button
             onClick={() => onSelect(item.id)}
             style={{
               backgroundImage:
-                type === "image" ? `url(${item.value})` : undefined,
+                type === "image"
+                  ? item.value.startsWith("data:image")
+                    ? `url("${item.value}")`
+                    : `url(${item.value})`
+                  : undefined,
             }}
             className={`relative flex h-full w-full cursor-pointer items-center justify-center rounded-lg shadow transition-transform hover:scale-105 ${
-              type === "color" ? item.value : "bg-cover bg-center"
+              type === "color"
+                ? `${item.value ? item.value : "bg-[#0515240f]"}`
+                : "bg-cover bg-center"
             }`}
           >
             {selectedId === item.id && (

@@ -42,201 +42,28 @@
       "userId": "0lSZFy_0f8Q",
       "title": "Board 1",
       "listOrderIds": [
-        "avR_3s1dDLQ",
-        "tz-WGTodFXM",
-        "L-uUu58UqCI",
-        "FQl1-x_4ARM",
-        "iwyWYiXZQh0",
-        "qtv8B4Oo6Mc",
-        "tqewj6eqax8",
-        "6TMf1gTAQ_8",
-        "LRIg0-usSu8",
-        "bEisHwitimM",
-        "luDfBmn1YrM"
+        "rgffuZZfqo4"
       ],
       "background": {
         "type": "image",
-        "value": "https://images.unsplash.com/photo-1780995174569-bca1738b3c88?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        "value": "https://images.unsplash.com/photo-1759681770982-313332e7f42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NzU3ODN8MHwxfHNlYXJjaHwxfHxuYXR1cmV8ZW58MHwwfHx8MTc4MTI3OTAwOHww&ixlib=rb-4.1.0&q=80&w=1080"
       },
-      "createdAt": "2026-06-11T12:25:25.299Z",
-      "id": "1WvB-Og0gmE"
-    },
-    {
-      "userId": "0lSZFy_0f8Q",
-      "title": "Board 2",
-      "listOrderIds": [
-        "_laIKb-24sc"
-      ],
-      "background": {
-        "type": "image",
-        "value": "https://images.unsplash.com/photo-1576506542790-51244b486a6b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      },
-      "createdAt": "2026-06-11T12:28:09.316Z",
-      "id": "iccUTCTrxwI"
-    },
-    {
-      "userId": "0lSZFy_0f8Q",
-      "title": "Board 3",
-      "listOrderIds": [],
-      "background": {
-        "type": "image",
-        "value": "https://images.unsplash.com/photo-1770341990092-6a5b0e1b61c2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      },
-      "createdAt": "2026-06-11T12:36:52.672Z",
-      "id": "kkvqIxW9eik"
-    },
-    {
-      "userId": "0lSZFy_0f8Q",
-      "title": "Board 3",
-      "listOrderIds": [],
-      "background": {
-        "type": "image",
-        "value": "https://images.unsplash.com/photo-1780995174569-bca1738b3c88?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      },
-      "createdAt": "2026-06-11T15:57:10.401Z",
-      "id": "jn9AsE1W4zg"
-    },
-    {
-      "userId": "0lSZFy_0f8Q",
-      "title": "Board 4",
-      "listOrderIds": [],
-      "background": {
-        "type": "image",
-        "value": "https://images.unsplash.com/photo-1576506542790-51244b486a6b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      },
-      "createdAt": "2026-06-12T10:39:09.974Z",
-      "id": "DvQ6VkkUKkw"
+      "createdAt": "2026-06-13T01:52:00.017Z",
+      "id": "LsP2stcu_rQ"
     }
   ],
   "lists": [
     {
-      "boardId": "1WvB-Og0gmE",
-      "title": "Title 1",
-      "cardOrderIds": [
-        "rDgaVZHeenU",
-        "fWpcz1yFZKE",
-        "H-tbEk3rOCE"
-      ],
-      "isSaved": false,
-      "isShrink": true,
-      "id": "iwyWYiXZQh0"
-    },
-    {
-      "boardId": "iccUTCTrxwI",
-      "title": "Title 1",
-      "cardOrderIds": [
-        "vHQzg_wsics"
-      ],
-      "isSaved": false,
-      "isShrink": true,
-      "id": "ZLERYBN4-5A"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "title": "Title 1",
+      "boardId": "LsP2stcu_rQ",
+      "title": "Titlt 1",
       "cardOrderIds": [],
       "isSaved": false,
-      "isShrink": true,
-      "createdAt": "2026-06-12T11:44:22.587Z",
-      "id": "qtv8B4Oo6Mc"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "title": "Title 2",
-      "cardOrderIds": [],
-      "isSaved": false,
-      "isShrink": true,
-      "createdAt": "2026-06-12T11:44:24.339Z",
-      "id": "tqewj6eqax8"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "title": "Title 3",
-      "cardOrderIds": [],
-      "isSaved": false,
-      "isShrink": true,
-      "createdAt": "2026-06-12T11:52:20.521Z",
-      "id": "6TMf1gTAQ_8"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "title": "Title 4",
-      "cardOrderIds": [],
-      "isSaved": false,
-      "isShrink": true,
-      "createdAt": "2026-06-12T11:52:22.953Z",
-      "id": "LRIg0-usSu8"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "title": "Title 5",
-      "cardOrderIds": [],
-      "isSaved": false,
-      "isShrink": true,
-      "createdAt": "2026-06-12T11:52:26.070Z",
-      "id": "bEisHwitimM"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "title": "Title 6",
-      "cardOrderIds": [],
-      "isSaved": false,
-      "isShrink": true,
-      "createdAt": "2026-06-12T11:52:31.455Z",
-      "id": "luDfBmn1YrM"
+      "isShrink": false,
+      "createdAt": "2026-06-13T01:52:07.747Z",
+      "id": "rgffuZZfqo4"
     }
   ],
-  "cards": [
-    {
-      "boardId": "iccUTCTrxwI",
-      "listId": "_laIKb-24sc",
-      "content": "Card 1",
-      "isSaved": false,
-      "id": "vHQzg_wsics"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "listId": "iwyWYiXZQh0",
-      "content": "Card 1.1",
-      "isSaved": false,
-      "id": "rDgaVZHeenU"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "listId": "L-uUu58UqCI",
-      "content": "Card 1.2",
-      "isSaved": false,
-      "id": "75sJhILyXHk"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "listId": "L-uUu58UqCI",
-      "content": "Card 1.3",
-      "isSaved": false,
-      "id": "9kldTkyrvU4"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "listId": "iwyWYiXZQh0",
-      "content": "Card 1.4",
-      "isSaved": false,
-      "id": "fWpcz1yFZKE"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "listId": "iwyWYiXZQh0",
-      "content": "Card 1.5",
-      "isSaved": false,
-      "id": "H-tbEk3rOCE"
-    },
-    {
-      "boardId": "1WvB-Og0gmE",
-      "listId": "L-uUu58UqCI",
-      "content": "Card 1.6",
-      "isSaved": false,
-      "id": "soFfq3HqT8E"
-    }
-  ],
+  "cards": [],
   "saved": [],
   "$schema": "./node_modules/json-server/schema.json"
 }
