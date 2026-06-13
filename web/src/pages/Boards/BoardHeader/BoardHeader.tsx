@@ -1,9 +1,12 @@
+import { useState } from "react";
+
 import { Tooltip } from "@/components/Tooltip";
 import { EllipsisIcon, ShareIcon, StarIcon } from "@/components/Icons";
 import type { BoardI } from "@/utils/type";
 
 import { useTrello } from "@/context/TrelloContext";
 import { fetchApi } from "@/utils/api";
+import ShareBoardModal from "./ShareBoardModal";
 
 interface Props {
   board: BoardI | null;
@@ -11,6 +14,7 @@ interface Props {
 
 export default function BoardHeader({ board }: Props) {
   const { setBoards } = useTrello();
+  const [openShare, setOpenShare] = useState(false);
   const handleToggleStar = async () => {
     if (!board) return;
 
@@ -58,7 +62,10 @@ export default function BoardHeader({ board }: Props) {
           </div>
         </Tooltip>
 
-        <div className="flex max-w-100 cursor-pointer items-center rounded-md bg-[#dcdfe4] px-2 hover:bg-white">
+        <div
+          onClick={() => board && setOpenShare(true)}
+          className="flex max-w-100 cursor-pointer items-center rounded-md bg-[#dcdfe4] px-2 hover:bg-white"
+        >
           <span className="-ml-1 p-2">
             <ShareIcon size="16" />
           </span>
@@ -68,6 +75,14 @@ export default function BoardHeader({ board }: Props) {
           <EllipsisIcon size="18" iconColor="#fff" />
         </div>
       </div>
+
+      {board && (
+        <ShareBoardModal
+          board={board}
+          open={openShare}
+          onClose={() => setOpenShare(false)}
+        />
+      )}
     </div>
   );
 }

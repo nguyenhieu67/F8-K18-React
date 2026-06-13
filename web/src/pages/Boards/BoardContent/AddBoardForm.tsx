@@ -74,6 +74,8 @@ export default function AddBoardForm({ title }: Props) {
         title: titleInput,
         listOrderIds: [],
         isStarred: false,
+        members: currentUser?.id ? [currentUser.id] : [],
+        inviteToken: null,
         background: {
           type: isImage ? "image" : "color",
           value: selectedItem.value,

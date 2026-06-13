@@ -15,6 +15,7 @@ interface UserI {
   name: string;
   email: string;
   password?: string;
+  avatar?: string;
 }
 
 interface BackgroundI {
@@ -29,6 +30,8 @@ interface BoardI {
   listOrderIds: string[];
   background: BackgroundI;
   isStarred?: boolean;
+  members?: string[];
+  inviteToken?: string | null;
 }
 
 interface ListI {
