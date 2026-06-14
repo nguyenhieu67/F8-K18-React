@@ -61,8 +61,13 @@ export function MainView() {
   );
 }
 
+interface Props {
+  photoViewClass?: string;
+  iconCheck?: boolean;
+}
+
 // ── PhotosView ──
-export function PhotosView() {
+export function PhotosView({ iconCheck }: Props) {
   const { selectedId, setNatureImages, handleSelectNature } =
     useBackgroundPicker();
 
@@ -72,7 +77,8 @@ export function PhotosView() {
         <NatureGallery
           imgSize="h-18"
           imgType="regular"
-          imgCount={20}
+          imgCount={30}
+          iconCheck={iconCheck}
           selectedId={selectedId}
           onSelect={handleSelectNature}
           onDataLoaded={setNatureImages}
@@ -82,8 +88,20 @@ export function PhotosView() {
   );
 }
 
+interface Props {
+  gradientColorsViewClass?: string;
+  solidColorsViewClass?: string;
+  imageSize?: string;
+  iconCheck?: boolean;
+}
+
 // ── ColorsView ──
-export function ColorsView() {
+export function ColorsView({
+  gradientColorsViewClass,
+  solidColorsViewClass,
+  imageSize = "h-14",
+  iconCheck,
+}: Props) {
   const {
     selectedId,
     gradientColors,
@@ -95,22 +113,24 @@ export function ColorsView() {
   return (
     <>
       {/* Gradient colors */}
-      <div className="mb-3 grid grid-cols-3 gap-1">
+      <div className={`${gradientColorsViewClass}`}>
         <BackgroundPreview
           items={gradientImageColors || gradientColors}
-          imgClass="h-14"
+          imgClass={`${imageSize}`}
           type="image"
+          iconCheck={iconCheck}
           selectedId={selectedId}
           onSelect={handleSelectColor}
         />
       </div>
       <hr className="mb-3" />
       {/* Solid colors */}
-      <div className="grid grid-cols-3 gap-1">
+      <div className={`${solidColorsViewClass}`}>
         <BackgroundPreview
           items={solidColors}
-          imgClass="h-14"
+          imgClass={`${imageSize}`}
           type="color"
+          iconCheck={iconCheck}
           selectedId={selectedId}
           onSelect={handleSelectColor}
         />

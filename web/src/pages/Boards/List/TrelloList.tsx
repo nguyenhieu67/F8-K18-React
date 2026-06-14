@@ -25,6 +25,7 @@ import toSlug from "@/utils/slug";
 import { addCardOrderApi } from "../_id";
 import mapOrder from "@/utils/sort/sorts";
 import { useTheme } from "@/context/ThemeContext";
+import { useCurrentBoard } from "@/hooks";
 
 interface TrelloListProps {
   list: ListI;
@@ -32,6 +33,7 @@ interface TrelloListProps {
 
 export default function TrelloList({ list }: TrelloListProps) {
   const { boards, setLists, cards, setCards } = useTrello();
+  const { isClosed } = useCurrentBoard();
   const { theme } = useTheme();
   const { boardDetail } = useParams();
 
@@ -144,6 +146,11 @@ export default function TrelloList({ list }: TrelloListProps) {
     }
   }, [cards, shrink, isDragging]);
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setShrink(list.isShrink || false);
+  }, [list.isShrink]);
+
   const handleAddCard = async (content: string) => {
     try {
       const currentBoard = boards.find((b) => toSlug(b.title) === boardDetail);
@@ -186,7 +193,9 @@ export default function TrelloList({ list }: TrelloListProps) {
       setIsSaving(true);
 
       await fetchApi.patch(`/lists/${list.id}`, { isSaved: true });
-      setLists((prevLists) => prevLists.filter((l) => l.id !== list.id));
+      setLists((prevLists) =>
+        prevLists.map((l) => (l.id === list.id ? { ...l, isSaved: true } : l)),
+      );
 
       toast.success(
         <div>
@@ -293,7 +302,7 @@ export default function TrelloList({ list }: TrelloListProps) {
           >
             <Tooltip title="Mở rộng danh sách" offset={[0, -15]}>
               <button
-                className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2"
+                className="relative h-8 w-8 cursor-pointer rounded-md p-2"
                 disabled={isSaving}
               >
                 <ChevronLeftRightIcon
@@ -305,7 +314,7 @@ export default function TrelloList({ list }: TrelloListProps) {
             <h3 className="whitespace-nowrap [writing-mode:vertical-lr]">
               {list.title}
             </h3>
-            <span className="group/list relative mx-2">{listCardsCount}</span>
+            <span className="relative mx-2">{listCardsCount}</span>
           </div>
         ) : (
           <div className="flex max-h-[calc(100vh-200px)] flex-col px-3 py-2">
@@ -345,13 +354,11 @@ export default function TrelloList({ list }: TrelloListProps) {
               </ClickAwayListener>
               <div className="text-trello-listCard-text flex items-center text-sm">
                 <Tooltip title="Tổng số thẻ">
-                  <span className="group/list relative mx-2">
-                    {listCardsCount}
-                  </span>
+                  <span className="mx-2">{listCardsCount}</span>
                 </Tooltip>
                 <Tooltip title="Thu gọn danh sách">
                   <button
-                    className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
+                    className="h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
                     onClick={handleToggleShrink}
                   >
                     <ChevronRightLeftIcon
@@ -360,18 +367,20 @@ export default function TrelloList({ list }: TrelloListProps) {
                     />
                   </button>
                 </Tooltip>
-                <Tooltip title="Lưu danh sách này">
-                  <button
-                    className="group/list relative h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
-                    disabled={isSaving}
-                    onClick={handleSaveList}
-                  >
-                    <SavedIcon
-                      size="16"
-                      iconColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
-                    />
-                  </button>
-                </Tooltip>
+                {!isClosed && (
+                  <Tooltip title="Lưu danh sách này">
+                    <button
+                      className="h-8 w-8 cursor-pointer rounded-md p-2 hover:bg-[#0B120E24]"
+                      disabled={isSaving}
+                      onClick={handleSaveList}
+                    >
+                      <SavedIcon
+                        size="16"
+                        iconColor={`${theme === "dark" ? "#a9abaf" : "#292a2e"}`}
+                      />
+                    </button>
+                  </Tooltip>
+                )}
               </div>
             </div>
 
@@ -398,7 +407,7 @@ export default function TrelloList({ list }: TrelloListProps) {
             </ol>
 
             {/* Thêm Card mới */}
-            {!showAddCard && (
+            {!showAddCard && !isClosed && (
               <div className="mt-auto shrink-0 pt-1">
                 <button
                   className="mt-1 flex w-full cursor-pointer items-center gap-1 rounded-lg p-2 text-sm font-medium text-[#505258] hover:bg-[#0B120E24] dark:text-[#a9abaf] dark:hover:bg-[#e3e4f21f]"

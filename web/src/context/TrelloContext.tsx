@@ -18,6 +18,9 @@ interface TrelloContextType {
   setSearchKeyword: (keyword: string) => void;
   loading: boolean;
   logout: () => void;
+  handleCloseBoard: (id: string) => void;
+  handleReopenBoard: (id: string) => void;
+  handleDeleteBoard: (id: string) => void;
 }
 
 const TrelloContext = createContext<TrelloContextType | undefined>(undefined);
@@ -89,6 +92,57 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
     navigate("/login");
   };
 
+  async function handleCloseBoard(boardId: string) {
+    try {
+      await fetchApi.patch(`/boards/${boardId}`, { isClosed: true });
+      setBoards((prev) =>
+        prev.map((b) => (b.id === boardId ? { ...b, isClosed: true } : b)),
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleReopenBoard(boardId: string) {
+    try {
+      await fetchApi.patch(`/boards/${boardId}`, { isClosed: false });
+      setBoards((prev) =>
+        prev.map((b) => (b.id === boardId ? { ...b, isClosed: false } : b)),
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleDeleteBoard(boardId: string) {
+    if (!boardId) return;
+    try {
+      // Delete all card in board
+      const boardCards = cards.filter((c) => c.boardId === boardId);
+      await Promise.all(
+        boardCards.map((c) => fetchApi.delete(`/cards/${c.id}`)),
+      );
+
+      // Delete add list in board
+      const boardLists = lists.filter((l) => l.boardId === boardId);
+      await Promise.all(
+        boardLists.map((l) => fetchApi.delete(`/lists/${l.id}`)),
+      );
+
+      // Delete board
+      await fetchApi.delete(`/boards/${boardId}`);
+
+      // 4. Update state
+      setCards((prev) => prev.filter((c) => c.boardId !== boardId));
+      setLists((prev) => prev.filter((l) => l.boardId !== boardId));
+      setBoards((prev) => prev.filter((b) => b.id !== boardId));
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <TrelloContext.Provider
       value={{
@@ -105,6 +159,9 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
         setSearchKeyword,
         loading,
         logout,
+        handleCloseBoard,
+        handleReopenBoard,
+        handleDeleteBoard,
       }}
     >
       {children}

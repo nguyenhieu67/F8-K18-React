@@ -22,6 +22,8 @@ export default function BoardList({ boards }: BoardListProps) {
         const bg = board.background;
         const isImage = bg?.type === "image";
 
+        if (board.isClosed) return;
+
         return (
           <button
             key={board.id}

@@ -10,6 +10,8 @@ import gradImgColor9 from "@/assets/images/gradientImageColors/941e9fef7b1b1129b
 import gradImgColor10 from "@/assets/images/gradientImageColors/1cbae06b1a428ad6234a.svg";
 
 import trelloBackgroundPreview from "@/assets/images/14cda5dc635d1f13bc48.svg";
+import trelloBackgroundImage from "@/assets/images/8f9c1323c9c16601a9a4.jpg";
+import trelloBackgroundColor from "@/assets/images/97db30fe74a58b7b7a18.png";
 
 const images = {
   gradImgColor1: gradImgColor1,
@@ -23,6 +25,8 @@ const images = {
   gradImgColor9: gradImgColor9,
   gradImgColor10: gradImgColor10,
   trelloBackgroundPreview: trelloBackgroundPreview,
+  trelloBackgroundImage: trelloBackgroundImage,
+  trelloBackgroundColor: trelloBackgroundColor,
 };
 
 export default images;

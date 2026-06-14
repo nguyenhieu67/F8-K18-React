@@ -25,6 +25,8 @@ body {
   --color-trello-border: var(--trello-border);
   --color-trello-add: var(--trello-add);
 
+  --color-trello-menu-item-bg-hover: var(--trello-menu-item-bg-hover);
+
   --color-trello-list-bg: var(--trello-list-bg);
   --color-trello-card-bg: var(--trello-card-bg);
   --color-trello-listCard-text: var(--trello-listCard-text);
@@ -38,8 +40,8 @@ body {
 }
 /*Light mode*/
 :root {
-  --trello-board-bg: #b694c3;
-  --trello-board-text: #fff;
+  --trello-board-bg: #fff;
+  --trello-board-text: #2b2c2f;
   --trello-addBoard-bg: #fff;
   --trello-addBoard-text: #505258;
   --trello-header: #7c3aed;
@@ -52,6 +54,7 @@ body {
   --trello-list-bg: #f1f2f4;
   --trello-card-bg: #fff;
   --trello-listCard-text: #292a2e;
+  --trello-menu-item-bg-hover: #0515240f;
 
   /* Button */
   --trello-button-bg: #fff3;
@@ -76,6 +79,7 @@ body {
   --trello-list-bg: #101204;
   --trello-card-bg: #242528;
   --trello-listCard-text: #cecfd2;
+  --trello-menu-item-bg-hover: #ceced912;
 
   /* Button */
   --trello-button-bg: #669df1;

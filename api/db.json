@@ -1,69 +1,26 @@
 {
-  "users": [
-    {
-      "id": "user_1",
-      "name": "user 1",
-      "email": "user1@gmail.com",
-      "password": "a12345678",
-      "avatar": "",
-      "theme": "light",
-      "createdAt": "2026-06-07T10:33:16.000Z"
-    },
-    {
-      "id": "0lSZFy_0f8Q",
-      "name": "Nguyen Duc Hieu",
-      "email": "duchieu@test.com",
-      "password": "Thebest5678",
-      "avatar": "",
-      "theme": "light",
-      "createdAt": "2026-06-07T05:29:53.695Z"
-    },
-    {
-      "name": "Nguyen Duc Hieu",
-      "email": "hieudev67@imail.edu.vn",
-      "password": "Thebad5678",
-      "avatar": "",
-      "theme": "light",
-      "createdAt": "2026-06-07T05:29:53.695Z",
-      "id": "SQtQKwawDyE"
-    },
-    {
-      "name": "khoi99",
-      "email": "khoitran@gmail.com",
-      "password": "Khoi@112233",
-      "avatar": "",
-      "theme": "light",
-      "createdAt": "2026-06-08T09:06:57.461Z",
-      "id": "Sac3MHNsqDk"
-    }
-  ],
-  "boards": [
-    {
-      "userId": "0lSZFy_0f8Q",
-      "title": "Board 1",
-      "listOrderIds": [
-        "rgffuZZfqo4"
-      ],
-      "background": {
-        "type": "image",
-        "value": "https://images.unsplash.com/photo-1759681770982-313332e7f42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NzU3ODN8MHwxfHNlYXJjaHwxfHxuYXR1cmV8ZW58MHwwfHx8MTc4MTI3OTAwOHww&ixlib=rb-4.1.0&q=80&w=1080"
-      },
-      "createdAt": "2026-06-13T01:52:00.017Z",
-      "id": "LsP2stcu_rQ"
-    }
-  ],
-  "lists": [
-    {
-      "boardId": "LsP2stcu_rQ",
-      "title": "Titlt 1",
-      "cardOrderIds": [],
-      "isSaved": false,
-      "isShrink": false,
-      "createdAt": "2026-06-13T01:52:07.747Z",
-      "id": "rgffuZZfqo4"
-    }
-  ],
-  "cards": [],
-  "saved": [],
-  "$schema": "./node_modules/json-server/schema.json"
+    "users": [
+        {
+            "id": "0lSZFy_0f8Q",
+            "name": "Nguyen Duc Hieu",
+            "email": "duchieu@test.com",
+            "password": "Thebest5678",
+            "avatar": "",
+            "theme": "light",
+            "createdAt": "2026-06-07T05:29:53.695Z"
+        },
+        {
+            "name": "khoi99",
+            "email": "khoitran@gmail.com",
+            "password": "Khoi@112233",
+            "avatar": "",
+            "theme": "light",
+            "createdAt": "2026-06-08T09:06:57.461Z",
+            "id": "Sac3MHNsqDk"
+        }
+    ],
+    "boards": [],
+    "lists": [],
+    "cards": [],
+    "$schema": "./node_modules/json-server/schema.json"
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createApi } from "unsplash-js";
 import { CheckIcon } from "../Icons";
+import { CircularProgress } from "@mui/material";
 
 // 1. Khởi tạo API với Access Key từ biến môi trường
 const unsplash = createApi({
@@ -18,6 +19,7 @@ interface Props {
   imgType?: "regular" | "raw" | "full" | "small";
   imgCount?: number;
   selectedId: string | number | null;
+  iconCheck?: boolean;
   onSelect: (id: string | number) => void;
   onDataLoaded?: (photos: PhotoI[]) => void;
 }
@@ -27,6 +29,7 @@ export function NatureGallery({
   imgType = "regular",
   imgCount = 5,
   selectedId,
+  iconCheck = true,
   onSelect,
   onDataLoaded,
 }: Props) {
@@ -63,7 +66,12 @@ export function NatureGallery({
     fetchNaturePhotos();
   }, [imgCount, onDataLoaded]);
 
-  if (loading) return <div>Đang tải ảnh thiên nhiên...</div>;
+  if (loading)
+    return (
+      <>
+        <CircularProgress aria-label="Loading…" />
+      </>
+    );
 
   return (
     <>
@@ -79,11 +87,17 @@ export function NatureGallery({
             }}
             className="relative flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-cover bg-center shadow transition-transform hover:scale-105"
           >
-            {selectedId === photo.id && (
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
-                <CheckIcon size="12" />
-              </span>
-            )}
+            {iconCheck
+              ? selectedId === photo.id && (
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+                    <CheckIcon size="12" />
+                  </span>
+                )
+              : selectedId === photo.id && (
+                  <span className="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+                    <CheckIcon size="12" />
+                  </span>
+                )}
           </button>
         </div>
       ))}

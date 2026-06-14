@@ -17,15 +17,37 @@ import { useTheme } from "@/context/ThemeContext";
 
 interface Props {
   title: string;
+  className?: string;
+  placement?:
+    | "auto-end"
+    | "auto-start"
+    | "auto"
+    | "bottom-end"
+    | "bottom-start"
+    | "bottom"
+    | "left-end"
+    | "left-start"
+    | "left"
+    | "right-end"
+    | "right-start"
+    | "right"
+    | "top-end"
+    | "top-start"
+    | "top";
 }
 
-export default function AddBoardForm({ title }: Props) {
+export default function AddBoardForm({
+  title,
+  className,
+  placement = "bottom",
+}: Props) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [titleInput, setTitleInput] = useState("");
 
   const bgRef = useRef<HTMLDivElement | null>(null);
   const bgPickerAnchorRef = useRef<HTMLButtonElement | null>(null);
+  const isClosingPickerRef = useRef(false);
 
   const navigate = useNavigate();
 
@@ -33,10 +55,12 @@ export default function AddBoardForm({ title }: Props) {
   const { theme } = useTheme();
   const {
     selectedId,
+    setSelectedId,
     setNatureImages,
     openPicker,
     closePicker,
     selectedItem,
+    setSelectedItem,
     open: bgPickerOpen,
     gradientColors,
     handleSelectNature,
@@ -61,17 +85,18 @@ export default function AddBoardForm({ title }: Props) {
         userId: currentUser?.id,
         title: titleInput,
         listOrderIds: [],
-        isStarred: false,
         background: {
           type: isImage ? "image" : "color",
           value: selectedItem.value,
         },
+        isStarred: false,
+        isClosed: false,
         createdAt: new Date().toISOString(),
       };
 
       const newBoard = (await fetchApi.post("/boards", payload)) as BoardI;
       navigate(`/${toSlug(newBoard.title)}`);
-      toast.success("Đã tạo thành công bảng");
+      toast.success("Đã tạo bảng thành công.");
       setBoards((prev) => [...prev, newBoard]);
       setTitleInput("");
       setOpen(false);
@@ -88,28 +113,48 @@ export default function AddBoardForm({ title }: Props) {
     setOpen(false);
   };
 
+  const handleReset = () => {
+    setTimeout(() => {
+      setSelectedId("owcJsiIK7UU");
+      setSelectedItem({
+        id: "owcJsiIK7UU",
+        value:
+          "https://images.unsplash.com/photo-1759681770982-313332e7f42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NzU3ODN8MHwxfHNlYXJjaHwxfHxuYXR1cmV8ZW58MHwwfHx8MTc4MTI3OTAwOHww&ixlib=rb-4.1.0&q=80&w=1080",
+        isImage: true,
+      });
+    }, 300);
+    setOpen(false);
+    closePicker();
+  };
+
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <div>
         <button
           type="button"
-          className="bg-trello-button-bg text-trello-button-text hover:bg-trello-button-bg-hover h-10 cursor-pointer rounded-md px-4 font-medium transition"
+          className={`bg-trello-button-bg text-trello-button-text hover:bg-trello-button-bg-hover h-10 cursor-pointer rounded-md px-4 font-medium transition ${className}`}
           onClick={handleClick}
         >
           {title}
         </button>
-        <Popper open={open} anchorEl={anchorEl} transition>
+        <Popper
+          open={open}
+          anchorEl={anchorEl}
+          transition
+          placement={placement}
+        >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
-              <section className="bg-trello-addBoard-bg mt-2 w-76 overflow-hidden rounded-lg shadow-lg">
+              <section className="bg-trello-addBoard-bg m-2 w-76 overflow-hidden rounded-lg shadow-lg">
                 <header className="flex h-12 items-center justify-between p-1">
                   <button className="h-9 w-9"></button>
                   <span className="text-trello-addBoard-text">Tạo bảng</span>
                   <button
-                    className="hover:bg-trello-icon-bg-hover rounded p-2"
-                    onClick={() => setOpen(false)}
+                    className="hover:bg-trello-icon-bg-hover cursor-pointer rounded p-1.5"
+                    onClick={handleReset}
                   >
                     <CloseIcon
+                      size="16"
                       iconColor={theme === "dark" ? "#a9abaf" : "#000"}
                     />
                   </button>
@@ -169,12 +214,13 @@ export default function AddBoardForm({ title }: Props) {
                             className={`flex h-full min-h-0 w-full cursor-pointer items-center justify-center rounded border border-gray-200 p-2 dark:bg-gray-300 ${bgPickerOpen ? "bg-[#292a2e]" : "hover:bg-[#0515240f] dark:hover:bg-gray-200"}`}
                             onClick={(e) => {
                               e.stopPropagation();
-                              if (bgPickerAnchorRef.current) {
-                                openPicker(bgPickerAnchorRef.current);
-                              }
                               if (bgPickerOpen) {
                                 closePicker();
                                 return;
+                              }
+                              isClosingPickerRef.current = false;
+                              if (bgPickerAnchorRef.current) {
+                                openPicker(bgPickerAnchorRef.current);
                               }
                             }}
                           >
@@ -217,7 +263,7 @@ export default function AddBoardForm({ title }: Props) {
                     </div>
                     <div className="mt-1 mb-2 flex items-center">
                       <span>👋</span>
-                      <p className="ml-3 text-sm text-[#172b4d] dark:text-[#cecfd2]">
+                      <p className="text-trello-heading-text ml-3 text-sm dark:text-[#cecfd2]">
                         Tiêu đề bảng là bắt buộc
                       </p>
                     </div>
@@ -226,7 +272,7 @@ export default function AddBoardForm({ title }: Props) {
                         disabled={!isTitleValid}
                         className={`inline-flex w-full items-center justify-center rounded-md border border-gray-100 px-3 py-1.5 font-medium shadow transition dark:border-none ${
                           isTitleValid
-                            ? "bg-trello-button-bg text-trello-button-text hover:bg-trello-button-bg-hover cursor-pointer"
+                            ? "text-trello-button-text hover:bg-trello-button-bg-hover cursor-pointer bg-[#1868db]"
                             : "cursor-not-allowed bg-[#091e4208] text-[#080F214A] dark:bg-[#e3e4f21f] dark:text-[#e5e9f640]"
                         }`}
                       >
