@@ -1,7 +1,7 @@
 import { Fade, Popper } from "@mui/material";
 import { ChevronLeftIcon, CloseIcon } from "@/components/Icons";
 import { useBackgroundPicker } from "@/context/BackgroundPickerContext";
-import { ColorsView, MainView, PhotosView } from "./Views/View";
+import { ColorsView, MainView, PhotosView } from "./View/View";
 import { useTheme } from "@/context/ThemeContext";
 
 export default function BackgroundPicker() {
@@ -9,7 +9,11 @@ export default function BackgroundPicker() {
   const { theme } = useTheme();
 
   return (
-    <div onClick={(e) => e.stopPropagation()}>
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <Popper
         open={open}
         anchorEl={anchorEl}
@@ -19,17 +23,17 @@ export default function BackgroundPicker() {
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <div className="bg-trello-addBoard-bg w-72 rounded-lg shadow-xl">
+            <div className="bg-trello-addBoard-bg ml-3 w-72 rounded-lg shadow-xl">
               {/* Header */}
               <header className="flex h-10 items-center justify-between px-2">
                 {view !== "main" ? (
                   <button
-                    className="hover:bg-trello-icon-bg-hover rounded p-1"
+                    className="hover:bg-trello-icon-bg-hover cursor-pointer rounded p-1.5"
                     onClick={() => setView("main")}
                   >
                     <ChevronLeftIcon
-                      iconColor={theme === "dark" ? "#a9abaf" : "#000"}
-                      size="size-5"
+                      iconColor={theme === "dark" ? "#a9abaf" : "#505258"}
+                      size="size-4"
                     />
                   </button>
                 ) : (
@@ -41,20 +45,26 @@ export default function BackgroundPicker() {
                   {view === "colors" && "Màu"}
                 </span>
                 <button
-                  className="hover:bg-trello-icon-bg-hover rounded p-1"
+                  className="hover:bg-trello-icon-bg-hover cursor-pointer rounded p-1.5"
                   onClick={closePicker}
                 >
                   <CloseIcon
-                    iconColor={theme === "dark" ? "#a9abaf" : "#000"}
+                    size="16"
+                    iconColor={theme === "dark" ? "#a9abaf" : "#505258"}
                   />
                 </button>
               </header>
 
               {/* Content */}
-              <div className="max-h-120 overflow-y-auto p-3">
+              <div className="max-h-120 scrollbar-thin scrollbar-thumb-[#0b120e24] overflow-y-auto p-3">
                 {view === "main" && <MainView />}
                 {view === "photos" && <PhotosView />}
-                {view === "colors" && <ColorsView />}
+                {view === "colors" && (
+                  <ColorsView
+                    gradientColorsViewClass="mb-3 grid grid-cols-3 gap-1"
+                    solidColorsViewClass="grid grid-cols-3 gap-1 "
+                  />
+                )}
               </div>
             </div>
           </Fade>

@@ -9,7 +9,7 @@ interface ColorItemI {
   value: string;
 }
 
-interface SelectedItemI {
+export interface SelectedItemI {
   id: string | number;
   value: string;
   isImage: boolean;
@@ -28,6 +28,7 @@ interface BackgroundPickerContextI {
   setNatureImages: (imgs: PhotoI[]) => void;
   selectedItem: SelectedItemI | null;
   setSelectedItem: (item: SelectedItemI) => void;
+  onSelect?: (item: SelectedItemI) => void;
   solidColors: ColorItemI[];
   gradientColors: ColorItemI[];
   gradientImageColors: ColorItemI[];
@@ -79,8 +80,10 @@ const gradientImageColors = [
 
 export function BackgroundPickerProvider({
   children,
+  onSelect,
 }: {
   children: ReactNode;
+  onSelect?: (item: SelectedItemI) => void;
 }) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -98,6 +101,7 @@ export function BackgroundPickerProvider({
   const [natureImages, setNatureImages] = useState<PhotoI[]>([]);
 
   const openPicker = (el: HTMLElement) => {
+    if (!el || !document.contains(el)) return;
     setAnchorEl(el);
     setOpen(true);
     setView("main");
@@ -112,8 +116,11 @@ export function BackgroundPickerProvider({
     const img = natureImages.find((i) => i.id === id);
     if (!img) return;
 
+    const item = { id, value: img.urls.regular, isImage: true };
+
     setSelectedId(id);
-    setSelectedItem({ id, value: img.urls.regular, isImage: true });
+    setSelectedItem(item);
+    onSelect?.(item);
   };
 
   const handleSelectColor = (id: string | number) => {
@@ -124,13 +131,16 @@ export function BackgroundPickerProvider({
     ];
     const color = allColors.find((c) => c.id === id);
     if (!color) return;
-    setSelectedId(id);
-    setSelectedItem({
+    const item = {
       id,
       value: color.value,
       isImage:
         color.value.startsWith("http") || color.value.startsWith("data:image"),
-    });
+    };
+
+    setSelectedId(id);
+    setSelectedItem(item);
+    onSelect?.(item);
   };
 
   return (
@@ -148,6 +158,7 @@ export function BackgroundPickerProvider({
         setNatureImages,
         selectedItem,
         setSelectedItem,
+        onSelect,
         solidColors,
         gradientColors,
         gradientImageColors,

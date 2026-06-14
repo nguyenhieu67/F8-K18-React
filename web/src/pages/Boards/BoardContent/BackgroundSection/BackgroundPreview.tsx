@@ -10,6 +10,7 @@ interface Props {
   imgClass: string;
   limit?: number | null;
   type?: "image" | "color";
+  iconCheck?: boolean;
   selectedId: string | number | null;
   onSelect: (id: string | number) => void;
 }
@@ -19,6 +20,7 @@ export default function BackgroundPreview({
   imgClass,
   limit = null,
   type = "color",
+  iconCheck = true,
   selectedId,
   onSelect,
 }: Props) {
@@ -44,11 +46,17 @@ export default function BackgroundPreview({
                 : "bg-cover bg-center"
             }`}
           >
-            {selectedId === item.id && (
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
-                <CheckIcon size="12" />
-              </span>
-            )}
+            {iconCheck
+              ? selectedId === item.id && (
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+                    <CheckIcon size="12" />
+                  </span>
+                )
+              : selectedId === item.id && (
+                  <span className="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+                    <CheckIcon size="12" />
+                  </span>
+                )}
           </button>
         </li>
       ))}

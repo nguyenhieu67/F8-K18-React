@@ -5,16 +5,11 @@ interface IconI {
   iconClass?: string;
 }
 
-export const LogoIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const LogoIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -28,16 +23,11 @@ export const LogoIcon = ({
   </svg>
 );
 
-export const EyeIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const EyeIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -50,16 +40,11 @@ export const EyeIcon = ({
   </svg>
 );
 
-export const EyeCloseIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const EyeCloseIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -78,14 +63,12 @@ export const EyeCloseIcon = ({
 export const StarIcon = ({
   size = "20",
   iconColor = "#ff0",
-  iconClass,
   fillColor = "none",
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill={fillColor}
     stroke={iconColor}
@@ -97,16 +80,32 @@ export const StarIcon = ({
   </svg>
 );
 
-export const BellIcon = ({
+export const SettingIcon = ({
   size = "20",
-  iconColor = "#fff",
-  iconClass,
+  iconColor = "#ff0",
+  fillColor = "none",
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
+    viewBox="0 0 24 24"
+    fill={fillColor}
+    stroke={iconColor}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
+);
+
+export const BellIcon = ({ size = "20", iconColor = "#fff" }: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -119,16 +118,11 @@ export const BellIcon = ({
   </svg>
 );
 
-export const EllipsisIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const EllipsisIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -142,16 +136,11 @@ export const EllipsisIcon = ({
   </svg>
 );
 
-export const CloseIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const CloseIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -164,16 +153,11 @@ export const CloseIcon = ({
   </svg>
 );
 
-export const SearchIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const SearchIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -204,16 +188,11 @@ export const ExclamationTriangleIcon = ({
   </svg>
 );
 
-export const ShareIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const ShareIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -227,16 +206,11 @@ export const ShareIcon = ({
   </svg>
 );
 
-export const PlusIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const PlusIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -246,6 +220,22 @@ export const PlusIcon = ({
   >
     <path d="M5 12h14"></path>
     <path d="M12 5v14"></path>
+  </svg>
+);
+
+export const MinusIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={iconColor}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 12h14"></path>
   </svg>
 );
 
@@ -270,16 +260,11 @@ export const ChevronLeftIcon = ({
   </svg>
 );
 
-export const SavedIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const SavedIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -293,16 +278,31 @@ export const SavedIcon = ({
   </svg>
 );
 
-export const CircleIcon = ({
-  size = "20",
-  iconColor = "#000",
-  iconClass,
-}: IconI) => (
+export const DeleteIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={iconColor}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M3 6h18"></path>
+    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+    <line x1="10" x2="10" y1="11" y2="17"></line>
+    <line x1="14" x2="14" y1="11" y2="17"></line>
+  </svg>
+);
+
+export const CircleIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
     viewBox="0 0 24 24"
     fill="none"
     stroke={iconColor}
@@ -314,16 +314,11 @@ export const CircleIcon = ({
   </svg>
 );
 
-export const CircleCheckIcon = ({
-  size = "20",
-  fillColor = "none",
-  iconClass,
-}: IconI) => (
+export const CircleCheckIcon = ({ size = "20", fillColor = "none" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 24 24"
     fill={fillColor}
   >
@@ -331,33 +326,45 @@ export const CircleCheckIcon = ({
   </svg>
 );
 
-export const CheckIcon = ({
+export const CircleAlertIcon = ({
   size = "20",
-  fillColor = "#000",
-  iconClass,
+  iconColor = "#000",
+  fillColor = "none",
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
+    viewBox="0 0 24 24"
+    fill={fillColor}
+    stroke={iconColor}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" x2="12" y1="8" y2="12"></line>
+    <line x1="12" x2="12.01" y1="16" y2="16"></line>
+  </svg>
+);
+
+export const CheckIcon = ({ size = "20", fillColor = "#000" }: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
     viewBox="0 0 16 16"
-    className={`cursor-pointer ${iconClass}`}
     fill={fillColor}
   >
     <path d="m13.959 3.97-7.25 9a.75.75 0 0 1-1.163.007l-3.5-4.25 1.158-.954 2.914 3.539 6.673-8.283z"></path>
   </svg>
 );
 
-export const EditIcon = ({
-  size = "20",
-  fillColor = "#000",
-  iconClass,
-}: IconI) => (
+export const EditIcon = ({ size = "20", fillColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 16 16"
     fill="none"
   >
@@ -371,13 +378,11 @@ export const EditIcon = ({
 export const ChevronRightLeftIcon = ({
   size = "20",
   fillColor = "#000",
-  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 16 16"
     fill="none"
   >
@@ -395,13 +400,11 @@ export const ChevronRightLeftIcon = ({
 export const ChevronLeftRightIcon = ({
   size = "20",
   fillColor = "#000",
-  iconClass,
 }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    className={`cursor-pointer ${iconClass}`}
     viewBox="0 0 16 16"
     fill="none"
   >
@@ -411,6 +414,24 @@ export const ChevronLeftRightIcon = ({
     ></path>
   </svg>
 );
+
+export const RefreshIcon = ({ size = "20", fillColor = "#000" }: IconI) => (
+  <svg
+    fill="none"
+    viewBox="0 0 16 16"
+    role="presentation"
+    width={size}
+    height={size}
+  >
+    <path
+      fill={fillColor}
+      fillRule="evenodd"
+      d="M1 8a7 7 0 0 1 12.5-4.33V1H15v5a.75.75 0 0 1-.75.75H9.5v-1.5h3.264a5.5 5.5 0 1 0 .665 3.63l1.482.24A7.002 7.002 0 0 1 1 8"
+      clipRule="evenodd"
+    ></path>
+  </svg>
+);
+
 export const TrelloIcon = ({ size = "24", iconColor = "#fff" }: IconI) => {
   return (
     <svg

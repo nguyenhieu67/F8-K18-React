@@ -91,7 +91,7 @@ export default function AddCardForm({
             {loading ? "Đang thêm..." : "Thêm thẻ"}
           </button>
           <button
-            className="text-gray-500 hover:text-gray-700"
+            className="hover:bg-trello-icon-bg-hover cursor-pointer rounded-md p-1.5"
             onClick={onClose}
           >
             <CloseIcon

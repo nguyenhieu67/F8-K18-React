@@ -14,6 +14,7 @@ import { useTrello } from "@/context/TrelloContext";
 import { useTheme } from "@/context/ThemeContext";
 import { fetchApi } from "@/utils/api";
 import type { CardI } from "@/utils/type";
+import { useCurrentBoard } from "@/hooks";
 
 interface CardProps {
   card: CardI;
@@ -27,6 +28,7 @@ export default function Card({ card }: CardProps) {
   const [editContent, setEditContent] = useState("");
 
   const { setCards } = useTrello();
+  const { isClosed } = useCurrentBoard();
   const { theme } = useTheme();
 
   const editRef = useRef<HTMLDivElement | null>(null);
@@ -132,7 +134,9 @@ export default function Card({ card }: CardProps) {
       setIsSaving(true);
 
       await fetchApi.patch(`/cards/${card.id}`, { isSaved: true });
-      setCards((prevCards) => prevCards.filter((c) => c.id !== card.id));
+      setCards((prevCards) =>
+        prevCards.map((c) => (c.id === card.id ? { ...c, isSaved: true } : c)),
+      );
 
       toast.success(
         <div>
@@ -220,22 +224,29 @@ export default function Card({ card }: CardProps) {
           className={`flex shrink-0 items-center transition-all duration-400 ease-in-out ${
             isCompleted
               ? "w-6 opacity-100"
-              : "w-0 opacity-0 group-hover:w-6 group-hover:opacity-100"
+              : isClosed
+                ? "w-0 opacity-0"
+                : "w-0 opacity-0 group-hover:w-6 group-hover:opacity-100"
           }`}
         >
           <Tooltip
             offset={[0, -1]}
             title={
-              isCompleted ? "Đánh dấu chưa hoàn thành" : "Đánh dấu hoàn thành"
+              isClosed
+                ? ""
+                : isCompleted
+                  ? "Đánh dấu chưa hoàn thành"
+                  : "Đánh dấu hoàn thành"
             }
           >
             <button
               type="button"
-              className="group/card relative cursor-pointer rounded-full"
-              onClick={(e) => {
-                e.stopPropagation();
+              className={`relative rounded-full ${isClosed ? "cursor-default" : "cursor-pointer"}`}
+              onClick={() => {
+                if (isClosed) return;
                 setIsCompleted(!isCompleted);
               }}
+              disabled={isClosed}
             >
               {isCompleted ? (
                 <CircleCheckIcon
@@ -258,13 +269,17 @@ export default function Card({ card }: CardProps) {
         </span>
       </div>
 
-      {mouseIsOver && (
+      {mouseIsOver && !isClosed && (
         <div className="absolute top-5 right-2 z-10 flex -translate-y-1/2 items-center bg-transparent pl-1 transition-opacity duration-150">
           {isCompleted && (
-            <Tooltip offset={[0, -8]} title="Lưu thẻ này">
+            <Tooltip offset={[0, -8]} title={isClosed ? "" : "Lưu thẻ này"}>
               <button
-                className="group/card relative mr-1 cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
-                onClick={handleSaveCard}
+                className="relative mr-1 cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
+                onClick={(e) => {
+                  if (isClosed) return;
+                  handleSaveCard(e);
+                }}
+                disabled={isClosed}
               >
                 <SavedIcon
                   size="16"
@@ -273,11 +288,11 @@ export default function Card({ card }: CardProps) {
               </button>
             </Tooltip>
           )}
-          <Tooltip offset={[0, -8]} title="Sửa thẻ này">
+          <Tooltip offset={[0, -8]} title={isClosed ? "" : "Sửa thẻ này"}>
             <button
-              className="group/card relative cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
-              onClick={(e) => {
-                e.stopPropagation();
+              className="relative mr-1 cursor-pointer rounded-full border border-gray-300 bg-transparent p-1.5 opacity-60 hover:bg-[#F0F1F2] hover:opacity-100 dark:hover:bg-[#2b2c2f]"
+              onClick={() => {
+                if (isClosed) return;
                 handleEditCard();
               }}
             >
