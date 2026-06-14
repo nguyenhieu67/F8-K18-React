@@ -85,10 +85,12 @@ export default function AddBoardForm({
         userId: currentUser?.id,
         title: titleInput,
         listOrderIds: [],
+        members: currentUser?.id ? [currentUser.id] : [],
         background: {
           type: isImage ? "image" : "color",
           value: selectedItem.value,
         },
+        inviteToken: null,
         isStarred: false,
         isClosed: false,
         createdAt: new Date().toISOString(),
