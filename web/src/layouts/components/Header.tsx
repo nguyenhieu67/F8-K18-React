@@ -5,6 +5,7 @@ import ContextUser from "@/layouts/components/ContextUser";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useTheme } from "@/context/ThemeContext";
 import AddBoardForm from "@/pages/Boards/BoardContent/AddBoardForm";
+import { BackgroundPickerProvider } from "@/context/BackgroundPickerContext";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -34,7 +35,9 @@ export default function Header() {
             onChange={(e) => setSearchKeyword(e.target.value)}
           />
         </div>
-        <AddBoardForm title="Tạo mới" />
+        <BackgroundPickerProvider>
+          <AddBoardForm title="Tạo mới" />
+        </BackgroundPickerProvider>
       </div>
 
       <div className="flex items-center gap-4">

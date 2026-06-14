@@ -6,8 +6,8 @@ import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard";
-import TrelloBoard from "@/pages/Boards/BoardContent/TrelloBoard";
 import Invite from "@/pages/Invite";
+import TrelloBoard from "@/pages/Boards/TrelloBoard";
 
 const publicRoutes = [
   { path: "/", component: Home },

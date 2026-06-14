@@ -26,7 +26,7 @@ import { useTrello } from "@/context/TrelloContext";
 import { fetchApi } from "@/utils/api";
 import type { CardI, ListI } from "@/utils/type";
 import mapOrder from "@/utils/sort/sorts";
-import { useLatest } from "@/hooks";
+import { useCurrentBoard, useLatest } from "@/hooks";
 import Card from "../Card/Card";
 import {
   addListOrderApi,
@@ -47,6 +47,7 @@ export default function List({ boardId }: ListProps) {
   const [listInput, setListInput] = useState("");
 
   const { boards, setBoards, lists, setLists, cards, setCards } = useTrello();
+  const { isClosed } = useCurrentBoard();
 
   // Lưu lại list trước đó tránh bị re-render cập nhật thành cái mới
   const originalListIdRef = useRef<string | null>(null);
@@ -387,7 +388,7 @@ export default function List({ boardId }: ListProps) {
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
     >
-      <div className="relative mt-3 h-[calc(100vh-124px)] w-full overflow-x-auto overflow-y-hidden">
+      <div>
         <ul className="absolute inset-0 mb-0! flex items-start gap-4 overflow-x-auto overflow-y-hidden px-2 pb-18!">
           <SortableContext
             items={orderedLists.map((b) => b.id)}
@@ -408,15 +409,17 @@ export default function List({ boardId }: ListProps) {
               onClose={() => setShowAddList(false)}
             />
           ) : (
-            <div className="shrink-0">
-              <button
-                className="flex min-w-(--list-box-width) cursor-pointer items-center gap-1 rounded-lg bg-[#ffffff3d] p-3 text-sm font-medium text-white hover:bg-[#ffffff33]"
-                onClick={() => setShowAddList(true)}
-              >
-                <PlusIcon size="16" iconColor="#fff" />
-                Thêm danh sách khác
-              </button>
-            </div>
+            !isClosed && (
+              <div className="shrink-0">
+                <button
+                  className="flex min-w-(--list-box-width) cursor-pointer items-center gap-1 rounded-lg bg-[#0000002b] p-3 text-sm font-medium text-white hover:bg-[#00000033]"
+                  onClick={() => setShowAddList(true)}
+                >
+                  <PlusIcon size="16" iconColor="#fff" />
+                  Thêm danh sách khác
+                </button>
+              </div>
+            )
           )}
         </ul>
       </div>

@@ -69,7 +69,10 @@ export default function AddListForm({
           >
             {loading ? "Đang thêm..." : "Thêm danh sách"}
           </button>
-          <button onClick={onClose} className="cursor-pointer">
+          <button
+            className="hover:bg-trello-icon-bg-hover cursor-pointer rounded-md p-1.5"
+            onClick={onClose}
+          >
             <CloseIcon
               iconColor={`${theme === "dark" ? "#a9abaf" : "#505258"}`}
             />

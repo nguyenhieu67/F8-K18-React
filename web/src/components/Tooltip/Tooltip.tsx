@@ -56,7 +56,7 @@ export default function CustomTooltip({
         },
       }}
     >
-      <span> {children}</span>
+      <span>{children}</span>
     </Tooltip>
   );
 }

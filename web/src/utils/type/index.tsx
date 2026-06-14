@@ -32,6 +32,8 @@ interface BoardI {
   isStarred?: boolean;
   members?: string[];
   inviteToken?: string | null;
+  isClosed?: boolean;
+  createdAt?: string;
 }
 
 interface ListI {
@@ -41,6 +43,7 @@ interface ListI {
   cardOrderIds: string[];
   isSaved: boolean;
   isShrink: boolean;
+  createdAt?: string;
 }
 
 interface CardI {
@@ -49,6 +52,7 @@ interface CardI {
   boardId: string;
   content: string;
   isSaved: boolean;
+  createdAt?: string;
 }
 
 export type { LoginResponseI, AuthI, UserI, BoardI, ListI, CardI };
