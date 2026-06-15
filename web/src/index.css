@@ -32,6 +32,10 @@ body {
   --color-trello-listCard-text: var(--trello-listCard-text);
 
   /* Button */
+  --color-trello-header-button-bg: var(--trello-header-button-bg);
+  --color-trello-header-button-bg-hover: var(--trello-header-button-bg-hover);
+  --color-trello-header-button-text: var(--trello-header-button-text);
+
   --color-trello-button-bg: var(--trello-button-bg);
   --color-trello-button-bg-hover: var(--trello-button-bg-hover);
   --color-trello-button-text: var(--trello-button-text);
@@ -57,6 +61,15 @@ body {
   --trello-menu-item-bg-hover: #0515240f;
 
   /* Button */
+
+  --trello-header-button-bg: #fff3;
+  --trello-header-button-bg-hover: #ffffff5c;
+  --trello-header-button-text: #fff;
+
+  --trello-board-button-bg: #0515240f;
+  --trello-board-button-bg-hover: #0b120e24;
+  --trello-board-button-text: #505258;
+
   --trello-button-bg: #fff3;
   --trello-button-bg-hover: #ffffff5c;
   --trello-button-text: #fff;
@@ -82,6 +95,15 @@ body {
   --trello-menu-item-bg-hover: #ceced912;
 
   /* Button */
+  --trello-header-button-bg: #669df1;
+  --trello-header-button-bg-hover: #8fb8f6;
+  --trello-header-button-text: #1f1f21;
+
+  --trello-board-button-bg: #ceced912;
+  --trello-board-button-bg-hover: #0b120e24;
+  --trello-board-button-text: #cecfd2;
+  --trello-board-button-text-hover: #a9abaf;
+
   --trello-button-bg: #669df1;
   --trello-button-bg-hover: #8fb8f6;
   --trello-button-text: #1f1f21;

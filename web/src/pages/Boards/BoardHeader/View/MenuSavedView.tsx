@@ -12,6 +12,7 @@ import {
   SavedIcon,
 } from "@/components/Icons";
 import { useDebounce } from "@/hooks";
+import ConfirmPopover from "@/components/ConfirmPopover";
 
 export default function MenuSavedView() {
   const [isCard, setIsCard] = useState(true);
@@ -194,14 +195,21 @@ export default function MenuSavedView() {
                       Khôi phục
                     </button>
                     <span className="text-2xl">•</span>
-                    <button
-                      className="cursor-pointer hover:text-blue-400 hover:underline"
-                      onClick={() => {
-                        handleDeleteCard(card, card.id);
-                      }}
+                    <ConfirmPopover
+                      title="Bạn muốn xoá thẻ?"
+                      desc={
+                        <>
+                          Tất cả các thao tác sẽ bị xóa khỏi thông báo hoạt động
+                          và bạn sẽ không thể mở lại thẻ. Không thể hoàn tác.
+                        </>
+                      }
+                      buttonName="Xoá"
+                      onConfirm={() => handleDeleteCard(card, card.id)}
                     >
-                      Xoá
-                    </button>
+                      <button className="cursor-pointer hover:text-blue-400 hover:underline">
+                        <p>Xoá</p>
+                      </button>
+                    </ConfirmPopover>
                   </div>
                 </div>
               </li>
@@ -227,20 +235,30 @@ export default function MenuSavedView() {
                     />
                     <span className="text-sm">Khôi phục</span>
                   </button>
-                  <button
-                    className="hover:bg-trello-icon-bg-hover cursor-pointer rounded-lg border border-gray-300 px-2 py-1.5"
-                    onClick={() => {
-                      handleDeleteList(list, list.id);
-                    }}
+                  <ConfirmPopover
+                    title="Xóa danh sách?"
+                    desc={
+                      <>
+                        Mọi thẻ, thao tác và hoạt động trong danh sách này đều
+                        sẽ bị xóa vĩnh viễn. Bạn sẽ không thể mở lại danh sách
+                        này. Bạn không thể hoàn tác.
+                      </>
+                    }
+                    buttonName="Xoá"
+                    onConfirm={() => handleDeleteList(list, list.id)}
                   >
-                    <DeleteIcon
-                      size="18"
-                      iconColor={theme === "dark" ? "#a9abaf" : "#505258"}
-                    />
-                  </button>
+                    <button className="hover:bg-trello-icon-bg-hover cursor-pointer rounded-lg border border-gray-300 px-2 py-1.5">
+                      <span>
+                        <DeleteIcon
+                          size="18"
+                          iconColor={theme === "dark" ? "#a9abaf" : "#505258"}
+                        />
+                      </span>
+                    </button>
+                  </ConfirmPopover>
                 </div>
               </div>
-              <hr className="mb-2 text-[#0b120e24]" />
+              <hr className="mb-2 text-[#0b120e24] dark:text-[#e3e4f21f]" />
             </li>
           ))
         )}

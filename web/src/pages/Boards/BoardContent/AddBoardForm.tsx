@@ -134,7 +134,7 @@ export default function AddBoardForm({
       <div>
         <button
           type="button"
-          className={`bg-trello-button-bg text-trello-button-text hover:bg-trello-button-bg-hover h-10 cursor-pointer rounded-md px-4 font-medium transition ${className}`}
+          className={`bg-trello-header-button-bg text-trello-header-button-text hover:bg-trello-header-button-bg-hover h-10 cursor-pointer rounded-md px-4 font-medium transition ${className}`}
           onClick={handleClick}
         >
           {title}

@@ -11,7 +11,7 @@ export default function MenuBackgroundPickerView({ setMenu }: Props) {
     <>
       <div className="mb-3 grid grid-cols-2 gap-2">
         <button
-          className="flex flex-col items-center justify-center overflow-hidden"
+          className="flex cursor-pointer flex-col items-center justify-center overflow-hidden"
           onClick={() => setMenu("images")}
         >
           <div
@@ -23,7 +23,7 @@ export default function MenuBackgroundPickerView({ setMenu }: Props) {
           <span className="text-trello-addBoard-text text-sm">Ảnh</span>
         </button>
         <button
-          className="flex flex-col items-center justify-center overflow-hidden"
+          className="flex cursor-pointer flex-col items-center justify-center overflow-hidden"
           onClick={() => setMenu("colors")}
         >
           <div
@@ -35,7 +35,7 @@ export default function MenuBackgroundPickerView({ setMenu }: Props) {
           <span className="text-trello-addBoard-text text-sm">Màu</span>
         </button>
       </div>
-      <hr className="mb-3" />
+      <hr className="mb-3 text-[#0b120e24] dark:text-[#e3e4f21f]" />
       <div>
         <h3 className="text-trello-addBoard-text mb-3 font-semibold">
           Tuỳ chọn
