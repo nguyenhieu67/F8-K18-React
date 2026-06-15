@@ -6,6 +6,7 @@ import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard";
+import Invite from "@/pages/Invite";
 import TrelloBoard from "@/pages/Boards/TrelloBoard";
 
 const publicRoutes = [
@@ -13,6 +14,7 @@ const publicRoutes = [
   { path: "/login", component: Login, layout: AuthLayout },
   { path: "/register", component: Register, layout: AuthLayout },
   { path: "/dashboard", component: Dashboard },
+  { path: "/invite/:boardId/:inviteToken", component: Invite },
   { path: "/:boardDetail", component: TrelloBoard },
 ];
 

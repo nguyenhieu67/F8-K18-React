@@ -73,7 +73,15 @@ export default function Login() {
 
         toast.success("Chúc mừng bạn đăng nhập thành công");
         isSubmitting.current = false;
-        navigate("/dashboard");
+
+        // Quay lại link mời (nếu trước đó bị đá về login từ /invite).
+        const redirect = localStorage.getItem("redirect_after_login");
+        if (redirect) {
+          localStorage.removeItem("redirect_after_login");
+          navigate(redirect);
+        } else {
+          navigate("/dashboard");
+        }
       } else {
         setIsCorrect(true);
         isSubmitting.current = false;
