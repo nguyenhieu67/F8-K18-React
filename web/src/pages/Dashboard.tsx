@@ -65,7 +65,7 @@ export default function Dashboard() {
               <AddBoardForm
                 title="Tạo bảng mới"
                 className="h-28! w-60 bg-[#0515240f]! text-[#505258]! shadow-lg hover:bg-[#0b120e24]!"
-                placement="bottom"
+                placement="left"
               />
             </div>
           ) : (

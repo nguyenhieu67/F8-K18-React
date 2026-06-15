@@ -1,35 +1,53 @@
 {
-    "users": [
-        {
-            "id": "0lSZFy_0f8Q",
-            "name": "Nguyen Duc Hieu",
-            "email": "duchieu@test.com",
-            "password": "Thebest5678",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-07T05:29:53.695Z"
-        },
-        {
-            "name": "khoi99",
-            "email": "khoitran@gmail.com",
-            "password": "Khoi@112233",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-08T09:06:57.461Z",
-            "id": "Sac3MHNsqDk"
-        },
-        {
-            "name": "hnamz",
-            "email": "hnamz@gmail.com",
-            "password": "hnamz@123",
-            "avatar": "",
-            "theme": "light",
-            "createdAt": "2026-06-13T08:44:35.004Z",
-            "id": "VvXsIXJb_zA"
-        }
-    ],
-    "boards": [],
-    "lists": [],
-    "cards": [],
-    "$schema": "./node_modules/json-server/schema.json"
+  "users": [
+    {
+      "id": "0lSZFy_0f8Q",
+      "name": "Nguyen Duc Hieu",
+      "email": "duchieu@test.com",
+      "password": "Thebest5678",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-07T05:29:53.695Z"
+    },
+    {
+      "name": "khoi99",
+      "email": "khoitran@gmail.com",
+      "password": "Khoi@112233",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-08T09:06:57.461Z",
+      "id": "Sac3MHNsqDk"
+    },
+    {
+      "name": "hnamz",
+      "email": "hnamz@gmail.com",
+      "password": "hnamz@123",
+      "avatar": "",
+      "theme": "light",
+      "createdAt": "2026-06-13T08:44:35.004Z",
+      "id": "VvXsIXJb_zA"
+    }
+  ],
+  "boards": [
+    {
+      "userId": "0lSZFy_0f8Q",
+      "title": "Board 1",
+      "listOrderIds": [],
+      "members": [
+        "0lSZFy_0f8Q"
+      ],
+      "background": {
+        "type": "image",
+        "value": "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NzU3ODN8MHwxfHNlYXJjaHwzfHxuYXR1cmV8ZW58MHwwfHx8MTc4MTI3OTAwOHww&ixlib=rb-4.1.0&q=80&w=1080"
+      },
+      "inviteToken": "hnw2kh8utaod5mhdfyl6q4",
+      "isStarred": false,
+      "isClosed": false,
+      "createdAt": "2026-06-15T06:59:03.472Z",
+      "id": "gBX6kJP23PE"
+    }
+  ],
+  "lists": [],
+  "cards": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
