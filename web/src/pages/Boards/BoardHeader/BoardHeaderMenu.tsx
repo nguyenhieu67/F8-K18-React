@@ -72,24 +72,22 @@ export default function BoardHeaderMenu({
               </header>
 
               {/* Content */}
-              <div className="max-h-120">
-                <div className="flex max-h-[80vh] p-2">
-                  <section className="min-h-0 w-full flex-1 scrollbar-thin scrollbar-thumb-[#0b120e24] overflow-y-auto p-1">
-                    {menu === "main" && <MenuView setMenu={setMenu} />}
-                    {menu === "background-piker" && (
-                      <MenuBackgroundPickerView setMenu={setMenu} />
-                    )}
-                    {menu === "images" && <PhotosView iconCheck={false} />}
-                    {menu === "colors" && (
-                      <ColorsView
-                        gradientColorsViewClass="mb-3 grid grid-cols-2 gap-2"
-                        solidColorsViewClass="grid grid-cols-3 gap-2"
-                        iconCheck={false}
-                      />
-                    )}
-                    {menu === "saved" && <MenuSavedView />}
-                  </section>
-                </div>
+              <div className="flex max-h-[80vh] p-2">
+                <section className="min-h-0 w-full flex-1 scrollbar-thin scrollbar-thumb-[#0b120e24] overflow-y-auto p-1">
+                  {menu === "main" && <MenuView setMenu={setMenu} />}
+                  {menu === "background-piker" && (
+                    <MenuBackgroundPickerView setMenu={setMenu} />
+                  )}
+                  {menu === "images" && <PhotosView iconCheck={false} />}
+                  {menu === "colors" && (
+                    <ColorsView
+                      gradientColorsViewClass="mb-3 grid grid-cols-2 gap-2"
+                      solidColorsViewClass="grid grid-cols-3 gap-2"
+                      iconCheck={false}
+                    />
+                  )}
+                  {menu === "saved" && <MenuSavedView />}
+                </section>
               </div>
             </div>
           </Fade>

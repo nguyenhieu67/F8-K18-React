@@ -31,7 +31,7 @@ export default function TrelloBoard() {
             Bảng thông tin này đã đóng. Mở lại bảng thông tin để thực hiện thay
             đổi.{" "}
             <button
-              className="font-semibold underline hover:opacity-70"
+              className="cursor-pointer font-semibold underline hover:opacity-70"
               onClick={() => handleReopenBoard(currentBoard?.id as string)}
             >
               Mở lại bảng

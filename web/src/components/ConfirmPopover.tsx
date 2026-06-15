@@ -61,7 +61,7 @@ export default function ConfirmPopover({
           </div>
           <p className="mb-4 text-sm">{desc}</p>
           <button
-            className={`text-trello-button-text w-full cursor-pointer rounded-md bg-red-500 py-2 text-sm font-semibold hover:bg-red-600 ${className}`}
+            className={`text-trello-header-button-text w-full cursor-pointer rounded-md bg-red-500 py-2 text-sm font-semibold hover:bg-red-600 ${className}`}
             onClick={handleConfirm}
           >
             {buttonName}

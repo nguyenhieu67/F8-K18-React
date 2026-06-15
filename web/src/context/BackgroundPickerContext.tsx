@@ -109,7 +109,9 @@ export function BackgroundPickerProvider({
 
   const closePicker = () => {
     setOpen(false);
-    setView("main");
+    setTimeout(() => {
+      setView("main");
+    }, 300);
   };
 
   const handleSelectNature = (id: string | number) => {

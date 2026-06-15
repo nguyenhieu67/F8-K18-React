@@ -13,7 +13,7 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="border-trello-border bg-trello-header flex h-14 items-center justify-between border-b px-6 text-white shadow-md">
+    <header className="border-trello-border bg-trello-header sticky top-0 left-0 flex h-14 items-center justify-between border-b px-6 text-white shadow-md">
       <div
         className="flex cursor-pointer items-center gap-2"
         onClick={() => navigate("/dashboard")}
@@ -48,7 +48,7 @@ export default function Header() {
             </span>
             <button
               onClick={toggleTheme}
-              className="bg-trello-button-bg hover:bg-trello-button-bg-hover text-trello-button-text h-9 w-14 rounded-md text-center text-sm font-semibold transition"
+              className="bg-trello-header-button-bg hover:bg-trello-header-button-bg-hover text-trello-header-button-text h-9 w-14 cursor-pointer rounded-md text-center text-sm font-semibold transition"
             >
               {theme === "dark" ? "Light" : "Dark"}
             </button>
@@ -56,7 +56,7 @@ export default function Header() {
             <ContextUser currentUser={currentUser} logout={logout} />
           </div>
         ) : (
-          <div className="bg-trello-button-bg hover:bg-trello-button-bg-hover text-trello-button-text h-8 w-24 animate-pulse rounded"></div>
+          <div className="bg-trello-header-button-bg hover:bg-trello-header-button-bg-hover text-trello-header-button-text h-8 w-24 animate-pulse rounded"></div>
         )}
       </div>
     </header>

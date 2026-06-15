@@ -56,21 +56,18 @@ export default function Dashboard() {
       <div className="bg-trello-board-bg h-[calc(100vh-56px)]">
         <main className="mx-auto max-w-6xl p-8">
           {boards.length === 0 ? (
-            <>
+            <div className="w-fit">
               <div className="mb-6 flex items-center justify-between">
                 <h2 className="text-trello-board-text text-xl font-bold">
                   Bảng công việc của bạn
                 </h2>
-                <AddBoardForm title="Tạo bảng mới" />
               </div>
-
-              <div className="border-trello-border bg-trello-surface-soft flex flex-col items-center justify-center rounded-xl border border-solid p-16 shadow-sm">
-                <h2 className="text-trello-board-text mb-4 text-center text-3xl font-black">
-                  Chào mừng bạn! Hiện tại bạn chưa có bảng công việc nào. Tạo
-                  bảng mới và bắt đầu công việc thôi nào!!!
-                </h2>
-              </div>
-            </>
+              <AddBoardForm
+                title="Tạo bảng mới"
+                className="h-28! w-60 bg-[#0515240f]! text-[#505258]! shadow-lg hover:bg-[#0b120e24]!"
+                placement="bottom"
+              />
+            </div>
           ) : (
             <>
               {filteredBoards.length === 0 ? (
@@ -87,7 +84,7 @@ export default function Dashboard() {
                           Bảng đánh dấu sao
                         </h2>
 
-                        <div className="grid grid-cols-5 gap-5">
+                        <div className="grid grid-cols-4 gap-5">
                           <BoardList boards={starredBoards} />
                         </div>
                       </section>
@@ -104,11 +101,11 @@ export default function Dashboard() {
                       </h2>
                     </div>
 
-                    <div className="grid grid-cols-5 gap-5">
+                    <div className="grid grid-cols-4 gap-5">
                       <BoardList boards={boards} />
                       <AddBoardForm
                         title="Tạo bảng mới"
-                        className="h-40! bg-[#0515240f]! text-[#505258]! shadow-lg hover:bg-[#0b120e24]!"
+                        className="h-28! w-full bg-[#0515240f]! text-[#505258]! shadow-lg hover:bg-[#0b120e24]!"
                         placement="left"
                       />
                     </div>

@@ -25,20 +25,24 @@ export default function BoardList({ boards }: BoardListProps) {
         if (board.isClosed) return;
 
         return (
-          <button
+          <div
             key={board.id}
             onClick={() => handleBoardClick(board.title)}
-            className={`flex h-40 cursor-pointer items-end rounded-lg p-4 font-semibold text-white shadow-sm transition hover:-translate-y-1 hover:shadow-md ${
+            className={`flex h-28 cursor-pointer items-end rounded-lg p-4 font-semibold text-white shadow-sm transition hover:-translate-y-1 hover:shadow-md ${
               isImage
                 ? "bg-cover bg-center"
                 : "bg-linear-to-br from-blue-300 to-indigo-500"
             }`}
             style={{
-              backgroundImage: isImage ? `url(${bg.value})` : undefined,
+              backgroundImage: isImage
+                ? isImage
+                  ? `url("${bg?.value}")`
+                  : `url(${bg?.value})`
+                : undefined,
             }}
           >
             {board.title}
-          </button>
+          </div>
         );
       })}
     </>

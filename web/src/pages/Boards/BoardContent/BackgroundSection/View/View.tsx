@@ -20,7 +20,7 @@ export function MainView() {
       <div className="text-trello-addBoard-text mb-2 flex items-center justify-between">
         <span className="text-xs font-bold">Ảnh</span>
         <button
-          className="text-xs hover:underline"
+          className="cursor-pointer text-xs hover:underline"
           onClick={() => setView("photos")}
         >
           Xem thêm
@@ -41,7 +41,7 @@ export function MainView() {
       <div className="text-trello-addBoard-text mb-2 flex items-center justify-between">
         <span className="text-xs font-bold">Màu sắc</span>
         <button
-          className="text-xs hover:underline"
+          className="cursor-pointer text-xs hover:underline"
           onClick={() => setView("colors")}
         >
           Xem thêm
@@ -123,7 +123,7 @@ export function ColorsView({
           onSelect={handleSelectColor}
         />
       </div>
-      <hr className="mb-3" />
+      <hr className="mb-3 text-[#0b120e24] dark:text-[#e3e4f21f]" />
       {/* Solid colors */}
       <div className={`${solidColorsViewClass}`}>
         <BackgroundPreview
