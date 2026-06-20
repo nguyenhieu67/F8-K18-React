@@ -37,9 +37,7 @@ export default function ShareBoardModal({ board, open, onClose }: Props) {
 
   // Cập nhật board trong context để UI (dashboard/header) đồng bộ ngay.
   const syncBoard = (updated: BoardI) =>
-    setBoards((prev) =>
-      prev.map((b) => (b.id === updated.id ? updated : b)),
-    );
+    setBoards((prev) => prev.map((b) => (b.id === updated.id ? updated : b)));
 
   const members = board.members || [];
   const memberUsers = users.filter((u) => members.includes(u.id));
@@ -69,7 +67,7 @@ export default function ShareBoardModal({ board, open, onClose }: Props) {
 
     syncBoard(updated);
     setEmailInput("");
-    toast.success(`Đã thêm ${found.name} vào bảng`);
+    toast.success(`Đã thêm ${found.username} vào bảng`);
   };
 
   // C. Sao chép liên kết (sinh token nếu chưa có)
@@ -173,11 +171,11 @@ export default function ShareBoardModal({ board, open, onClose }: Props) {
             {memberUsers.map((u) => (
               <li key={u.id} className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">
-                  {u.name?.charAt(0).toUpperCase() || "?"}
+                  {u.username?.charAt(0).toUpperCase() || "?"}
                 </div>
                 <div className="leading-tight">
                   <p className="text-sm font-medium text-[#172B4D]">
-                    {u.name}
+                    {u.username}
                   </p>
                   <p className="text-xs text-gray-500">{u.email}</p>
                 </div>
