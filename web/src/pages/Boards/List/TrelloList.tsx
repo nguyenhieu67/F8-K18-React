@@ -22,16 +22,16 @@ import {
 import { Tooltip } from "@/components/Tooltip";
 import AddCardForm from "../Card/AddCardForm";
 import toSlug from "@/utils/slug";
-import { addCardOrderApi } from "../_id";
 import mapOrder from "@/utils/sort/sorts";
 import { useTheme } from "@/context/ThemeContext";
 import { useCurrentBoard } from "@/hooks";
 
 interface TrelloListProps {
+  boardId: string;
   list: ListI;
 }
 
-export default function TrelloList({ list }: TrelloListProps) {
+export default function TrelloList({ boardId, list }: TrelloListProps) {
   const { boards, setLists, cards, setCards } = useTrello();
   const { isClosed } = useCurrentBoard();
   const { theme } = useTheme();
@@ -161,11 +161,13 @@ export default function TrelloList({ list }: TrelloListProps) {
         listId: list.id,
         content: content,
         isSaved: false,
-        createdAt: new Date().toISOString(),
+        createdAt: Date.now(),
       };
 
-      const newCard = (await fetchApi.post("/cards", payload)) as CardI;
-      addCardOrderApi(list.id, newCard.id);
+      const newCard = (await fetchApi.post(
+        `/boards/${boardId}/lists/${list.id}/cards`,
+        payload,
+      )) as CardI;
 
       setCards((prev) => [...prev, newCard]);
     } catch (e) {

@@ -38,6 +38,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const toggleTheme = async () => {
     if (!currentUser?.id) return;
 
+    console.log(currentUser.id);
+
     const nextTheme: Theme = theme === "dark" ? "light" : "dark";
     const updatedUser = await fetchApi.patch<{ theme: Theme }>(
       `/users/${currentUser.id}`,

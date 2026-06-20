@@ -44,7 +44,7 @@ export default function Header() {
         {currentUser ? (
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium">
-              Chào, {currentUser.name}
+              Chào, {currentUser.username}
             </span>
             <button
               onClick={toggleTheme}

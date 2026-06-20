@@ -3,10 +3,26 @@ import BoardHeader from "./BoardHeader/BoardHeader";
 import { useCurrentBoard } from "@/hooks";
 import { CircleAlertIcon } from "@/components/Icons";
 import { useTrello } from "@/context/TrelloContext";
+import { useEffect } from "react";
+import { fetchApi } from "@/utils/api";
+import type { BoardI } from "@/utils/type";
 
 export default function TrelloBoard() {
+  const { setLists, setCards } = useTrello();
   const { currentBoard, isClosed } = useCurrentBoard();
   const { handleReopenBoard } = useTrello();
+
+  useEffect(() => {
+    const fetchBoardDetail = async () => {
+      if (!currentBoard?.id) return;
+      const board = (await fetchApi.get(
+        `/boards/${currentBoard?.id}`,
+      )) as BoardI;
+      setLists(board.lists);
+      setCards(board.cards);
+    };
+    fetchBoardDetail();
+  }, [currentBoard?.id, setLists, setCards]);
 
   const bg = currentBoard?.background;
   const isImage = bg?.type === "image";

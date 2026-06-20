@@ -2,11 +2,11 @@
 import api from "../plugins/axios";
 
 interface ApiI {
-  get: <T>(endpoint: string) => Promise<T | null>;
-  post: <T>(endpoint: string, body: any) => Promise<T | null>;
-  put: <T>(endpoint: string, body: any) => Promise<T | null>;
-  patch: <T>(endpoint: string, body: any) => Promise<T | null>;
-  delete: <T>(endpoint: string) => Promise<T | null>;
+  get: <T>(endpoint: string) => Promise<T>;
+  post: <T>(endpoint: string, body: any) => Promise<T>;
+  put: <T>(endpoint: string, body: any) => Promise<T>;
+  patch: <T>(endpoint: string, body: any) => Promise<T>;
+  delete: <T>(endpoint: string) => Promise<T>;
 }
 
 class Api implements ApiI {
@@ -14,7 +14,7 @@ class Api implements ApiI {
     method: "get" | "post" | "put" | "patch" | "delete",
     endpoint: string,
     body?: any,
-  ): Promise<T | null> {
+  ): Promise<T> {
     try {
       let response: any;
 
@@ -26,33 +26,30 @@ class Api implements ApiI {
 
       return response as T;
     } catch (e: any) {
-      console.error(`Lỗi API [${method.toUpperCase()}] ${endpoint}:`, e);
-
-      const errorMsg =
-        e.response?.data?.message || "Có lỗi xảy ra khi kết nối server!";
-      alert(errorMsg);
-
-      return null;
+      if (e?.response?.status !== 410) {
+        console.error(`Lỗi API [${method.toUpperCase()}] ${endpoint}:`, e);
+      }
+      throw e;
     }
   }
 
-  async get<T>(endpoint: string): Promise<T | null> {
+  async get<T>(endpoint: string): Promise<T> {
     return await this.request<T>("get", endpoint);
   }
 
-  async post<T>(endpoint: string, body: any): Promise<T | null> {
+  async post<T>(endpoint: string, body: any): Promise<T> {
     return await this.request<T>("post", endpoint, body);
   }
 
-  async put<T>(endpoint: string, body: any): Promise<T | null> {
+  async put<T>(endpoint: string, body: any): Promise<T> {
     return await this.request<T>("put", endpoint, body);
   }
 
-  async patch<T>(endpoint: string, body: any): Promise<T | null> {
+  async patch<T>(endpoint: string, body: any): Promise<T> {
     return await this.request<T>("patch", endpoint, body);
   }
 
-  async delete<T>(endpoint: string): Promise<T | null> {
+  async delete<T>(endpoint: string): Promise<T> {
     return await this.request<T>("delete", endpoint);
   }
 }

@@ -7,7 +7,6 @@ import { CloseIcon, EllipsisIcon } from "@/components/Icons";
 import { useTrello } from "@/context/TrelloContext";
 import type { BoardI } from "@/utils/type";
 import { fetchApi } from "@/utils/api";
-import toSlug from "@/utils/slug";
 import { NatureGallery } from "@/components/Image/NatureGallery";
 import { BackgroundPreview } from "./BackgroundSection";
 import BackgroundPicker from "./BackgroundSection/BackgroundPicker";
@@ -91,13 +90,10 @@ export default function AddBoardForm({
           value: selectedItem.value,
         },
         inviteToken: null,
-        isStarred: false,
-        isClosed: false,
-        createdAt: new Date().toISOString(),
       };
 
       const newBoard = (await fetchApi.post("/boards", payload)) as BoardI;
-      navigate(`/${toSlug(newBoard.title)}`);
+      navigate(`/${newBoard.slug}`);
       toast.success("Đã tạo bảng thành công.");
       setBoards((prev) => [...prev, newBoard]);
       setTitleInput("");
@@ -274,7 +270,7 @@ export default function AddBoardForm({
                         disabled={!isTitleValid}
                         className={`inline-flex w-full items-center justify-center rounded-md border border-gray-100 px-3 py-1.5 font-medium shadow transition dark:border-none ${
                           isTitleValid
-                            ? "text-trello-button-text hover:bg-trello-button-bg-hover cursor-pointer bg-[#1868db]"
+                            ? "text-trello-button-text cursor-pointer bg-[#1868db] hover:opacity-80"
                             : "cursor-not-allowed bg-[#091e4208] text-[#080F214A] dark:bg-[#e3e4f21f] dark:text-[#e5e9f640]"
                         }`}
                       >

@@ -28,11 +28,6 @@ import type { CardI, ListI } from "@/utils/type";
 import mapOrder from "@/utils/sort/sorts";
 import { useCurrentBoard, useLatest } from "@/hooks";
 import Card from "../Card/Card";
-import {
-  addListOrderApi,
-  updateCardOrderIdsApi,
-  updateListOrderIdsApi,
-} from "../_id";
 import TrelloList from "./TrelloList";
 import AddListForm from "./AddListForm";
 
@@ -98,11 +93,13 @@ export default function List({ boardId }: ListProps) {
       cardOrderIds: [],
       isSaved: false,
       isShrink: false,
-      createdAt: new Date().toISOString(),
+      createdAt: Date.now(),
     };
 
-    const newList = (await fetchApi.post("/lists", payload)) as ListI;
-    addListOrderApi(boardId, newList.id);
+    const newList = (await fetchApi.post(
+      `/boards/${boardId}/lists`,
+      payload,
+    )) as ListI;
 
     setLists((prev) => [...prev, newList]);
   };
@@ -249,27 +246,34 @@ export default function List({ boardId }: ListProps) {
         }),
       );
 
-      const patches: Promise<unknown>[] = [
-        updateCardOrderIdsApi(targetListId, newTargetCardOrderIds),
-      ];
+      try {
+        if (originalListId && originalListId !== targetListId) {
+          // Trường hợp: kéo card sang list khác
+          const originalList = listsRef.current.find(
+            (l) => l.id === originalListId,
+          );
+          const newOriginalCardOrderIds = (
+            originalList?.cardOrderIds || []
+          ).filter((id) => id !== activeId);
 
-      if (originalListId && originalListId !== targetListId) {
-        const originalList = listsRef.current.find(
-          (l) => l.id === originalListId,
-        );
-        const newOriginalCardOrderIds = (
-          originalList?.cardOrderIds || []
-        ).filter((id) => id !== activeId);
-
-        patches.push(
-          updateCardOrderIdsApi(originalListId, newOriginalCardOrderIds),
-          fetchApi.patch(`/cards/${activeId}`, {
-            listId: targetListId,
-          }),
-        );
+          await fetchApi.put(`/boards/supports/moving_card`, {
+            currentCardId: activeId,
+            prevListId: originalListId,
+            prevCardOrderIds: newOriginalCardOrderIds,
+            nextListId: targetListId,
+            nextCardOrderIds: newTargetCardOrderIds,
+          });
+        } else {
+          // Trường hợp: kéo card trong cùng 1 list, chỉ đổi vị trí
+          await fetchApi.patch(`/lists/${targetListId}`, {
+            cardOrderIds: newTargetCardOrderIds,
+          });
+        }
+      } catch (error) {
+        console.error("Lỗi cập nhật vị trí card:", error);
+      } finally {
+        originalListIdRef.current = null;
       }
-
-      await Promise.all(patches);
     }
 
     // Handle drop list
@@ -290,7 +294,6 @@ export default function List({ boardId }: ListProps) {
       );
 
       const newOrderedListIds = newOrderedLists.map((l) => l.id);
-
       setBoards((prevBoards) =>
         prevBoards.map((board) =>
           board.id === boardId
@@ -299,7 +302,13 @@ export default function List({ boardId }: ListProps) {
         ),
       );
 
-      updateListOrderIdsApi(boardId, newOrderedListIds);
+      try {
+        await fetchApi.patch(`/boards/${boardId}`, {
+          listOrderIds: newOrderedListIds,
+        });
+      } catch (error) {
+        console.error("Lỗi cập nhật thứ tự list:", error);
+      }
     }
   };
 
@@ -396,7 +405,7 @@ export default function List({ boardId }: ListProps) {
           >
             {orderedLists.map((list) => (
               <li key={list.id} className="block h-full list-none">
-                <TrelloList list={list as ListI} />
+                <TrelloList boardId={boardId} list={list as ListI} />
               </li>
             ))}
           </SortableContext>
@@ -428,7 +437,7 @@ export default function List({ boardId }: ListProps) {
         <DragOverlay dropAnimation={dropAnimation}>
           {activeList && (
             <div className="rotate-5">
-              <TrelloList list={activeList} />
+              <TrelloList boardId={boardId} list={activeList} />
             </div>
           )}
 

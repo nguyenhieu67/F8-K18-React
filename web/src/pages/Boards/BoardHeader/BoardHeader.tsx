@@ -35,7 +35,7 @@ export default function BoardHeader({ board }: Props) {
         isStarred: !board.isStarred,
       };
 
-      await fetchApi.put(`/boards/${board.id}`, updatedBoard);
+      await fetchApi.patch(`/boards/${board.id}`, updatedBoard);
 
       setBoards((prev) =>
         prev.map((item) => (item.id === board.id ? updatedBoard : item)),

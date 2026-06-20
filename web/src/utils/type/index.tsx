@@ -12,7 +12,7 @@ interface AuthI {
 
 interface UserI {
   id: string;
-  name: string;
+  username: string;
   email: string;
   password?: string;
   avatar?: string;
@@ -27,6 +27,9 @@ interface BoardI {
   id: string;
   userId: string;
   title: string;
+  slug: string;
+  lists: ListI[];
+  cards: CardI[];
   listOrderIds: string[];
   background: BackgroundI;
   isStarred?: boolean;

@@ -16,7 +16,7 @@ import ConfirmPopover from "@/components/ConfirmPopover";
 
 export default function MenuSavedView() {
   const [isCard, setIsCard] = useState(true);
-  const { boards, setBoards, lists, setLists, cards, setCards } = useTrello();
+  const { setBoards, lists, setLists, cards, setCards } = useTrello();
   const { theme } = useTheme();
 
   const [listKeyword, setListKeyword] = useState("");
@@ -62,22 +62,8 @@ export default function MenuSavedView() {
 
   const handleDeleteList = async (list: ListI, listId: string) => {
     try {
-      // Delete card in lists
-      const listCards = cards.filter((c) => c.listId === listId);
-      await Promise.all(
-        listCards.map((card) => fetchApi.delete(`/cards/${card.id}`)),
-      );
-
       // Delete list
       await fetchApi.delete(`/lists/${listId}`);
-
-      // Delete listId in listOrderIds of boards
-      const listOrderId = boards
-        .find((b) => b.id === list.boardId)
-        ?.listOrderIds.filter((id) => id !== listId);
-      await fetchApi.patch(`/boards/${list.boardId}`, {
-        listOrderIds: listOrderId,
-      });
 
       setCards((prev) => prev.filter((c) => c.listId !== listId));
       setLists((prev) => prev.filter((c) => c.id !== listId));
@@ -115,14 +101,6 @@ export default function MenuSavedView() {
     try {
       // Delete card
       await fetchApi.delete(`/cards/${cardId}`);
-
-      // Delete card in cardOrderIds of lists
-      const cardOrderId = lists
-        .find((l) => l.id === card.listId)
-        ?.cardOrderIds.filter((id) => id !== cardId);
-      await fetchApi.patch(`/lists/${card.listId}`, {
-        cardOrderIds: cardOrderId,
-      });
 
       setCards((prev) => prev.filter((c) => c.id !== cardId));
       setLists((prev) =>

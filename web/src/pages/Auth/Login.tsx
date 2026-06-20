@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import type { AuthI, UserI } from "@/utils/type";
+import type { AuthI } from "@/utils/type";
 import { fetchApi } from "@/utils/api";
 import { loginSchema, validationForm } from "@/utils/validate";
 import {
@@ -10,6 +10,16 @@ import {
   EyeCloseIcon,
   EyeIcon,
 } from "@/components/Icons";
+
+interface LoginResponse {
+  _id: string;
+  email: string;
+  username: string;
+  theme: ["light" | "dark"];
+  createdAt: number;
+  accessToken: string;
+  refreshToken: string;
+}
 
 export default function Login() {
   const formData = {
@@ -48,48 +58,40 @@ export default function Login() {
     isSubmitting.current = true;
     setHasEdited(false);
     try {
-      const allUsers = (await fetchApi.get("/users")) as UserI[];
+      const response = await fetchApi.post<LoginResponse>("/users/login", {
+        ...form,
+      });
 
-      const matchedUser = allUsers.find(
-        (u) => u.email === form.email && u.password === form.password,
-      );
+      const user = {
+        id: response._id,
+        email: response.email,
+        name: response.username,
+      };
 
-      if (matchedUser) {
-        const responseMock = {
-          accessToken:
-            "access_token_mock_" + Math.random().toString(36).substring(2),
-          refreshToken:
-            "refresh_token_mock_" + Math.random().toString(36).substring(2),
-          user: {
-            id: matchedUser.id,
-            name: matchedUser.name,
-            email: matchedUser.email,
-          },
-        };
+      localStorage.setItem("access_token", response.accessToken);
+      localStorage.setItem("refresh_token", response.refreshToken);
+      localStorage.setItem("current_user", JSON.stringify(user));
 
-        localStorage.setItem("access_token", responseMock.accessToken);
-        localStorage.setItem("refresh_token", responseMock.refreshToken);
-        localStorage.setItem("current_user", JSON.stringify(responseMock.user));
+      toast.success("Chúc mừng bạn đăng nhập thành công");
 
-        toast.success("Chúc mừng bạn đăng nhập thành công");
-        isSubmitting.current = false;
-
-        // Quay lại link mời (nếu trước đó bị đá về login từ /invite).
-        const redirect = localStorage.getItem("redirect_after_login");
-        if (redirect) {
-          localStorage.removeItem("redirect_after_login");
-          navigate(redirect);
-        } else {
-          navigate("/dashboard");
-        }
+      const redirect = localStorage.getItem("redirect_after_login");
+      if (redirect) {
+        localStorage.removeItem("redirect_after_login");
+        navigate(redirect);
       } else {
-        setIsCorrect(true);
-        isSubmitting.current = false;
+        navigate("/dashboard");
       }
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error?.response?.status === 404) {
+        // Email không tồn tại hoặc sai password BE trả 404 cho cả 2 case
+        setIsCorrect(true);
+      } else {
+        console.error("Lỗi:", error);
+        toast.error("Không thể kết nối đến server!");
+      }
+    } finally {
       isSubmitting.current = false;
-      console.error("Lỗi:", error);
-      toast.error("Không thể kết nối đến json-server!");
     }
   };
 

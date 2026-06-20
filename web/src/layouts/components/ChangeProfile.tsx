@@ -27,7 +27,7 @@ export default function ChangeProfile({
   const { theme } = useTheme();
   const { setCurrentUser } = useTrello();
   const [userForm, setUserForm] = useState({
-    name: currentUser.name,
+    name: currentUser.username,
     email: currentUser.email,
   });
   const isDark = theme === "dark";
@@ -63,10 +63,14 @@ export default function ChangeProfile({
   };
 
   const handleUpdateUser = async () => {
-    const updatedUser = await fetchApi.put<UserI>(`/users/${currentUser.id}`, {
-      ...currentUser,
-      ...userForm,
-    });
+    const payload = {
+      username: userForm.name,
+      email: userForm.email,
+    };
+    const updatedUser = await fetchApi.patch<UserI>(
+      `/users/${currentUser.id}`,
+      payload,
+    );
 
     if (!updatedUser) return;
 

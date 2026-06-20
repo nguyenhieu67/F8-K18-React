@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_ROOT } from "../constants.js";
 
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = API_ROOT;
 
 const api = axios.create({
   baseURL: baseURL,
@@ -26,23 +27,30 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     const isTokenExpired =
-      error.response?.status === 401 ||
-      error.response?.data?.message === "token expired";
+      error.response?.status === 410 ||
+      error.response?.data?.message === "Need to refresh token!";
+    let refreshTokenPromise: Promise<string> | null = null;
 
     if (isTokenExpired && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        const refreshToken = localStorage.getItem("refresh_token");
-        if (!refreshToken) throw new Error("No refresh token");
+        if (!refreshTokenPromise) {
+          const refreshToken = localStorage.getItem("refresh_token");
+          if (!refreshToken) throw new Error("No refresh token");
 
-        const { data } = await axios.post(`${baseURL}/refresh`, {
-          refreshToken,
-        });
-        const { accessToken } = data;
+          refreshTokenPromise = axios
+            .post(`${baseURL}/users/refresh_token`, { refreshToken })
+            .then(({ data }) => {
+              localStorage.setItem("access_token", data.accessToken);
+              return data.accessToken;
+            })
+            .finally(() => {
+              refreshTokenPromise = null;
+            });
+        }
 
-        localStorage.setItem("access_token", accessToken);
-
+        const accessToken = await refreshTokenPromise;
         originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
@@ -52,8 +60,6 @@ api.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
-
-    return Promise.reject(error);
   },
 );
 

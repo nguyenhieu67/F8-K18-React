@@ -9,7 +9,6 @@ import {
 } from "@/components/Icons";
 import { fetchApi } from "@/utils/api";
 import { registerSchema, validationForm } from "@/utils/validate";
-import type { UserI } from "@/utils/type";
 
 export default function Register() {
   const formData = {
@@ -51,32 +50,27 @@ export default function Register() {
     isSubmitting.current = true;
     setHasEdited(false);
     try {
-      const allUsers = (await fetchApi.get("/users")) as UserI[];
+      const payload = {
+        username: form.userName,
+        email: form.email,
+        password: form.password,
+      };
 
-      const emailExists = allUsers.some((u) => u.email === form.email);
+      await fetchApi.post("/users/register", payload);
 
-      if (emailExists) {
+      setForm(formData);
+      toast.success("Chúc mừng bạn tạo tài khoản thành công.");
+      navigate("/login");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      // BE trả 409 khi email đã tồn tại
+      if (error?.response?.status === 409) {
         setIsExists(true);
-        isSubmitting.current = false;
       } else {
-        const payload = {
-          name: form.userName,
-          email: form.email,
-          password: form.password,
-          avatar: "",
-          theme: "light",
-          createdAt: new Date().toISOString(),
-        };
-
-        await fetchApi.post("/users", payload);
-
-        setForm(formData);
-        toast.success("Chúc mừng bạn tạo tài khoản thành công.");
-        isSubmitting.current = false;
-        navigate("/login");
+        console.error(error);
+        toast.error("Đăng ký thất bại, vui lòng thử lại.");
       }
-    } catch (error) {
-      console.error(error);
+    } finally {
       isSubmitting.current = false;
     }
   };

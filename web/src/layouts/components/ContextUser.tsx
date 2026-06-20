@@ -46,9 +46,9 @@ export default function ContextUser({ currentUser, logout }: ContextUserProps) {
     <>
       <div
         onClick={handleOpenUserMenu}
-        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/25 text-sm font-bold uppercase text-white"
+        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/25 text-sm font-bold text-white uppercase"
       >
-        {currentUser.name.charAt(0)}
+        {currentUser.username.charAt(0)}
       </div>
 
       <Menu

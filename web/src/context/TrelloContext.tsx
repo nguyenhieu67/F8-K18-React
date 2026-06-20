@@ -54,24 +54,18 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
     const user = JSON.parse(savedUser) as UserI;
     setCurrentUser(user);
 
-    const getBoards = async () => {
+    const getData = async () => {
       try {
         // json-server không lọc OR (userId HOẶC members chứa id) trong 1 request,
         // nên lấy toàn bộ boards rồi filter ở client: board mình tạo + board được chia sẻ.
-        const [allBoards, listData, cardData] = (await Promise.all([
-          fetchApi.get(`/boards`),
-          fetchApi.get("/lists"),
-          fetchApi.get("/cards"),
-        ])) as [BoardI[], ListI[], CardI[]];
+        const boardData = (await fetchApi.get("/boards")) as BoardI[];
 
-        const myBoards = (allBoards || []).filter(
+        const myBoards = (boardData || []).filter(
           (board) =>
             board.userId === user.id || board.members?.includes(user.id),
         );
 
         setBoards(myBoards);
-        setLists(listData || []);
-        setCards(cardData || []);
 
         setFilteredBoards(myBoards);
       } catch (error) {
@@ -81,7 +75,7 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
-    getBoards();
+    getData();
   }, [navigate]);
 
   useEffect(() => {
@@ -99,8 +93,6 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
     localStorage.clear();
     setCurrentUser(null);
     setBoards([]);
-    setLists([]);
-    setCards([]);
     navigate("/login");
   };
 
