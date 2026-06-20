@@ -6,7 +6,6 @@ import { BackgroundPickerProvider } from "@/context/BackgroundPickerContext";
 import ClosedBoard from "./Boards/ClosedBoard";
 import { CloseIcon, DeleteIcon, SavedIcon } from "@/components/Icons";
 import { Link } from "react-router-dom";
-import toSlug from "@/utils/slug";
 import ConfirmPopover from "@/components/ConfirmPopover";
 import { EmptyState } from "./Boards/BoardHeader/View/MenuView";
 
@@ -168,7 +167,7 @@ export default function Dashboard() {
                                       />
                                       <div className="flex flex-col">
                                         <Link
-                                          to={`/${toSlug(board.title)}`}
+                                          to={`/${board.slug}`}
                                           className="text-[#1868db] underline"
                                         >
                                           {board.title}

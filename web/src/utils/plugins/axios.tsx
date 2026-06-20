@@ -1,6 +1,8 @@
 import axios from "axios";
+import { API_ROOT } from "../constants";
 
-const baseURL = import.meta.env.VITE_API_URL;
+// const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = API_ROOT;
 
 const api = axios.create({
   baseURL: baseURL,
@@ -59,6 +61,8 @@ api.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
+
+    return Promise.reject(error);
   },
 );
 
