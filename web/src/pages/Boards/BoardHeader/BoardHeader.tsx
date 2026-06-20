@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Tooltip } from "@/components/Tooltip";
 import { EllipsisIcon, ShareIcon, StarIcon } from "@/components/Icons";
@@ -12,6 +12,7 @@ import {
   type SelectedItemI,
 } from "@/context/BackgroundPickerContext";
 import { ClickAwayListener } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export type MenuI = "main" | "images" | "saved" | "colors" | "background-piker";
 
@@ -25,6 +26,23 @@ export default function BoardHeader({ board }: Props) {
   const [menu, setMenu] = useState<MenuI>("main");
   const { setBoards } = useTrello();
   const [openShare, setOpenShare] = useState(false);
+  const [editTitle, setEditTitle] = useState("");
+  const [editMode, setEditMode] = useState<boolean>(false);
+
+  const boardTitleRef = useRef<HTMLInputElement | null>(null);
+
+  const navigate = useNavigate();
+
+  // Edit mode
+  useEffect(() => {
+    if (editMode && boardTitleRef.current) {
+      const element = boardTitleRef.current;
+
+      element.focus();
+      element.textContent = board?.title ?? "";
+      setEditTitle(board?.title ?? "");
+    }
+  }, [board?.title, editMode]);
 
   const handleToggleStar = async () => {
     if (!board) return;
@@ -85,15 +103,74 @@ export default function BoardHeader({ board }: Props) {
     }
   };
 
+  const handleSubmit = async () => {
+    if (!editTitle.trim() || editTitle === board?.title) {
+      setEditMode(false);
+      return;
+    }
+
+    const newTitle = editTitle;
+
+    try {
+      const res = (await fetchApi.patch(`/boards/${board?.id}`, {
+        title: newTitle,
+      })) as BoardI;
+
+      setBoards((prevBoards) =>
+        prevBoards.map((b) =>
+          b.id === board?.id ? { ...b, title: newTitle, slug: res.slug } : b,
+        ),
+      );
+
+      setEditTitle("");
+      setEditMode(false);
+
+      navigate(`/${res.slug}`, {
+        replace: true,
+        state: { skipFetch: true },
+      });
+    } catch (e) {
+      console.error("Lỗi khi cập nhật tiêu đề list:", e);
+    }
+  };
+
   return (
     <BackgroundPickerProvider
       onSelect={async (item) => {
         handleBackgroundPicker(item);
       }}
     >
-      <div className="flex h-14 items-center justify-between bg-[#00000053] p-3 text-xl text-white">
+      <div className="flex h-14 items-center justify-between bg-[#00000053] p-3 text-xl font-semibold text-white">
         <div className="flex-1">
-          <h2 className="font-bold">{board?.title}</h2>
+          <ClickAwayListener onClickAway={() => handleSubmit()}>
+            <h2>
+              {editMode ? (
+                <input
+                  ref={boardTitleRef}
+                  className="w-1/4 rounded-sm px-2 py-2 shadow-[inset_0_0_0_1px_rgb(140,141,151)] outline-none focus:shadow-[0_0_0_2px_rgb(0,121,191)]"
+                  value={editTitle}
+                  autoFocus
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleSubmit();
+                    }
+                  }}
+                />
+              ) : (
+                <button
+                  className="ml-2 w-full cursor-pointer text-left"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditMode(!editMode);
+                  }}
+                >
+                  {board?.title}
+                </button>
+              )}
+            </h2>
+          </ClickAwayListener>
         </div>
         <div className="flex gap-1">
           <div className="h-8 w-8">

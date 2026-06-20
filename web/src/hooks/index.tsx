@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { useTrello } from "@/context/TrelloContext";
-import toSlug from "@/utils/slug";
 
 // hooks/useLatest.ts
 export function useLatest<T>(value: T) {
@@ -30,7 +29,7 @@ export function useDebounce<T>(value: T, delay: number = 300): T {
 export function useCurrentBoard() {
   const { boards } = useTrello();
   const { boardDetail } = useParams();
-  const currentBoard = boards.find((b) => toSlug(b.title) === boardDetail);
+  const currentBoard = boards.find((b) => b.slug === boardDetail);
   const isClosed = currentBoard?.isClosed ?? false;
 
   return {
