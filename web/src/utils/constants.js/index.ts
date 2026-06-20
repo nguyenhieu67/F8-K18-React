@@ -1,11 +1,12 @@
 let apiRoot = "";
 
 if (import.meta.env.BUILD_MODE === "dev") {
-  apiRoot = "http://localhost:5001";
+  apiRoot = "http://localhost:3001";
 }
 
 if (import.meta.env.BUILD_MODE === "production") {
-  apiRoot = "https://trello-clone-web-coral.vercel.app/v1";
+  apiRoot =
+    import.meta.env.VITE_API_URL || "https://trello-clone-api.onrender.com/v1";
 }
 
 export const API_ROOT = apiRoot;
