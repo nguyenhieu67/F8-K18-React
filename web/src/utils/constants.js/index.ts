@@ -1,7 +1,7 @@
 let apiRoot = "";
 
 if (import.meta.env.VITE_BUILD_MODE === "dev") {
-  apiRoot = "http://localhost:3001";
+  apiRoot = "http://localhost:3001/v1";
 }
 
 if (import.meta.env.VITE_BUILD_MODE === "production") {

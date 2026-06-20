@@ -65,7 +65,7 @@ export default function Login() {
       const user = {
         id: response._id,
         email: response.email,
-        name: response.username,
+        username: response.username,
       };
 
       localStorage.setItem("access_token", response.accessToken);
