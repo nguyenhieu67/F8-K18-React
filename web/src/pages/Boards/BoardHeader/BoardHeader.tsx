@@ -31,6 +31,7 @@ export default function BoardHeader({ board }: Props) {
 
   const boardTitleRef = useRef<HTMLInputElement | null>(null);
 
+
   const navigate = useNavigate();
 
   // Edit mode
@@ -89,12 +90,12 @@ export default function BoardHeader({ board }: Props) {
         prev.map((b) =>
           b.id === board?.id
             ? {
-                ...b,
-                background: {
-                  type: item.isImage ? "image" : "color",
-                  value: item.value,
-                },
-              }
+              ...b,
+              background: {
+                type: item.isImage ? "image" : "color",
+                value: item.value,
+              },
+            }
             : b,
         ),
       );
@@ -118,7 +119,7 @@ export default function BoardHeader({ board }: Props) {
 
       setBoards((prevBoards) =>
         prevBoards.map((b) =>
-          b.id === board?.id ? { ...b, title: newTitle, slug: res.slug } : b,
+          b.id === board?.id ? { ...b, title: newTitle } : b,
         ),
       );
 

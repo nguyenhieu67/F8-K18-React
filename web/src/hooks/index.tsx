@@ -29,7 +29,7 @@ export function useDebounce<T>(value: T, delay: number = 300): T {
 export function useCurrentBoard() {
   const { boards } = useTrello();
   const { boardDetail } = useParams();
-  const currentBoard = boards.find((b) => b.slug === boardDetail);
+  const currentBoard = boards?.find((b) => b.slug === boardDetail);
   const isClosed = currentBoard?.isClosed ?? false;
 
   return {

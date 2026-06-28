@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "../plugins/axios";
+import type { AxiosRequestConfig } from "axios";
 
 interface ApiI {
-  get: <T>(endpoint: string) => Promise<T>;
-  post: <T>(endpoint: string, body: any) => Promise<T>;
-  put: <T>(endpoint: string, body: any) => Promise<T>;
-  patch: <T>(endpoint: string, body: any) => Promise<T>;
-  delete: <T>(endpoint: string) => Promise<T>;
+  get: <T>(endpoint: string, config?: AxiosRequestConfig) => Promise<T>;
+  post: <T>(endpoint: string, body: any, config?: AxiosRequestConfig) => Promise<T>;
+  put: <T>(endpoint: string, body: any, config?: AxiosRequestConfig) => Promise<T>;
+  patch: <T>(endpoint: string, body: any, config?: AxiosRequestConfig) => Promise<T>;
+  delete: <T>(endpoint: string, config?: AxiosRequestConfig) => Promise<T>;
 }
 
 class Api implements ApiI {
@@ -14,14 +15,15 @@ class Api implements ApiI {
     method: "get" | "post" | "put" | "patch" | "delete",
     endpoint: string,
     body?: any,
+    config?: AxiosRequestConfig
   ): Promise<T> {
     try {
       let response: any;
 
       if (method === "get" || method === "delete") {
-        response = await api[method](endpoint);
+        response = await api[method](endpoint, config);
       } else {
-        response = await api[method](endpoint, body);
+        response = await api[method](endpoint, body, config);
       }
 
       return response as T;
@@ -33,24 +35,24 @@ class Api implements ApiI {
     }
   }
 
-  async get<T>(endpoint: string): Promise<T> {
-    return await this.request<T>("get", endpoint);
+  async get<T>(endpoint: string, config?: AxiosRequestConfig): Promise<T> {
+    return await this.request<T>("get", endpoint, undefined, config);
   }
 
-  async post<T>(endpoint: string, body: any): Promise<T> {
-    return await this.request<T>("post", endpoint, body);
+  async post<T>(endpoint: string, body: any, config?: AxiosRequestConfig): Promise<T> {
+    return await this.request<T>("post", endpoint, body, config);
   }
 
-  async put<T>(endpoint: string, body: any): Promise<T> {
-    return await this.request<T>("put", endpoint, body);
+  async put<T>(endpoint: string, body: any, config?: AxiosRequestConfig): Promise<T> {
+    return await this.request<T>("put", endpoint, body, config);
   }
 
-  async patch<T>(endpoint: string, body: any): Promise<T> {
-    return await this.request<T>("patch", endpoint, body);
+  async patch<T>(endpoint: string, body: any, config?: AxiosRequestConfig): Promise<T> {
+    return await this.request<T>("patch", endpoint, body, config);
   }
 
-  async delete<T>(endpoint: string): Promise<T> {
-    return await this.request<T>("delete", endpoint);
+  async delete<T>(endpoint: string, config?: AxiosRequestConfig): Promise<T> {
+    return await this.request<T>("delete", endpoint, config);
   }
 }
 
