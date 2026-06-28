@@ -1,20 +1,27 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { PhotoI } from "@/components/Image/NatureGallery";
 import images from "@/assets/images";
+import { fetchApi } from "@/utils/api";
 
 export type View = "main" | "photos" | "colors";
-
 interface ColorItemI {
   id: string;
   value: string;
 }
-
 export interface SelectedItemI {
   id: string | number;
   value: string;
   isImage: boolean;
+  publicId?: string;
 }
-
+export interface BackgroundImageI {
+  _id: string;
+  userId: string;
+  url: string;
+  publicId: string;
+  width: number;
+  height: number;
+}
 interface BackgroundPickerContextI {
   open: boolean;
   anchorEl: HTMLElement | null;
@@ -34,6 +41,15 @@ interface BackgroundPickerContextI {
   gradientImageColors: ColorItemI[];
   handleSelectNature: (id: string | number) => void;
   handleSelectColor: (id: string | number) => void;
+
+  // select anh upload tu user
+  uploadedImages: BackgroundImageI[];
+  loadingUploaded: boolean;
+  uploadingNewFile: boolean;
+  deletingId: string | null;
+  handleUploadImage: (file: File) => Promise<void>;
+  handleSelectUploaded: (image: BackgroundImageI) => void;
+  handleDeleteUploaded: (image: BackgroundImageI) => Promise<void>;
 }
 
 const BackgroundPickerContext = createContext<BackgroundPickerContextI | null>(
@@ -99,6 +115,25 @@ export function BackgroundPickerProvider({
   });
 
   const [natureImages, setNatureImages] = useState<PhotoI[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<BackgroundImageI[]>([]);
+  const [loadingUploaded, setLoadingUploaded] = useState(true);
+  const [uploadingNewFile, setUploadingNewFile] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUploadedImages = async () => {
+      try {
+        setLoadingUploaded(true);
+        const data = (await fetchApi.get(`/background-images`)) as BackgroundImageI[];
+        setUploadedImages(data);
+      } catch (error) {
+        console.error("Lỗi tải danh sách ảnh:", error);
+      } finally {
+        setLoadingUploaded(false);
+      }
+    };
+    fetchUploadedImages();
+  }, []);
 
   const openPicker = (el: HTMLElement) => {
     if (!el || !document.contains(el)) return;
@@ -115,17 +150,19 @@ export function BackgroundPickerProvider({
   };
 
   const handleSelectNature = (id: string | number) => {
+    if (id === selectedId) return;
+
     const img = natureImages.find((i) => i.id === id);
     if (!img) return;
-
     const item = { id, value: img.urls.regular, isImage: true };
-
     setSelectedId(id);
     setSelectedItem(item);
     onSelect?.(item);
   };
 
   const handleSelectColor = (id: string | number) => {
+    if (id === selectedId) return;
+
     const allColors = [
       ...gradientColors,
       ...solidColors,
@@ -143,6 +180,58 @@ export function BackgroundPickerProvider({
     setSelectedId(id);
     setSelectedItem(item);
     onSelect?.(item);
+  };
+
+  const handleUploadImage = async (file: File) => {
+    try {
+      setUploadingNewFile(true);
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const newImage = (await fetchApi.post(
+        `/background-images`,
+        formData
+      )) as BackgroundImageI;
+
+      setUploadedImages((prev) => [newImage, ...prev]);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error?.response?.status === 409) {
+        return;
+      }
+      console.error(error);
+    } finally {
+      setUploadingNewFile(false);
+    }
+  };
+
+  // Click chọn ảnh đã có trong danh sách - dùng chung pattern check active với selectedId
+  const handleSelectUploaded = (image: BackgroundImageI) => {
+    if (image._id === selectedId) return; // tận dụng đúng check có sẵn, không cần state applyingId riêng
+
+    const item: SelectedItemI = {
+      id: image._id,
+      value: image.url,
+      isImage: true,
+      publicId: image.publicId,
+    };
+
+    setSelectedId(image._id);
+    setSelectedItem(item);
+    onSelect?.(item);
+  };
+
+  const handleDeleteUploaded = async (image: BackgroundImageI) => {
+    if (deletingId) return;
+    setDeletingId(image._id);
+    try {
+      await fetchApi.delete(`/background-images/${image._id}`);
+      setUploadedImages((prev) => prev.filter((img) => img._id !== image._id));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   return (
@@ -166,6 +255,13 @@ export function BackgroundPickerProvider({
         gradientImageColors,
         handleSelectNature,
         handleSelectColor,
+        uploadedImages,
+        loadingUploaded,
+        uploadingNewFile,
+        deletingId,
+        handleUploadImage,
+        handleSelectUploaded,
+        handleDeleteUploaded,
       }}
     >
       {children}

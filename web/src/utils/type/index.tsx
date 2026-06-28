@@ -21,6 +21,7 @@ interface UserI {
 interface BackgroundI {
   type: string;
   value: string;
+  publicId?: string;
 }
 
 interface BoardI {
@@ -58,4 +59,4 @@ interface CardI {
   createdAt?: string;
 }
 
-export type { LoginResponseI, AuthI, UserI, BoardI, ListI, CardI };
+export type { LoginResponseI, AuthI, UserI, BoardI, ListI, CardI, BackgroundI };

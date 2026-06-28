@@ -26,6 +26,14 @@ export default function BoardHeaderMenu({
 }: Props) {
   const { theme } = useTheme();
 
+  const handleBack = () => {
+    if (menu === "images" || menu === "colors") {
+      setMenu("background-piker")
+    } else {
+      setMenu("main")
+    }
+  }
+
   return (
     <div onClick={(e) => e.stopPropagation()}>
       <Popper
@@ -43,7 +51,7 @@ export default function BoardHeaderMenu({
                 {menu !== "main" ? (
                   <button
                     className="hover:bg-trello-icon-bg-hover cursor-pointer rounded p-1.5"
-                    onClick={() => setMenu("main")}
+                    onClick={handleBack}
                   >
                     <ChevronLeftIcon
                       iconColor={theme === "dark" ? "#a9abaf" : "#505258"}

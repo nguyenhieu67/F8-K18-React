@@ -1,8 +1,8 @@
 import axios from "axios";
-// import { API_ROOT } from "../constants";
-// const baseURL = API_ROOT;
+import { API_ROOT } from "../constants";
+const baseURL = API_ROOT;
 
-const baseURL = import.meta.env.VITE_API_URL;
+// const baseURL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
   baseURL: baseURL,
@@ -15,6 +15,11 @@ api.interceptors.request.use(
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
+
+    if (config.data instanceof FormData) {
+      delete config.headers["Content-Type"];
+    }
+
     return config;
   },
   (error) => Promise.reject(error),
