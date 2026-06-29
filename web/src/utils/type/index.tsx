@@ -50,13 +50,27 @@ interface ListI {
   createdAt?: string;
 }
 
+
+interface AttachmentI {
+  id: string;
+  cardId?: string;
+  userId?: string;
+  url: string;
+  fileName: string;
+  fileHash: string,
+  publicId: string,
+  createdAt: number,
+}
+
 interface CardI {
   id: string;
   listId: string;
   boardId: string;
   content: string;
   isSaved: boolean;
+  cover: string | null;
+  attachments: AttachmentI[];
   createdAt?: string;
 }
 
-export type { LoginResponseI, AuthI, UserI, BoardI, ListI, CardI, BackgroundI };
+export type { LoginResponseI, AuthI, UserI, BoardI, ListI, CardI, AttachmentI, BackgroundI };
