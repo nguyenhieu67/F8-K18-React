@@ -7,7 +7,7 @@ interface Props {
   setMenu: (menu: MenuI) => void;
 }
 
-export default function UploadedImagesView({ setMenu }: Props) {
+export default function MenuBackgroundPickerView({ setMenu }: Props) {
   const {
     selectedId,
     uploadedImages,

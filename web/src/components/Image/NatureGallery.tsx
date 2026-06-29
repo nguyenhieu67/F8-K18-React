@@ -89,15 +89,15 @@ export function NatureGallery({
           >
             {iconCheck
               ? selectedId === photo.id && (
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
-                    <CheckIcon size="12" />
-                  </span>
-                )
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+                  <CheckIcon size="12" />
+                </span>
+              )
               : selectedId === photo.id && (
-                  <span className="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
-                    <CheckIcon size="12" />
-                  </span>
-                )}
+                <span className="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm">
+                  <CheckIcon size="12" />
+                </span>
+              )}
           </button>
         </div>
       ))}

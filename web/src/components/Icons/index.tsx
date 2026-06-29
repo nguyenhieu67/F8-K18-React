@@ -206,6 +206,46 @@ export const ShareIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   </svg>
 );
 
+export const ImageIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={iconColor}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+    <circle cx="9" cy="9" r="2"></circle>
+    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+  </svg>
+);
+
+export const CalendarRangeIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={iconColor}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M8 2v4"></path>
+    <path d="M16 2v4"></path>
+    <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+    <path d="M3 10h18"></path><path d="M8 14h.01"></path>
+    <path d="M12 14h.01"></path><path d="M16 14h.01"></path>
+    <path d="M8 18h.01"></path><path d="M12 18h.01"></path>
+    <path d="M16 18h.01"></path>
+  </svg>
+);
+
 export const PlusIcon = ({ size = "20", iconColor = "#000" }: IconI) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

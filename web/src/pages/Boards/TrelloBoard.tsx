@@ -24,6 +24,10 @@ export default function TrelloBoard() {
     fetchBoardDetail();
   }, [currentBoard?.id, setLists, setCards]);
 
+  useEffect(() => {
+    document.title = `${currentBoard?.title} | Trello`;
+  }, [currentBoard?.title]);
+
   const bg = currentBoard?.background;
   const isImage = bg?.type === "image";
 

@@ -392,7 +392,7 @@ export default function TrelloList({ boardId, list }: TrelloListProps) {
                 strategy={verticalListSortingStrategy}
               >
                 {orderedCards.map((card) => (
-                  <li key={card.id} className="mr-0.5">
+                  <li key={card.id}>
                     <Card card={card as CardI} />
                   </li>
                 ))}

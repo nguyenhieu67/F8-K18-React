@@ -25,6 +25,11 @@ export default function MenuSavedView() {
   const debouncedListKeyword = useDebounce(listKeyword);
   const debouncedCardKeyword = useDebounce(cardKeyword);
 
+  const [loadingItems, setLoadingItems] = useState<Record<string, boolean>>({});
+
+  const startLoading = (id: string) => setLoadingItems(prev => ({ ...prev, [id]: true }));
+  const stopLoading = (id: string) => setLoadingItems(prev => ({ ...prev, [id]: false }));
+
   const savedLists = useMemo(
     () =>
       lists
@@ -48,6 +53,7 @@ export default function MenuSavedView() {
   // List
   const handleUnsaveList = async (listId: string) => {
     try {
+      startLoading(listId);
       await fetchApi.patch(`/lists/${listId}`, {
         isSaved: false,
       });
@@ -57,11 +63,18 @@ export default function MenuSavedView() {
       );
     } catch (error) {
       console.error(error);
+    } finally {
+      stopLoading(listId);
     }
   };
 
   const handleDeleteList = async (list: ListI, listId: string) => {
     try {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+
+      startLoading(listId);
       // Delete list
       await fetchApi.delete(`/lists/${listId}`);
 
@@ -71,20 +84,23 @@ export default function MenuSavedView() {
         prev.map((b) =>
           b.id === list.boardId
             ? {
-                ...b,
-                cardOrderIds: b.listOrderIds.filter((id) => id !== listId),
-              }
+              ...b,
+              listOrderIds: b.listOrderIds.filter((id) => id !== listId),
+            }
             : b,
         ),
       );
     } catch (error) {
       console.error(error);
+    } finally {
+      stopLoading(listId);
     }
   };
 
   // Card
   const handleUnsaveCard = async (cardId: string) => {
     try {
+      startLoading(cardId);
       await fetchApi.patch(`/cards/${cardId}`, {
         isSaved: false,
       });
@@ -94,11 +110,18 @@ export default function MenuSavedView() {
       );
     } catch (error) {
       console.error(error);
+    } finally {
+      stopLoading(cardId);
     }
   };
 
   const handleDeleteCard = async (card: CardI, cardId: string) => {
     try {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+
+      startLoading(cardId);
       // Delete card
       await fetchApi.delete(`/cards/${cardId}`);
 
@@ -107,14 +130,16 @@ export default function MenuSavedView() {
         prev.map((l) =>
           l.id === card.listId
             ? {
-                ...l,
-                cardOrderIds: l.cardOrderIds.filter((id) => id !== cardId),
-              }
+              ...l,
+              cardOrderIds: l.cardOrderIds.filter((id) => id !== cardId),
+            }
             : l,
         ),
       );
     } catch (error) {
       console.error(error);
+    } finally {
+      stopLoading(cardId);
     }
   };
 
@@ -146,99 +171,103 @@ export default function MenuSavedView() {
           !savedCards?.length ? (
             <EmptyState title="Không có thẻ nào" />
           ) : (
-            savedCards?.map((card) => (
-              <li key={card.id} className="list-none">
-                <div className="text-trello-addBoard-text mx-1 mt-2 mb-4">
-                  <div className="cursor-pointer rounded-lg p-3 shadow-sm hover:shadow-[0_0_0_2px_rgb(0,121,191)]">
-                    <div className="flex items-center gap-2">
-                      <span>
-                        <CircleCheckIcon fillColor="#6A9A23" />
-                      </span>
-                      <p className="text-[15px]">{card.content}</p>
+            savedCards?.map((card) => {
+              const isItemLoading = !!loadingItems[card.id];
+              return (
+                <li key={card.id} className="list-none">
+                  <div className={`text-trello-addBoard-text mx-1 mt-2 mb-4 ${isItemLoading ? 'opacity-60 pointer-events-none' : ''}`}>
+                    <div className="cursor-pointer rounded-lg p-3 shadow-sm hover:shadow-[0_0_0_2px_rgb(0,121,191)]">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          <CircleCheckIcon fillColor="#6A9A23" />
+                        </span>
+                        <p className="text-[15px]">{card.content}</p>
+                      </div>
+                      <div className="mt-2 ml-2 flex items-center gap-1.5 text-xs">
+                        <span>
+                          <SavedIcon size="14" />
+                        </span>
+                        <p>Đã lưu trữ</p>
+                      </div>
                     </div>
-                    <div className="mt-2 ml-2 flex items-center gap-1.5 text-xs">
-                      <span>
-                        <SavedIcon size="14" />
-                      </span>
-                      <p>Đã lưu trữ</p>
-                    </div>
-                  </div>
-                  <div className="ml-2 flex items-center gap-1.5 text-sm font-semibold">
-                    <button
-                      className="cursor-pointer hover:text-blue-400 hover:underline"
-                      onClick={() => {
-                        handleUnsaveCard(card.id);
-                      }}
-                    >
-                      Khôi phục
-                    </button>
-                    <span className="text-2xl">•</span>
-                    <ConfirmPopover
-                      title="Bạn muốn xoá thẻ?"
-                      desc={
-                        <>
-                          Tất cả các thao tác sẽ bị xóa khỏi thông báo hoạt động
-                          và bạn sẽ không thể mở lại thẻ. Không thể hoàn tác.
-                        </>
-                      }
-                      buttonName="Xoá"
-                      onConfirm={() => handleDeleteCard(card, card.id)}
-                    >
-                      <button className="cursor-pointer hover:text-blue-400 hover:underline">
-                        <p>Xoá</p>
+                    <div className="ml-2 flex items-center gap-1.5 text-sm font-semibold mt-1">
+                      <button
+                        disabled={isItemLoading}
+                        className="cursor-pointer hover:text-blue-400 hover:underline disabled:no-underline"
+                        onClick={() => handleUnsaveCard(card.id)}
+                      >
+                        {isItemLoading ? "Đang xử lý..." : "Khôi phục"}
                       </button>
-                    </ConfirmPopover>
+                      <span className="text-2xl">•</span>
+                      <ConfirmPopover
+                        title="Bạn muốn xoá thẻ?"
+                        desc={
+                          <>
+                            Tất cả các thao tác sẽ bị xóa khỏi thông báo hoạt động
+                            và bạn sẽ không thể mở lại thẻ. Không thể hoàn tác.
+                          </>
+                        }
+                        buttonName={isItemLoading ? "Đang xoá..." : "Xoá"}
+                        onConfirm={() => handleDeleteCard(card, card.id)}
+                      >
+                        <button disabled={isItemLoading} className="cursor-pointer hover:text-blue-400 hover:underline disabled:no-underline">
+                          <p>{isItemLoading ? "Đang xoá..." : "Xoá"}</p>
+                        </button>
+                      </ConfirmPopover>
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))
+                </li>
+              );
+            })
           )
         ) : !savedLists?.length ? (
           <EmptyState title="Không có danh sách nào" />
         ) : (
-          savedLists?.map((list) => (
-            <li key={list.id} className="list-none">
-              <div className="text-trello-addBoard-text mb-2 flex items-center justify-between">
-                <p className="p-2 text-[15px] font-medium">{list.title}</p>
-                <div className="flex gap-1">
-                  <button
-                    className="hover:bg-trello-icon-bg-hover flex cursor-pointer items-center gap-1.5 rounded-lg border border-gray-300 px-2 py-1.5"
-                    onClick={() => {
-                      handleUnsaveList(list.id);
-                    }}
-                  >
-                    <RefreshIcon
-                      size="16"
-                      fillColor={theme === "dark" ? "#a9abaf" : "#505258"}
-                    />
-                    <span className="text-sm">Khôi phục</span>
-                  </button>
-                  <ConfirmPopover
-                    title="Xóa danh sách?"
-                    desc={
-                      <>
-                        Mọi thẻ, thao tác và hoạt động trong danh sách này đều
-                        sẽ bị xóa vĩnh viễn. Bạn sẽ không thể mở lại danh sách
-                        này. Bạn không thể hoàn tác.
-                      </>
-                    }
-                    buttonName="Xoá"
-                    onConfirm={() => handleDeleteList(list, list.id)}
-                  >
-                    <button className="hover:bg-trello-icon-bg-hover cursor-pointer rounded-lg border border-gray-300 px-2 py-1.5">
-                      <span>
-                        <DeleteIcon
-                          size="18"
-                          iconColor={theme === "dark" ? "#a9abaf" : "#505258"}
-                        />
-                      </span>
+          savedLists?.map((list) => {
+            const isItemLoading = !!loadingItems[list.id];
+            return (
+              <li key={list.id} className="list-none">
+                <div className={`text-trello-addBoard-text mb-2 flex items-center justify-between ${isItemLoading ? 'opacity-60 pointer-events-none' : ''}`}>
+                  <p className="p-2 text-[15px] font-medium">{list.title}</p>
+                  <div className="flex gap-1">
+                    <button
+                      disabled={isItemLoading}
+                      className="hover:bg-trello-icon-bg-hover flex cursor-pointer items-center gap-1.5 rounded-lg border border-gray-300 px-2 py-1.5 disabled:opacity-50"
+                      onClick={() => handleUnsaveList(list.id)}
+                    >
+                      <RefreshIcon
+                        size="16"
+                        fillColor={theme === "dark" ? "#a9abaf" : "#505258"}
+                      />
+                      <span className="text-sm">{isItemLoading ? "..." : "Khôi phục"}</span>
                     </button>
-                  </ConfirmPopover>
+                    <ConfirmPopover
+                      title="Xóa danh sách?"
+                      desc={
+                        <>
+                          Mọi thẻ, thao tác và hoạt động trong danh sách này đều
+                          sẽ bị xóa vĩnh viễn. Bạn sẽ không thể mở lại danh sách
+                          này. Bạn không thể hoàn tác.
+                        </>
+                      }
+                      buttonName={isItemLoading ? "Đang xoá..." : "Xoá"}
+                      onConfirm={() => handleDeleteList(list, list.id)}
+                    >
+                      <button disabled={isItemLoading} className="hover:bg-trello-icon-bg-hover cursor-pointer rounded-lg border border-gray-300 px-2 py-1.5 disabled:opacity-50">
+                        <span>
+                          <DeleteIcon
+                            size="18"
+                            iconColor={theme === "dark" ? "#a9abaf" : "#505258"}
+                          />
+                        </span>
+                      </button>
+                    </ConfirmPopover>
+                  </div>
                 </div>
-              </div>
-              <hr className="mb-2 text-[#0b120e24] dark:text-[#e3e4f21f]" />
-            </li>
-          ))
+                <hr className="mb-2 text-[#0b120e24] dark:text-[#e3e4f21f]" />
+              </li>
+            );
+          })
         )}
       </ul>
     </>
