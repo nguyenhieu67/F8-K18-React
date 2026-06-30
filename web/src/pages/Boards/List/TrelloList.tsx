@@ -88,6 +88,8 @@ export default function TrelloList({ boardId, list }: TrelloListProps) {
 
   // Edit mode
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let timerId: any
     if (showAddCard && editRef.current) {
       editRef.current.focus();
     }
@@ -95,7 +97,7 @@ export default function TrelloList({ boardId, list }: TrelloListProps) {
     if (editMode && listTitleRef.current) {
       const element = listTitleRef.current;
 
-      setTimeout(() => {
+      timerId = setTimeout(() => {
         element.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
@@ -121,6 +123,8 @@ export default function TrelloList({ boardId, list }: TrelloListProps) {
         console.error("Lỗi khi bôi đen text:", error);
       }
     }
+
+    return (() => clearTimeout(timerId))
   }, [showAddCard, editMode, list.title]);
 
   // Lấy width & height của list isDragging đó

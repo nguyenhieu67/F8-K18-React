@@ -4,6 +4,7 @@ import { Menu, MenuItem } from "@mui/material";
 import { useTheme } from "@/context/ThemeContext";
 import ChangeProfile from "@/layouts/components/ChangeProfile";
 import type { UserI } from "@/utils/type";
+import ChangeAvatar from "./ChangeAvatar";
 
 interface ContextUserProps {
   currentUser: UserI;
@@ -16,6 +17,7 @@ export default function ContextUser({ currentUser, logout }: ContextUserProps) {
     null,
   );
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [avatarModalOpen, setAvatarModalOpen] = useState(false);
 
   const isUserMenuOpen = Boolean(userMenuAnchor);
   const isDark = theme === "dark";
@@ -33,8 +35,21 @@ export default function ContextUser({ currentUser, logout }: ContextUserProps) {
     setIsProfileModalOpen(true);
   };
 
-  const handleCloseProfileModal = () => {
-    setIsProfileModalOpen(false);
+  const handleOpenAvatarModal = () => {
+    handleCloseUserMenu();
+    setAvatarModalOpen(true);
+  };
+
+  const handleClose = () => {
+    if (isProfileModalOpen) {
+      setIsProfileModalOpen(false);
+      return
+    }
+
+    if (avatarModalOpen) {
+      setAvatarModalOpen(false);
+      return
+    }
   };
 
   const handleLogout = () => {
@@ -48,7 +63,7 @@ export default function ContextUser({ currentUser, logout }: ContextUserProps) {
         onClick={handleOpenUserMenu}
         className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/25 text-sm font-bold text-white uppercase"
       >
-        {currentUser.username.charAt(0)}
+        <img src={`${currentUser.avatar}`} alt="avatar" className="rounded-full object-cover w-full h-full" />
       </div>
 
       <Menu
@@ -89,6 +104,9 @@ export default function ContextUser({ currentUser, logout }: ContextUserProps) {
         <MenuItem onClick={handleOpenProfileModal}>
           Thông tin người dùng
         </MenuItem>
+        <MenuItem onClick={handleOpenAvatarModal}>
+          Thay đổi avatar
+        </MenuItem>
         <MenuItem onClick={handleLogout} sx={{ color: "#ef4444" }}>
           Đăng xuất
         </MenuItem>
@@ -97,7 +115,13 @@ export default function ContextUser({ currentUser, logout }: ContextUserProps) {
       <ChangeProfile
         currentUser={currentUser}
         open={isProfileModalOpen}
-        onClose={handleCloseProfileModal}
+        onClose={handleClose}
+      />
+
+      <ChangeAvatar
+        currentUser={currentUser}
+        open={avatarModalOpen}
+        onClose={handleClose}
       />
     </>
   );

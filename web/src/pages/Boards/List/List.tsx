@@ -4,7 +4,6 @@ import {
   defaultDropAnimationSideEffects,
   DndContext,
   DragOverlay,
-  MouseSensor,
   rectIntersection,
   TouchSensor,
   useSensor,
@@ -30,6 +29,7 @@ import { useCurrentBoard, useLatest } from "@/hooks";
 import Card from "../Card/Card";
 import TrelloList from "./TrelloList";
 import AddListForm from "./AddListForm";
+import { MouseSensor } from "@/utils/sensors/MouseSensor";
 
 interface ListProps {
   boardId: string;
@@ -64,16 +64,6 @@ export default function List({ boardId }: ListProps) {
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 5,
-      predicate: (event: PointerEvent) => {
-        const target = event.target as HTMLElement;
-
-        if (!target) return true;
-        const shouldBlock =
-          target.closest('[data-no-dnd="true"]') ||
-          target.closest('[contenteditable="true"]') ||
-          target.isContentEditable;
-        return !shouldBlock;
-      },
     },
   });
 
@@ -105,6 +95,8 @@ export default function List({ boardId }: ListProps) {
   };
 
   const handleDragStart = (e: DragStartEvent) => {
+    document.body.style.cursor = "grabbing";
+
     if (e.active.data.current?.type === "List") {
       setActiveList(e.active.data.current.list);
       return;
@@ -205,6 +197,7 @@ export default function List({ boardId }: ListProps) {
   };
 
   const handleDragEnd = async (e: DragEndEvent) => {
+    document.body.style.cursor = "";
     setActiveList(null);
     setActiveCard(null);
 

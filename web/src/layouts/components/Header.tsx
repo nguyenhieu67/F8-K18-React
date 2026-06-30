@@ -12,7 +12,7 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="border-trello-border bg-trello-header sticky top-0 left-0 flex h-14 items-center justify-between border-b px-6 text-white shadow-md">
+    <header className="bg-trello-header sticky top-0 left-0 flex h-14 items-center justify-between px-6 text-white shadow-md">
       <div
         className="flex cursor-pointer items-center gap-2"
         onClick={() => navigate("/dashboard")}

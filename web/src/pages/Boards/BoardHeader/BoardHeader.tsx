@@ -24,12 +24,13 @@ export default function BoardHeader({ board }: Props) {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [menu, setMenu] = useState<MenuI>("main");
-  const { setBoards } = useTrello();
+  const { currentUser, setBoards } = useTrello();
   const [openShare, setOpenShare] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const boardTitleRef = useRef<HTMLInputElement | null>(null);
+  const clearTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 
   const navigate = useNavigate();
@@ -64,6 +65,12 @@ export default function BoardHeader({ board }: Props) {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (clearTimeoutRef.current) clearTimeout(clearTimeoutRef.current);
+    };
+  }, []);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen((previousOpen) => !previousOpen);
@@ -71,7 +78,9 @@ export default function BoardHeader({ board }: Props) {
 
   const handleClose = () => {
     setOpen(false);
-    setTimeout(() => {
+
+    if (clearTimeoutRef.current) clearTimeout(clearTimeoutRef.current);
+    clearTimeoutRef.current = setTimeout(() => {
       setMenu("main");
     }, 300);
   };
@@ -176,7 +185,7 @@ export default function BoardHeader({ board }: Props) {
         <div className="flex gap-1">
           <div className="h-8 w-8">
             <img
-              src="https://plus.unsplash.com/premium_photo-1723028769916-a767a6b0f719?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src={`${currentUser?.avatar}`}
               alt="avatar"
               className="h-full w-full rounded-full object-cover"
             />

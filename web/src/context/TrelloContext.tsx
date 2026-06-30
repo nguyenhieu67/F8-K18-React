@@ -37,13 +37,11 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    const savedUser = localStorage.getItem("current_user");
 
     if (window.location.pathname === "/register") return;
-    if (!token || !savedUser) {
+    if (!token) {
       const path = window.location.pathname;
       localStorage.clear();
-      // Chưa đăng nhập mà mở link mời -> lưu lại để quay về sau khi đăng nhập.
       if (path.startsWith("/invite")) {
         localStorage.setItem("redirect_after_login", path);
       }
@@ -51,25 +49,22 @@ export function TrelloProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const user = JSON.parse(savedUser) as UserI;
-    setCurrentUser(user);
-
     const getData = async () => {
       try {
-        // json-server không lọc OR (userId HOẶC members chứa id) trong 1 request,
-        // nên lấy toàn bộ boards rồi filter ở client: board mình tạo + board được chia sẻ.
-        const boardData = (await fetchApi.get("/boards")) as BoardI[];
+        const user = (await fetchApi.get("/users/me")) as UserI;
+        setCurrentUser(user);
 
+        const boardData = (await fetchApi.get("/boards")) as BoardI[];
         const myBoards = (boardData || []).filter(
-          (board) =>
-            board.userId === user.id || board.members?.includes(user.id),
+          (board) => board.userId === user.id || board.members?.includes(user.id),
         );
 
         setBoards(myBoards);
-
         setFilteredBoards(myBoards);
       } catch (error) {
-        console.error("Lỗi lấy danh sách board:", error);
+        console.error("Lỗi lấy thông tin user hoặc danh sách board:", error);
+        localStorage.clear();
+        navigate("/login");
       } finally {
         setLoading(false);
       }

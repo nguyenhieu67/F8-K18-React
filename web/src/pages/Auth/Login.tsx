@@ -12,7 +12,7 @@ import {
 } from "@/components/Icons";
 
 interface LoginResponse {
-  _id: string;
+  id: string;
   email: string;
   username: string;
   theme: ["light" | "dark"];
@@ -62,15 +62,8 @@ export default function Login() {
         ...form,
       });
 
-      const user = {
-        id: response._id,
-        email: response.email,
-        username: response.username,
-      };
-
       localStorage.setItem("access_token", response.accessToken);
       localStorage.setItem("refresh_token", response.refreshToken);
-      localStorage.setItem("current_user", JSON.stringify(user));
 
       toast.success("Chúc mừng bạn đăng nhập thành công");
 
