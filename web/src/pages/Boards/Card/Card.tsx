@@ -190,6 +190,7 @@ export default function Card({ card }: CardProps) {
     <>
       {editMode && (
         <div
+          data-no-dnd="true"
           className="fixed inset-0 z-40 bg-black/30 transition-opacity"
           onClick={handleCancelEdit}
         />
@@ -198,11 +199,11 @@ export default function Card({ card }: CardProps) {
         ref={setNodeRef}
         style={style}
         {...attributes}
-        {...listeners}
+        {...(editMode ? {} : listeners)}
         className={
           editMode
             ? "relative w-full rounded-xl z-50 outline-none"
-            : `group bg-trello-card-bg relative flex cursor-pointer items-center justify-between rounded-xl border border-transparent overflow-hidden shadow-sm outline-nones hover:border-blue-500 ${isDragging
+            : `group bg-trello-card-bg relative flex items-center justify-between rounded-xl border border-transparent overflow-hidden shadow-sm outline-nones hover:border-blue-500 ${isDragging
               ? "w-full rounded-xl border border-gray-400 bg-gray-300 opacity-50"
               : ""
             }`
@@ -216,7 +217,7 @@ export default function Card({ card }: CardProps) {
           style={{ position: "absolute", top: 8, right: 0, width: 0, height: 0 }}
         />
         {editMode ? (
-          <div className="rounded-xl border border-blue-500 bg-trello-card-bg">
+          <div className="rounded-xl border border-blue-500 bg-trello-card-bg" data-no-dnd="true">
             {card.cover && (
               <div
                 className="max-h-42.5 h-38.5 w-full rounded-t-xl bg-cover"

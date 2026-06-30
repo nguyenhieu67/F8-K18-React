@@ -30,7 +30,7 @@ export default function EditCard({ open, anchorEl, card, onSaved }: Props) {
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <div className="ml-3.5">
+            <div className="ml-3.5" data-no-dnd="true">
               {menu === 'edit'
                 ? <EditCardMenu setMenu={setMenu} onSaved={onSaved} />
                 :

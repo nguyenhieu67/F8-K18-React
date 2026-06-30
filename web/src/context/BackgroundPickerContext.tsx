@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { PhotoI } from "@/components/Image/NatureGallery";
 import images from "@/assets/images";
 import { fetchApi } from "@/utils/api";
@@ -15,7 +15,7 @@ export interface SelectedItemI {
   publicId?: string;
 }
 export interface BackgroundImageI {
-  _id: string;
+  id: string;
   userId: string;
   url: string;
   publicId: string;
@@ -27,6 +27,7 @@ interface BackgroundPickerContextI {
   anchorEl: HTMLElement | null;
   openPicker: (el: HTMLElement) => void;
   closePicker: () => void;
+  handleReset: () => void;
   view: View;
   setView: (view: View) => void;
   selectedId: string | number | null;
@@ -119,6 +120,8 @@ export function BackgroundPickerProvider({
   const [loadingUploaded, setLoadingUploaded] = useState(true);
   const [uploadingNewFile, setUploadingNewFile] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const clearTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const fetchUploadedImages = async () => {
@@ -135,6 +138,12 @@ export function BackgroundPickerProvider({
     fetchUploadedImages();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (clearTimeoutRef.current) clearTimeout(clearTimeoutRef.current);
+    };
+  }, []);
+
   const openPicker = (el: HTMLElement) => {
     if (!el || !document.contains(el)) return;
     setAnchorEl(el);
@@ -144,10 +153,27 @@ export function BackgroundPickerProvider({
 
   const closePicker = () => {
     setOpen(false);
-    setTimeout(() => {
+    if (clearTimeoutRef.current) clearTimeout(clearTimeoutRef.current);
+    clearTimeoutRef.current = setTimeout(() => {
       setView("main");
     }, 300);
   };
+
+  const handleReset = () => {
+    setOpen(false);
+    closePicker();
+    if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
+    resetTimeoutRef.current = setTimeout(() => {
+      setSelectedId("owcJsiIK7UU");
+      setSelectedItem({
+        id: "owcJsiIK7UU",
+        value:
+          "https://images.unsplash.com/photo-1759681770982-313332e7f42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NzU3ODN8MHwxfHNlYXJjaHwxfHxuYXR1cmV8ZW58MHwwfHx8MTc4MTI3OTAwOHww&ixlib=rb-4.1.0&q=80&w=1080",
+        isImage: true,
+      });
+    }, 300);
+  };
+
 
   const handleSelectNature = (id: string | number) => {
     if (id === selectedId) return;
@@ -207,26 +233,26 @@ export function BackgroundPickerProvider({
 
   // Click chọn ảnh đã có trong danh sách - dùng chung pattern check active với selectedId
   const handleSelectUploaded = (image: BackgroundImageI) => {
-    if (image._id === selectedId) return; // tận dụng đúng check có sẵn, không cần state applyingId riêng
+    if (image.id === selectedId) return; // tận dụng đúng check có sẵn, không cần state applyingId riêng
 
     const item: SelectedItemI = {
-      id: image._id,
+      id: image.id,
       value: image.url,
       isImage: true,
       publicId: image.publicId,
     };
 
-    setSelectedId(image._id);
+    setSelectedId(image.id);
     setSelectedItem(item);
     onSelect?.(item);
   };
 
   const handleDeleteUploaded = async (image: BackgroundImageI) => {
     if (deletingId) return;
-    setDeletingId(image._id);
+    setDeletingId(image.id);
     try {
-      await fetchApi.delete(`/background-images/${image._id}`);
-      setUploadedImages((prev) => prev.filter((img) => img._id !== image._id));
+      await fetchApi.delete(`/background-images/${image.id}`);
+      setUploadedImages((prev) => prev.filter((img) => img.id !== image.id));
     } catch (error) {
       console.error(error);
     } finally {
@@ -241,6 +267,7 @@ export function BackgroundPickerProvider({
         anchorEl,
         openPicker,
         closePicker,
+        handleReset,
         view,
         setView,
         selectedId,

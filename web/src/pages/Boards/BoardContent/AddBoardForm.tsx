@@ -18,21 +18,21 @@ interface Props {
   title: string;
   className?: string;
   placement?:
-    | "auto-end"
-    | "auto-start"
-    | "auto"
-    | "bottom-end"
-    | "bottom-start"
-    | "bottom"
-    | "left-end"
-    | "left-start"
-    | "left"
-    | "right-end"
-    | "right-start"
-    | "right"
-    | "top-end"
-    | "top-start"
-    | "top";
+  | "auto-end"
+  | "auto-start"
+  | "auto"
+  | "bottom-end"
+  | "bottom-start"
+  | "bottom"
+  | "left-end"
+  | "left-start"
+  | "left"
+  | "right-end"
+  | "right-start"
+  | "right"
+  | "top-end"
+  | "top-start"
+  | "top";
 }
 
 export default function AddBoardForm({
@@ -54,12 +54,11 @@ export default function AddBoardForm({
   const { theme } = useTheme();
   const {
     selectedId,
-    setSelectedId,
     setNatureImages,
     openPicker,
     closePicker,
+    handleReset,
     selectedItem,
-    setSelectedItem,
     open: bgPickerOpen,
     gradientColors,
     handleSelectNature,
@@ -111,20 +110,6 @@ export default function AddBoardForm({
     setOpen(false);
   };
 
-  const handleReset = () => {
-    setTimeout(() => {
-      setSelectedId("owcJsiIK7UU");
-      setSelectedItem({
-        id: "owcJsiIK7UU",
-        value:
-          "https://images.unsplash.com/photo-1759681770982-313332e7f42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NzU3ODN8MHwxfHNlYXJjaHwxfHxuYXR1cmV8ZW58MHwwfHx8MTc4MTI3OTAwOHww&ixlib=rb-4.1.0&q=80&w=1080",
-        isImage: true,
-      });
-    }, 300);
-    setOpen(false);
-    closePicker();
-  };
-
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <div>
@@ -149,7 +134,10 @@ export default function AddBoardForm({
                   <span className="text-trello-addBoard-text">Tạo bảng</span>
                   <button
                     className="hover:bg-trello-icon-bg-hover cursor-pointer rounded p-1.5"
-                    onClick={handleReset}
+                    onClick={() => {
+                      setOpen(false);
+                      handleReset()
+                    }}
                   >
                     <CloseIcon
                       size="16"
@@ -170,9 +158,8 @@ export default function AddBoardForm({
                             : `url(${selectedItem?.value})`
                           : undefined,
                       }}
-                      className={`flex h-30 w-50 items-center justify-center rounded bg-cover bg-center shadow-md ${
-                        !isImage ? selectedItem?.value : ""
-                      }`}
+                      className={`flex h-30 w-50 items-center justify-center rounded bg-cover bg-center shadow-md ${!isImage ? selectedItem?.value : ""
+                        }`}
                     >
                       <img
                         src={images.trelloBackgroundPreview}
@@ -246,11 +233,10 @@ export default function AddBoardForm({
                         id="title"
                         name="title"
                         value={titleInput}
-                        className={`text-trello-addBoard-text w-full rounded-md px-3 py-2 transition-shadow outline-none ${
-                          isTitleValid
-                            ? "shadow-[inset_0_0_0_1px_rgb(140,141,151)] focus:shadow-[0_0_0_2px_rgb(0,121,191)]"
-                            : "shadow-[inset_0_0_0_1px_rgb(227,73,53)] focus:shadow-[inset_0_0_0_1px_rgb(227,73,53)]"
-                        }`}
+                        className={`text-trello-addBoard-text w-full rounded-md px-3 py-2 transition-shadow outline-none ${isTitleValid
+                          ? "shadow-[inset_0_0_0_1px_rgb(140,141,151)] focus:shadow-[0_0_0_2px_rgb(0,121,191)]"
+                          : "shadow-[inset_0_0_0_1px_rgb(227,73,53)] focus:shadow-[inset_0_0_0_1px_rgb(227,73,53)]"
+                          }`}
                         onChange={(e) => setTitleInput(e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
@@ -268,11 +254,10 @@ export default function AddBoardForm({
                     <div>
                       <button
                         disabled={!isTitleValid}
-                        className={`inline-flex w-full items-center justify-center rounded-md border border-gray-100 px-3 py-1.5 font-medium shadow transition dark:border-none ${
-                          isTitleValid
-                            ? "text-trello-button-text cursor-pointer bg-[#1868db] hover:opacity-80"
-                            : "cursor-not-allowed bg-[#091e4208] text-[#080F214A] dark:bg-[#e3e4f21f] dark:text-[#e5e9f640]"
-                        }`}
+                        className={`inline-flex w-full items-center justify-center rounded-md border border-gray-100 px-3 py-1.5 font-medium shadow transition dark:border-none ${isTitleValid
+                          ? "text-trello-button-text cursor-pointer bg-[#1868db] hover:opacity-80"
+                          : "cursor-not-allowed bg-[#091e4208] text-[#080F214A] dark:bg-[#e3e4f21f] dark:text-[#e5e9f640]"
+                          }`}
                       >
                         Tạo mới
                       </button>

@@ -123,12 +123,12 @@ export default function MenuBackgroundPickerView({ setMenu }: Props) {
             </div>
           ) : (
             uploadedImages.map((image) => {
-              const isActive = image._id === selectedId;
-              const isDeleting = deletingId === image._id;
+              const isActive = image.id === selectedId;
+              const isDeleting = deletingId === image.id;
 
               return (
                 <div
-                  key={image._id}
+                  key={image.id}
                   className={`group relative h-24 w-full overflow-hidden rounded-lg ${isDeleting
                     ? "pointer-events-none cursor-not-allowed"
                     : isActive
